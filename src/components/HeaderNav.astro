@@ -9,7 +9,7 @@ import { personalData } from '../data/cv.js';
     <!-- Brand / Identity with Holographic Avatar -->
     <a href="#hero" class="nav-brand">
       <div class="nav-avatar-ring">
-        <img src="/Portafolio/assets/img/my-profile-img.jpeg" alt={personalData.fullName} class="nav-avatar-img" />
+        <img src={`${import.meta.env.BASE_URL}assets/img/my-profile-img.jpeg`} alt={personalData.fullName} class="nav-avatar-img" />
       </div>
       <div class="nav-brand-text">
         <span class="nav-brand-name">{personalData.name} {personalData.lastName}</span>

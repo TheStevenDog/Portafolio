@@ -28,7 +28,7 @@ import { personalData, certifications } from '../data/cv.js';
           <div class="bio-avatar-wrap">
             <div class="ring-cw"></div>
             <div class="ring-ccw"></div>
-            <img src="/Portafolio/assets/img/my-profile-img.jpeg" alt={personalData.fullName} class="bio-avatar-img" />
+            <img src={`${import.meta.env.BASE_URL}assets/img/my-profile-img.jpeg`} alt={personalData.fullName} class="bio-avatar-img" />
           </div>
           <div class="bio-alias-pill">
             <span>{personalData.alias}</span>
