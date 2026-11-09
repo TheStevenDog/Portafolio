@@ -1,0 +1,214 @@
+---
+// Work Experience, Education & Certifications Timeline
+import { workExperience, education, certifications } from '../data/cv.js';
+---
+
+<section id="experience" class="jarvis-section">
+  <div class="jarvis-container">
+    
+    <!-- Section Header -->
+    <div class="section-header">
+      <span class="section-tag">Módulo 04 // Bitácora de Operaciones</span>
+      <h2 class="section-title">Experiencia &amp; Educación</h2>
+      <p class="section-subtitle">
+        Historial de despliegues en producción real y trayectoria académica en Ingeniería de Software e Inteligencia Artificial.
+      </p>
+    </div>
+
+    <div class="timeline-grid">
+      <!-- Columna 1: Experiencia Laboral -->
+      <div class="timeline-column">
+        <h3 class="col-title">
+          <span class="text-cyan">//</span> Experiencia en Producción
+        </h3>
+
+        <div class="missions-list">
+          {workExperience.map((exp) => (
+            <div class="mission-item">
+              <div class="mission-marker"></div>
+              <div class="mission-date">{exp.period} &bull; {exp.location}</div>
+              <h4 class="mission-role">{exp.role}</h4>
+              <div class="mission-company">{exp.company}</div>
+
+              <ul class="mission-bullets">
+                {exp.achievements.map((ach) => (
+                  <li>{ach}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Columna 2: Educación & Certificaciones -->
+      <div class="timeline-column">
+        <h3 class="col-title">
+          <span class="text-cyan">//</span> Formación &amp; Acreditaciones
+        </h3>
+
+        <!-- Educación -->
+        <div class="missions-list mb-4">
+          {education.map((edu) => (
+            <div class="mission-item">
+              <div class="mission-marker"></div>
+              <div class="mission-date">{edu.period}</div>
+              <h4 class="mission-role">{edu.title}</h4>
+              <div class="mission-company">{edu.institution} &bull; {edu.location}</div>
+
+              <ul class="mission-bullets">
+                {edu.details.map((det) => (
+                  <li>{det}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <!-- Certificaciones Destacadas -->
+        <h4 class="sub-col-title">Reconocimientos de Alto Nivel</h4>
+        <div class="certs-stack">
+          {certifications.map((cert) => (
+            <div class={`hud-card cert-card ${cert.highlight ? 'gold-card' : ''}`}>
+              <div class="cert-top">
+                <span class={`jarvis-badge ${cert.highlight ? 'jarvis-badge-gold' : 'jarvis-badge-cyan'}`}>
+                  {cert.date} &bull; {cert.issuer}
+                </span>
+              </div>
+              <h5 class="cert-title">{cert.title}</h5>
+              <p class="cert-desc">{cert.description}</p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .col-title {
+    font-size: 21px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sub-col-title {
+    font-size: 16px;
+    color: var(--jarvis-cyan);
+    margin-top: 30px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+  .text-cyan {
+    color: var(--jarvis-cyan);
+  }
+
+  /* Missions List */
+  .missions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .mission-item {
+    position: relative;
+    padding-left: 28px;
+    border-left: 2px solid rgba(0, 240, 255, 0.3);
+  }
+  .mission-marker {
+    position: absolute;
+    top: 2px;
+    left: -7px;
+    width: 12px;
+    height: 12px;
+    background: #020612;
+    border: 2px solid var(--jarvis-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--jarvis-cyan);
+  }
+  .mission-date {
+    font-family: var(--font-tech);
+    font-size: 12px;
+    color: var(--jarvis-cyan);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .mission-role {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
+  }
+  .mission-company {
+    font-family: var(--font-display);
+    font-size: 15px;
+    color: var(--jarvis-text-muted);
+    margin-bottom: 12px;
+  }
+  .mission-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .mission-bullets li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 14.5px;
+    color: var(--jarvis-text-main);
+    line-height: 1.6;
+  }
+  .mission-bullets li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: var(--jarvis-cyan);
+    font-size: 14px;
+  }
+
+  /* Certs Stack */
+  .certs-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .cert-card {
+    padding: 20px;
+  }
+  .cert-top {
+    margin-bottom: 10px;
+  }
+  .cert-title {
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 6px;
+  }
+  .cert-desc {
+    font-size: 13.5px;
+    color: var(--jarvis-text-muted);
+    line-height: 1.5;
+  }
+  .gold-card {
+    border-color: rgba(255, 190, 11, 0.6);
+    background: rgba(30, 20, 5, 0.9);
+  }
+  .gold-card:hover {
+    border-color: var(--jarvis-gold);
+    box-shadow: 0 10px 30px rgba(255, 190, 11, 0.35);
+  }
+
+  @media (max-width: 992px) {
+    .timeline-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

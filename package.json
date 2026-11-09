@@ -1,0 +1,27 @@
+{
+  "name": "portafolio",
+  "version": "1.0.0",
+  "description": "> **Ingeniero de Software | Junior Full Stack & AI Developer**   > Interfaz holográfica interactiva inspirada en J.A.R.V.I.S. (Stark Industries OS) con ensamblaje progresivo controlado por scroll y telemetría en tiempo real.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheStevenDog/Portafolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/TheStevenDog/Portafolio/issues"
+  },
+  "homepage": "https://github.com/TheStevenDog/Portafolio#readme",
+  "dependencies": {
+    "astro": "^7.4.5"
+  }
+}

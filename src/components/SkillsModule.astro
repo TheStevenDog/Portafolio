@@ -1,0 +1,158 @@
+---
+// Technical Matrix & System Diagnostics Component
+import { technicalSkills } from '../data/cv.js';
+
+const modules = [
+  technicalSkills.languages,
+  technicalSkills.aiAndData,
+  technicalSkills.webAndBackend,
+  technicalSkills.toolsAndDevops
+];
+---
+
+<section id="skills" class="jarvis-section">
+  <div class="jarvis-container">
+    
+    <!-- Section Header -->
+    <div class="section-header">
+      <span class="section-tag">Módulo 02 // Diagnóstico de Potencia</span>
+      <h2 class="section-title">Matriz de Habilidades Técnicas</h2>
+      <p class="section-subtitle">
+        Capacidades de ingeniería estructuradas modularmente para desarrollo Full Stack, automatización con IA y despliegues en producción real.
+      </p>
+    </div>
+
+    <!-- 4 Module Panels Grid -->
+    <div class="skills-grid">
+      {modules.map((mod, idx) => (
+        <div class="hud-card skill-card">
+          <div class="hud-card-header">
+            <span>[MODULE_0{idx + 1} // {mod.title.toUpperCase()}]</span>
+            <span class="jarvis-badge jarvis-badge-cyan">OPTIMAL</span>
+          </div>
+
+          <h3 class="skill-mod-title">{mod.title}</h3>
+
+          <!-- Tags -->
+          <div class="skill-tag-cloud">
+            {mod.items.map((item) => (
+              <span class={`skill-pill ${item.includes('IA') || item.includes('Machine') || item.includes('Google Play') ? 'highlight-item' : ''}`}>
+                {item}
+              </span>
+            ))}
+          </div>
+
+          <!-- Gauges -->
+          <div class="skill-gauges-container">
+            {mod.metrics.map((m) => (
+              <div class="gauge-item">
+                <div class="gauge-meta">
+                  <span class="gauge-name">{m.name}</span>
+                  <span class="gauge-pct">{m.value}%</span>
+                </div>
+                <div class="gauge-bar-track">
+                  <div class="gauge-bar-fill" style={`--target-width: ${m.value}%`}></div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+  }
+
+  .skill-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .skill-mod-title {
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 18px;
+    letter-spacing: 1px;
+  }
+
+  .skill-tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .skill-pill {
+    background: rgba(0, 240, 255, 0.1);
+    border: 1px solid rgba(0, 240, 255, 0.35);
+    color: #ffffff;
+    font-family: var(--font-tech);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+  }
+  .skill-pill:hover {
+    background: var(--jarvis-cyan);
+    color: #020612;
+    box-shadow: 0 0 12px var(--jarvis-cyan);
+    transform: translateY(-2px);
+  }
+  .highlight-item {
+    border-color: rgba(255, 190, 11, 0.6);
+    background: rgba(255, 190, 11, 0.12);
+    color: #ffffff;
+  }
+  .highlight-item:hover {
+    background: var(--jarvis-gold);
+    color: #020612;
+    box-shadow: 0 0 12px var(--jarvis-gold);
+  }
+
+  /* Gauges */
+  .skill-gauges-container {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .gauge-item {
+    font-family: var(--font-tech);
+  }
+  .gauge-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+    color: #f0f7ff;
+    margin-bottom: 5px;
+  }
+  .gauge-pct {
+    color: var(--jarvis-cyan);
+    font-weight: 700;
+  }
+  .gauge-bar-track {
+    height: 7px;
+    background: rgba(0, 240, 255, 0.12);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .gauge-bar-fill {
+    width: var(--target-width);
+    height: 100%;
+    background: linear-gradient(90deg, var(--jarvis-blue), var(--jarvis-cyan));
+    box-shadow: 0 0 10px var(--jarvis-cyan);
+    border-radius: 2px;
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+</style>

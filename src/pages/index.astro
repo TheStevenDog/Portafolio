@@ -1,0 +1,30 @@
+---
+// Steven Rueda Lopez // J.A.R.V.I.S. Core Portfolio (Astro Edition)
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import AboutModule from '../components/AboutModule.astro';
+import SkillsModule from '../components/SkillsModule.astro';
+import ProjectsModule from '../components/ProjectsModule.astro';
+import ExperienceModule from '../components/ExperienceModule.astro';
+import ContactModule from '../components/ContactModule.astro';
+---
+
+<Layout>
+  <!-- Hero Boot Sequence -->
+  <Hero />
+
+  <!-- Module 01: Biometrics & Dossier -->
+  <AboutModule />
+
+  <!-- Module 02: Technical Skills Matrix -->
+  <SkillsModule />
+
+  <!-- Module 03: Engineering Blueprints & GitHub Projects -->
+  <ProjectsModule />
+
+  <!-- Module 04: Operations Log (Work Experience & Education) -->
+  <ExperienceModule />
+
+  <!-- Module 05: Satellite Communication Link -->
+  <ContactModule />
+</Layout>

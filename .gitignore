@@ -1,0 +1,10 @@
+# Build outputs
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+
+# Environment and OS
+.DS_Store
+Thumbs.db

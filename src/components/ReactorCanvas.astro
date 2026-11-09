@@ -1,0 +1,174 @@
+---
+// Arc Reactor & Cyber Starfield Interactive Canvas
+---
+
+<canvas id="reactor-canvas" class="reactor-canvas-bg"></canvas>
+
+<style>
+  .reactor-canvas-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.55;
+  }
+</style>
+
+<script>
+  function initReactor() {
+    const canvas = document.getElementById('reactor-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    let angle = 0;
+    let scrollSpeed = 1;
+    let lastScrollY = window.scrollY;
+    let mouseX = width * 0.7;
+    let mouseY = height * 0.45;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }, { passive: true });
+
+    // Particles
+    const particles = [];
+    const count = 40;
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        size: Math.random() * 2 + 1,
+        alpha: Math.random() * 0.4 + 0.1
+      });
+    }
+
+    function render() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Arc Reactor Center (Desktop leans right, Mobile centered)
+      const isDesktop = width >= 1024;
+      const targetX = isDesktop ? width * 0.72 : width * 0.5;
+      const targetY = isDesktop ? height * 0.48 : height * 0.38;
+
+      // Mouse parallax shift
+      const cx = targetX + (mouseX - width * 0.5) * 0.03;
+      const cy = targetY + (mouseY - height * 0.5) * 0.03;
+      const r = Math.min(width, height) * 0.22;
+
+      // Draw Starfield particles
+      ctx.fillStyle = '#00f0ff';
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        ctx.globalAlpha = p.alpha * 0.35;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Reactor Geometry
+      ctx.save();
+      ctx.translate(cx, cy);
+
+      // Outer Segmented Ring
+      ctx.rotate(angle);
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.22)';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([8, 14]);
+      ctx.beginPath();
+      ctx.arc(0, 0, r * 1.35, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Middle Counter-Rotating Brackets
+      ctx.rotate(-angle * 1.9);
+      ctx.strokeStyle = 'rgba(0, 119, 255, 0.35)';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([40, 50, 12, 50]);
+      ctx.beginPath();
+      ctx.arc(0, 0, r * 1.15, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Arc Reactor Triangle Core
+      ctx.rotate(angle * 2.4);
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.5)';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      for (let i = 0; i < 3; i++) {
+        const theta = (i * 2 * Math.PI) / 3;
+        const x = r * 0.65 * Math.cos(theta);
+        const y = r * 0.65 * Math.sin(theta);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.stroke();
+
+      // Inverted Triangle
+      ctx.beginPath();
+      for (let i = 0; i < 3; i++) {
+        const theta = (i * 2 * Math.PI) / 3 + Math.PI;
+        const x = r * 0.38 * Math.cos(theta);
+        const y = r * 0.38 * Math.sin(theta);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.stroke();
+
+      // Core Glowing Pulse
+      const glowGrad = ctx.createRadialGradient(0, 0, 5, 0, 0, r * 0.45);
+      glowGrad.addColorStop(0, 'rgba(0, 240, 255, 0.35)');
+      glowGrad.addColorStop(0.6, 'rgba(0, 119, 255, 0.12)');
+      glowGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = glowGrad;
+      ctx.beginPath();
+      ctx.arc(0, 0, r * 0.45, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Thin inner circle
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.65)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(0, 0, r * 0.22, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.restore();
+
+      // Update rotation speed based on scroll
+      const deltaY = Math.abs(window.scrollY - lastScrollY);
+      scrollSpeed = 1 + Math.min(deltaY * 0.06, 5);
+      lastScrollY = window.scrollY;
+
+      angle += 0.0035 * scrollSpeed;
+
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+  }
+
+  // Run on load
+  if (typeof window !== 'undefined') {
+    initReactor();
+    document.addEventListener('astro:page-load', initReactor);
+  }
+</script>

@@ -1,0 +1,122 @@
+---
+// Master Layout for J.A.R.V.I.S. Portfolio
+import '../styles/global.css';
+import HeaderNav from '../components/HeaderNav.astro';
+import ReactorCanvas from '../components/ReactorCanvas.astro';
+import HudFrame from '../components/HudFrame.astro';
+import { personalData } from '../data/cv.js';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${personalData.fullName} // J.A.R.V.I.S. Core Terminal`,
+  description = `Portafolio profesional de ${personalData.fullName} - ${personalData.roles[0]}`
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" type="image/png" href="/Portafolio/assets/img/favicon.png" />
+  
+  <!-- Preconnect Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+</head>
+<body>
+  <!-- Arc Reactor Starfield Canvas -->
+  <ReactorCanvas />
+
+  <!-- Persistent Holographic HUD Overlays & Telemetry -->
+  <HudFrame />
+
+  <!-- Glassmorphic Navbar -->
+  <HeaderNav />
+
+  <!-- Main Content Slot -->
+  <main class="main-content">
+    <slot />
+  </main>
+
+  <!-- Futuristic Footer -->
+  <footer class="hud-footer">
+    <div class="jarvis-container footer-container">
+      <div class="footer-left">
+        <span class="footer-brand">STARK PROTOCOL // {personalData.fullName.toUpperCase()}</span>
+        <span class="footer-sub">Ingeniero de Software &bull; {personalData.location} &bull; 2026</span>
+      </div>
+      <div class="footer-right">
+        <span class="footer-status">ALL SYSTEMS OPERATIONAL [100%]</span>
+        <span class="footer-alias">STARK-ID: SRL-2902 // {personalData.alias}</span>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    .main-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hud-footer {
+      border-top: 1px solid var(--jarvis-border);
+      background: rgba(2, 5, 14, 0.96);
+      backdrop-filter: blur(14px);
+      padding: 30px 0;
+      position: relative;
+      z-index: 2;
+      font-family: var(--font-tech);
+    }
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+    }
+    .footer-brand {
+      color: #ffffff;
+      font-family: var(--font-hud);
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+    }
+    .footer-sub {
+      color: var(--jarvis-text-muted);
+      font-size: 11px;
+      margin-top: 2px;
+    }
+    .footer-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .footer-status {
+      color: var(--jarvis-cyan);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+    .footer-alias {
+      color: var(--jarvis-text-muted);
+      font-size: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .footer-right {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</body>
+</html>

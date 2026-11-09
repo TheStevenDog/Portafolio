@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Portfolio Details ONWAY</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <title>Ficha Técnica: ONWAY // J.A.R.V.I.S. Protocol</title>
+  <meta content="Ficha técnica del proyecto galardonado OnWay - Steven Rueda Lopez" name="description">
+  <meta content="OnWay, Grow Data, Talent Week, MinTic, Steven Rueda" name="keywords">
 
-  <!-- Favicons 
+  <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Rajdhani:wght@500;600;700&family=Roboto:wght@300;400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -24,139 +24,195 @@
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Main CSS File -->
+  <!-- Main CSS File & J.A.R.V.I.S. HUD Layer -->
   <link href="assets/css/main.css" rel="stylesheet">
-
+  <link href="assets/css/jarvis.css" rel="stylesheet">
 </head>
 
 <body class="portfolio-details-page">
 
+  <!-- Background Arc Reactor Canvas -->
+  <canvas id="jarvis-canvas"></canvas>
+
+  <!-- Persistent HUD Corner Brackets -->
+  <div class="hud-frame-overlay">
+    <div class="hud-corner hud-corner-tl"></div>
+    <div class="hud-corner hud-corner-tr"></div>
+    <div class="hud-corner hud-corner-bl"></div>
+    <div class="hud-corner hud-corner-br"></div>
+  </div>
+
+  <!-- Top HUD Bar -->
+  <div class="hud-top-bar d-none d-md-flex">
+    <div class="hud-sys-indicator">
+      <span class="hud-pulse-dot"></span>
+      <span>PROJECT SPEC: ONWAY // ACTIVE</span>
+    </div>
+    <span>|</span>
+    <span id="hud-system-time">00:00:00 STARK.T</span>
+    <span>|</span>
+    <button id="hud-audio-toggle" class="hud-audio-btn">
+      <i class="bi bi-volume-mute-fill"></i> AUDIO: OFF
+    </button>
+  </div>
+
+  <!-- Sidebar Terminal -->
   <header id="header" class="header dark-background d-flex flex-column">
     <i class="header-toggle d-xl-none bi bi-list"></i>
 
-    <div class="profile-img">
-      <img src="assets/img/my-profile-img.jpg" alt="" class="img-fluid rounded-circle">
+    <div class="jarvis-avatar-container">
+      <div class="jarvis-avatar-ring"></div>
+      <div class="jarvis-avatar-ring-inner"></div>
+      <img src="assets/img/my-profile-img.jpg" alt="Steven Rueda Lopez" class="jarvis-avatar-img">
     </div>
 
-    <a href="index.html" class="logo d-flex align-items-center justify-content-center">
-      <!-- Uncomment the line below if you also wish to use an image logo -->
-      <!-- <img src="assets/img/logo.png" alt=""> -->
-      <h1 class="sitename">Alex Smith</h1>
+    <a href="index.html" class="logo d-flex flex-column align-items-center justify-content-center text-center">
+      <h1 class="sitename">Steven Rueda</h1>
+      <span class="header-tagline">STARK-ID: SRL-2902 // Slise.Dev</span>
     </a>
 
+    <div class="text-center">
+      <span class="header-status-badge">
+        <i class="bi bi-shield-check"></i> PRODUCTION READY // @TheStevenDog
+      </span>
+    </div>
+
     <div class="social-links text-center">
-      <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-      <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-      <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-      <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
-      <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+      <a href="https://github.com/TheStevenDog" target="_blank" class="Github"><i class="bi bi-github"></i></a>
+      <a href="https://www.linkedin.com/in/steven-rueda-lopez-a53a141ab/" target="_blank" class="linkedin"><i class="bi bi-linkedin"></i></a>
+      <a href="mailto:steven2902rueda2902@gmail.com" class="email"><i class="bi bi-envelope-fill"></i></a>
+      <a href="https://x.com/DogThestev67110" target="_blank" class="twitter"><i class="bi bi-twitter-x"></i></a>
+      <a href="https://www.instagram.com/slise_yt/" target="_blank" class="instagram"><i class="bi bi-instagram"></i></a>
     </div>
 
     <nav id="navmenu" class="navmenu">
       <ul>
-        <li><a href="#hero"><i class="bi bi-house navicon"></i>Home</a></li>
-        <li><a href="#about"><i class="bi bi-person navicon"></i> About</a></li>
-        <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i> Resume</a></li>
-        <li><a href="#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>
-        <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i> Services</a></li>
-        <li class="dropdown"><a href="#"><i class="bi bi-menu-button navicon"></i> <span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-          <ul>
-            <li><a href="#">Dropdown 1</a></li>
-            <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="#">Deep Dropdown 1</a></li>
-                <li><a href="#">Deep Dropdown 2</a></li>
-                <li><a href="#">Deep Dropdown 3</a></li>
-                <li><a href="#">Deep Dropdown 4</a></li>
-                <li><a href="#">Deep Dropdown 5</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Dropdown 2</a></li>
-            <li><a href="#">Dropdown 3</a></li>
-            <li><a href="#">Dropdown 4</a></li>
-          </ul>
-        </li>
-        <li><a href="#contact"><i class="bi bi-envelope navicon"></i> Contact</a></li>
+        <li><a href="index.html#hero"><i class="bi bi-cpu navicon"></i> [00] Inicio // Core</a></li>
+        <li><a href="index.html#about"><i class="bi bi-fingerprint navicon"></i> [01] Biometría &amp; Perfil</a></li>
+        <li><a href="index.html#skills"><i class="bi bi-grid-3x3-gap-fill navicon"></i> [02] Matriz de Sistemas</a></li>
+        <li><a href="index.html#resume"><i class="bi bi-terminal-split navicon"></i> [03] Bitácora de Misiones</a></li>
+        <li><a href="index.html#certifications"><i class="bi bi-patch-check-fill navicon"></i> [04] Reconocimientos</a></li>
+        <li><a href="index.html#portfolio" class="active"><i class="bi bi-bounding-box-circles navicon"></i> [05] Planos &amp; Proyectos</a></li>
+        <li><a href="index.html#contact"><i class="bi bi-broadcast-pin navicon"></i> [06] Canal de Enlace</a></li>
       </ul>
     </nav>
 
+    <a href="index.html#portfolio" class="sidebar-cv-btn">
+      <i class="bi bi-arrow-left"></i> Volver al Core
+    </a>
   </header>
 
   <main class="main">
 
-    <!-- Page Title -->
-    <div class="page-title dark-background">
+    <!-- Page Title HUD -->
+    <div class="page-title dark-background py-5" style="border-bottom: 1px solid var(--jarvis-border); background: rgba(3, 10, 24, 0.85);">
       <div class="container d-lg-flex justify-content-between align-items-center">
-        <h1 class="mb-2 mb-lg-0">ONWAY</h1>
+        <div>
+          <span class="hud-module-tag" style="color: var(--jarvis-cyan); font-family: var(--font-tech); font-size: 11px; letter-spacing: 2px;">
+            // FICHA TÉCNICA // BLUEPRINT_01
+          </span>
+          <h1 class="mb-2 mb-lg-0 font-hud text-light" style="font-size: 32px; letter-spacing: 2px;">
+            ONWAY — Sistema Inteligente con IA
+          </h1>
+        </div>
         <nav class="breadcrumbs">
-          <ol>
-            <li><a href="index.html">Inicio</a></li>
-            <li class="current">ONWAY</li>
+          <ol class="breadcrumb mb-0 font-tech" style="font-size: 13px;">
+            <li class="breadcrumb-item"><a href="index.html" class="text-info">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="index.html#portfolio" class="text-info">Proyectos</a></li>
+            <li class="breadcrumb-item active text-light">OnWay</li>
           </ol>
         </nav>
       </div>
     </div><!-- End Page Title -->
 
     <!-- Portfolio Details Section -->
-    <section id="portfolio-details" class="portfolio-details section">
+    <section id="portfolio-details" class="portfolio-details section py-5">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="row gy-4">
 
           <div class="col-lg-8">
-            <div class="portfolio-details-slider swiper init-swiper">
+            <div class="jarvis-card p-3 mb-4">
+              <div class="portfolio-details-slider swiper init-swiper">
 
-              <script type="application/json" class="swiper-config">
-                {
-                  "loop": true,
-                  "speed": 600,
-                  "autoplay": {
-                    "delay": 5000
-                  },
-                  "slidesPerView": "auto",
-                  "pagination": {
-                    "el": ".swiper-pagination",
-                    "type": "bullets",
-                    "clickable": true
+                <script type="application/json" class="swiper-config">
+                  {
+                    "loop": true,
+                    "speed": 600,
+                    "autoplay": {
+                      "delay": 5000
+                    },
+                    "slidesPerView": "auto",
+                    "pagination": {
+                      "el": ".swiper-pagination",
+                      "type": "bullets",
+                      "clickable": true
+                    }
                   }
-                }
-              </script>
+                </script>
 
-              <div class="swiper-wrapper align-items-center">
+                <div class="swiper-wrapper align-items-center">
 
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/Onway/app-1.jpg" alt="">
+                  <div class="swiper-slide text-center">
+                    <img src="assets/img/portfolio/Onway/OnWay.png" alt="OnWay Sistema" class="img-fluid rounded" style="max-height: 480px; width: auto; margin: 0 auto;">
+                  </div>
+
+                  <div class="swiper-slide text-center">
+                    <img src="assets/img/portfolio/Onway/OnWay2.png" alt="OnWay Rutas" class="img-fluid rounded" style="max-height: 480px; width: auto; margin: 0 auto;">
+                  </div>
+
+                  <div class="swiper-slide text-center">
+                    <img src="assets/img/portfolio/Onway/app-1.jpg" alt="OnWay App Mobile" class="img-fluid rounded" style="max-height: 480px; width: auto; margin: 0 auto;">
+                  </div>
+
                 </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/Onway/OnWay.png" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/Onway/OnWay2.png" alt="">
-                </div>
-
+                <div class="swiper-pagination"></div>
               </div>
-              <div class="swiper-pagination"></div>
             </div>
           </div>
 
           <div class="col-lg-4">
-            <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-              <h3>Informacion del Projecto</h3>
-              <ul>
-                <li><strong>Categoria</strong>: Web design</li>
-                <li><strong>Cliente</strong>: GROW DATA</li>
-                <li><strong>Dia del Pojetcto</strong>: 12 Diciembre, 2024</li>
-                <li><strong>URL del Projecto</strong>: <a href="#">https://github.com/TheStevenDog/OnWay</a></li>
+            <!-- Project Information HUD Box -->
+            <div class="jarvis-card mb-4" data-aos="fade-up" data-aos-delay="200">
+              <div class="jarvis-card-code">
+                <span>[PROJECT_METADATA]</span>
+                <span class="text-warning">AWARD_WINNER</span>
+              </div>
+              <h3 class="font-hud text-light mb-3" style="font-size: 20px;">Especificaciones</h3>
+              <ul class="list-unstyled font-tech" style="font-size: 13px; line-height: 2;">
+                <li><strong class="text-info">Categoría:</strong> Solución de IA &amp; Plataforma Web</li>
+                <li><strong class="text-info">Cliente / Desafío:</strong> GROW DATA</li>
+                <li><strong class="text-info">Fecha de Misión:</strong> Diciembre 2024</li>
+                <li><strong class="text-info">Distinción:</strong> <span class="text-warning">Top 3 Nacional en Hackathon IA</span></li>
+                <li>
+                  <strong class="text-info">Repositorio GitHub:</strong>
+                  <br>
+                  <a href="https://github.com/TheStevenDog/OnWay" target="_blank" class="text-info text-decoration-underline">
+                    github.com/TheStevenDog/OnWay
+                  </a>
+                </li>
               </ul>
             </div>
-            <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-              <h2>Talento Week</h2>
-              <p>
-                En este evento pusieron aprueba nuestra capacidad en la programacion y el trabajo bajo tiempo record, debias terminar un proyecto con inteligencia artifial que solucionara un problema que tenia GROW DATA, el cual consistia en tener un sistena de mapa propio el cual puedan modificar para sus conductores y mejorar la productividad de las empresas en las vias...
+
+            <!-- Description HUD Box -->
+            <div class="jarvis-card" data-aos="fade-up" data-aos-delay="300">
+              <div class="jarvis-card-code">
+                <span>[MISSION_BRIEFING]</span>
+                <span>DECRYPTED</span>
+              </div>
+              <h3 class="font-hud text-light mb-2" style="font-size: 20px;">Talent Week Hackathon</h3>
+              <p class="text-light" style="font-size: 14px; line-height: 1.7;">
+                En este evento de alta exigencia tecnológica, pusimos a prueba nuestra capacidad en programación de alto rendimiento y trabajo bajo presión contrarreloj.
               </p>
+              <p class="text-light" style="font-size: 14px; line-height: 1.7;">
+                El objetivo fue desarrollar una solución integral impulsada por <strong>Inteligencia Artificial</strong> para resolver una problemática crítica de la compañía <strong>GROW DATA</strong>: un sistema cartográfico y de rutas adaptativo propio, permitiendo a las empresas personalizar mapas para sus conductores y maximizar drásticamente la productividad y seguridad en las vías urbanas e intermunicipales.
+              </p>
+              <div class="mt-3">
+                <a href="https://github.com/TheStevenDog/OnWay" target="_blank" class="jarvis-btn jarvis-btn-primary w-100 justify-content-center">
+                  <i class="bi bi-github"></i> Ver Código Fuente en GitHub
+                </a>
+              </div>
             </div>
           </div>
 
@@ -169,35 +225,29 @@
   </main>
 
   <footer id="footer" class="footer position-relative light-background">
-
     <div class="container">
-      <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">StevenRueda</strong> <span>All Rights Reserved</span></p>
+      <div class="copyright text-center">
+        <p>
+          © STARK PROTOCOL // <strong class="px-1 sitename">STEVEN RUEDA LOPEZ</strong> // ALL SYSTEMS OPERATIONAL
+        </p>
       </div>
     </div>
-
   </footer>
 
   <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
 
-  <!-- Main JS File -->
+  <!-- Main JS & JARVIS Core Engine -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/jarvis.js"></script>
 
 </body>
 

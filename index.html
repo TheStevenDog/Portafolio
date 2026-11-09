@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Portafolio Steven</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <title>Steven Rueda Lopez // J.A.R.V.I.S. Core Terminal</title>
+  <meta content="Portafolio profesional de Steven Rueda Lopez - Ingeniero de Software, Full Stack & AI Developer estilo J.A.R.V.I.S." name="description">
+  <meta content="Steven Rueda Lopez, Full Stack Developer, AI Engineer, Machine Learning, Python, JavaScript, Medellín, Colombia" name="keywords">
 
-  <!-- Favicons 
+  <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Orbitron, Share Tech Mono, Rajdhani, Poppins, Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Rajdhani:wght@500;600;700&family=Roboto:wght@300;400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -24,461 +24,941 @@
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Main CSS File -->
+  <!-- Main CSS File & J.A.R.V.I.S. HUD Layer -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/jarvis.css" rel="stylesheet">
 </head>
 
 <body class="index-page">
 
+  <!-- Interactive Arc Reactor Background Canvas -->
+  <canvas id="jarvis-canvas"></canvas>
+
+  <!-- Persistent Holographic HUD Overlays & Corner Brackets -->
+  <div class="hud-frame-overlay">
+    <div class="hud-corner hud-corner-tl"></div>
+    <div class="hud-corner hud-corner-tr"></div>
+    <div class="hud-corner hud-corner-bl"></div>
+    <div class="hud-corner hud-corner-br"></div>
+  </div>
+
+  <!-- Top HUD Bar: Protocol, Time & Audio Toggle -->
+  <div class="hud-top-bar d-none d-md-flex">
+    <div class="hud-sys-indicator">
+      <span class="hud-pulse-dot"></span>
+      <span>SYS.STATUS: OPERATIONAL</span>
+    </div>
+    <span>|</span>
+    <span id="hud-system-time">00:00:00 STARK.T</span>
+    <span>|</span>
+    <button id="hud-audio-toggle" class="hud-audio-btn" title="Activar/Desactivar Sonidos Sci-Fi">
+      <i class="bi bi-volume-mute-fill"></i> AUDIO: OFF
+    </button>
+  </div>
+
+  <!-- Bottom Right HUD: Scroll-Assembly Telemetry Gauge -->
+  <div class="hud-assembly-meter">
+    <div class="hud-assembly-header">
+      <span>SYS.ASSEMBLY</span>
+      <span id="hud-assembly-pct">0%</span>
+    </div>
+    <div class="hud-assembly-track">
+      <div id="hud-assembly-bar" class="hud-assembly-fill"></div>
+    </div>
+    <div class="hud-assembly-sub">
+      <span id="hud-sector">SEC 00 // BOOT SEQUENCE</span>
+      <span id="hud-scroll-depth">Z-INDEX: 1000</span>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       SIDEBAR / TERMINAL DE NAVEGACIÓN
+  ============================================================== -->
   <header id="header" class="header dark-background d-flex flex-column">
     <i class="header-toggle d-xl-none bi bi-list"></i>
 
-    <div class="profile-img">
-      <img src="assets/img/my-profile-img.jpg" alt="" class="img-fluid rounded-circle">
+    <!-- Profile Picture with Rotating Arc Reactor Rings -->
+    <div class="jarvis-avatar-container">
+      <div class="jarvis-avatar-ring"></div>
+      <div class="jarvis-avatar-ring-inner"></div>
+      <img src="assets/img/my-profile-img.jpg" alt="Steven Rueda Lopez" class="jarvis-avatar-img">
     </div>
 
-    <a href="index.html" class="logo d-flex align-items-center justify-content-center">
-      <!-- Uncomment the line below if you also wish to use an image logo -->
-      <!-- <img src="assets/img/logo.png" alt=""> -->
+    <a href="index.html" class="logo d-flex flex-column align-items-center justify-content-center text-center">
       <h1 class="sitename">Steven Rueda</h1>
+      <span class="header-tagline">STARK-ID: SRL-2902 // Slise.Dev</span>
     </a>
 
-    <div class="social-links text-center">
-      <a href="https://x.com/DogThestev67110" class="twitter"><i class="bi bi-twitter-x"></i></a>
-      <a href="https://web.facebook.com/the.steven.dogyt/" class="facebook"><i class="bi bi-facebook"></i></a>
-      <a href="https://www.instagram.com/slise_yt/" class="instagram"><i class="bi bi-instagram"></i></a>
-      <a href="https://github.com/TheStevenDog" class="Github"><i class="bi bi-github"></i></a>
-      <a href="https://www.linkedin.com/in/steven-rueda-lopez-a53a141ab/" class="linkedin"><i class="bi bi-linkedin"></i></a>
+    <div class="text-center">
+      <span class="header-status-badge">
+        <i class="bi bi-shield-check"></i> PRODUCTION READY // @TheStevenDog
+      </span>
     </div>
 
+    <!-- Social Terminal Links -->
+    <div class="social-links text-center">
+      <a href="https://github.com/TheStevenDog" target="_blank" class="Github" title="GitHub: TheStevenDog (Slise.Dev)"><i class="bi bi-github"></i></a>
+      <a href="https://www.linkedin.com/in/steven-rueda-lopez-a53a141ab/" target="_blank" class="linkedin" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      <a href="mailto:steven2902rueda2902@gmail.com" class="email" title="Email"><i class="bi bi-envelope-fill"></i></a>
+      <a href="https://x.com/DogThestev67110" target="_blank" class="twitter" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+      <a href="https://www.instagram.com/slise_yt/" target="_blank" class="instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
+    </div>
+
+    <!-- Navigation Menu -->
     <nav id="navmenu" class="navmenu">
       <ul>
-        <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i>Home</a></li>
-        <li><a href="#about"><i class="bi bi-person navicon"></i> Sobre mi</a></li>
-        <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i> Resumen</a></li>
-        <li><a href="#portfolio"><i class="bi bi-images navicon"></i> Portafolio</a></li>
-        <!-- <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i> Servicios</a></li> -->
-        <!-- <li class="dropdown"><a href="#"><i class="bi bi-menu-button navicon"></i> <span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-          <ul>
-            <li><a href="#">Dropdown 1</a></li>
-            <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="#">Deep Dropdown 1</a></li>
-                <li><a href="#">Deep Dropdown 2</a></li>
-                <li><a href="#">Deep Dropdown 3</a></li>
-                <li><a href="#">Deep Dropdown 4</a></li>
-                <li><a href="#">Deep Dropdown 5</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Dropdown 2</a></li>
-            <li><a href="#">Dropdown 3</a></li>
-            <li><a href="#">Dropdown 4</a></li>
-          </ul> -->
-        </li>
-        <li><a href="#contact"><i class="bi bi-envelope navicon"></i> Contacto</a></li>
+        <li><a href="#hero" class="active"><i class="bi bi-cpu navicon"></i> [00] Inicio // Core</a></li>
+        <li><a href="#about"><i class="bi bi-fingerprint navicon"></i> [01] Biometría &amp; Perfil</a></li>
+        <li><a href="#skills"><i class="bi bi-grid-3x3-gap-fill navicon"></i> [02] Matriz de Sistemas</a></li>
+        <li><a href="#resume"><i class="bi bi-terminal-split navicon"></i> [03] Bitácora de Misiones</a></li>
+        <li><a href="#certifications"><i class="bi bi-patch-check-fill navicon"></i> [04] Reconocimientos</a></li>
+        <li><a href="#portfolio"><i class="bi bi-bounding-box-circles navicon"></i> [05] Planos &amp; Proyectos</a></li>
+        <li><a href="#contact"><i class="bi bi-broadcast-pin navicon"></i> [06] Canal de Enlace</a></li>
       </ul>
     </nav>
 
+    <!-- Download Master CV Button -->
+    <a href="mailto:steven2902rueda2902@gmail.com?subject=Solicitud%20de%20CV%20-%20Steven%20Rueda" class="sidebar-cv-btn">
+      <i class="bi bi-download"></i> Obtener CV Master
+    </a>
   </header>
 
+  <!-- ==============================================================
+       MAIN CONTENT // SCROLL ASSEMBLY STAGES
+  ============================================================== -->
   <main class="main">
 
-    <!-- Hero Section -->
+    <!-- Central/Left Glowing Energy Conduit Line -->
+    <div class="scroll-energy-conduit">
+      <div class="scroll-energy-beam"></div>
+    </div>
+
+    <!-- ==============================================================
+         HERO SECTION // BOOT SEQUENCE
+    ============================================================== -->
     <section id="hero" class="hero section dark-background">
-
-      <img src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in" class="">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <h2>Steven Rueda</h2>
-        <p>Soy <span class="typed" data-typed-items="Desarrollador, Freelancer, Photographer">Desarrollador</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
-      </div>
-
-    </section><!-- /Hero Section -->
-
-    <!-- About Section -->
-    <section id="about" class="about section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Sobre mi</h2>
-        <p>Soy un arquitecto de sueños digitales. Mi lienzo es el mundo virtual y mis herramientas, las infinitas posibilidades que ofrece la tecnología. Desde la captura de momentos efímeros con mi cámara hasta la construcción de universos imaginarios a través del diseño, mi objetivo es dejar una huella creativa en cada proyecto que emprendo. </p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4 justify-content-center">
-          <div class="col-lg-4">
-            <img src="assets/img/my-profile-img.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-8 content">
-            <h2>UI/UX Designer &amp; Developer.</h2>
-            <p class="fst-italic py-3">
-            </p>
-            <div class="row">
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>29 Abril 2004</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong> <span>https://github.com/TheStevenDog</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>+57 3015417816</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>Medellin, Colombia</span></li>
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>20</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Grade:</strong> <span>Junior</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>steven2902rueda2902@gmail.com</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong> <span>Available</span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
+      <div class="container hero-content" data-aos="fade-up" data-aos-delay="100">
+        
+        <div class="hero-hud-badge">
+          <i class="bi bi-cpu-fill"></i> PROTOCOLO J.A.R.V.I.S. // ONLINE
         </div>
 
+        <h2 data-scramble="true">Steven Rueda Lopez</h2>
+        <div class="hero-role-title">Ingeniero de Software &amp; Full Stack AI Developer</div>
+        
+        <p>Especialista en <span class="typed" data-typed-items="Desarrollo Full Stack, Arquitectura Web Escalable, Automatización Asistida por IA, Machine Learning & Modelos Predictivos, Despliegue en Google Play Store">Desarrollo Full Stack</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
+
+        <div class="hero-cta-group">
+          <a href="#portfolio" class="jarvis-btn jarvis-btn-primary">
+            <i class="bi bi-lightning-charge-fill"></i> Explorar Proyectos
+          </a>
+          <a href="#about" class="jarvis-btn jarvis-btn-outline">
+            <i class="bi bi-cpu"></i> Diagnóstico de Perfil
+          </a>
+          <a href="#contact" class="jarvis-btn jarvis-btn-outline">
+            <i class="bi bi-terminal"></i> Iniciar Enlace
+          </a>
+        </div>
+
+      </div>
+    </section><!-- /Hero Section -->
+
+    <!-- ==============================================================
+         ABOUT SECTION // BIOMETRÍA & RESUMEN PROFESIONAL
+    ============================================================== -->
+    <section id="about" class="about section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <span class="hud-module-tag">Módulo 01 // Biometría &amp; Perfil</span>
+        <h2 data-scramble="true">Resumen Profesional</h2>
+        <p>Lectura de credenciales y arquitectura de competencias extraídas de la base de datos de producción.</p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+
+          <!-- Biometric Tactical Card -->
+          <div class="col-lg-12 jarvis-assemble" data-aos="fade-up" data-aos-delay="100">
+            <div class="jarvis-card">
+              <div class="jarvis-card-code">
+                <span>[SEC_01 // ARCHITECT_DOSSIER]</span>
+                <span>STATUS: PRODUCTION_READY</span>
+              </div>
+
+              <div class="row align-items-center">
+                <div class="col-lg-4 text-center mb-4 mb-lg-0">
+                  <div class="jarvis-avatar-container" style="width: 170px; height: 170px;">
+                    <div class="jarvis-avatar-ring"></div>
+                    <div class="jarvis-avatar-ring-inner"></div>
+                    <img src="assets/img/my-profile-img.jpg" alt="Steven Rueda" class="jarvis-avatar-img" style="width: 150px; height: 150px;">
+                  </div>
+                  <div class="mt-2">
+                    <span class="badge bg-info text-dark font-monospace px-3 py-1">MEDELLÍN // COLOMBIA</span>
+                  </div>
+                </div>
+
+                <div class="col-lg-8">
+                  <h3 class="font-hud text-light mb-3" style="font-size: 24px; letter-spacing: 1px;">
+                    <i class="bi bi-terminal text-info me-2"></i> Ingeniero de Software &amp; Full Stack AI
+                  </h3>
+
+                  <p class="text-light" style="font-size: 15px; line-height: 1.8;">
+                    Ingeniero de Software con experiencia en entornos de producción real. Especializado en <strong>desarrollo Full Stack</strong> y <strong>automatización de flujos asistida por IA</strong>. Con enfoque riguroso en la optimización de sistemas críticos, integración de pasarelas de pago y mejora de la eficiencia operativa mediante soluciones de código inteligentes y arquitecturas escalables.
+                  </p>
+
+                  <!-- Biometric Diagnostics Grid -->
+                  <div class="biometric-grid">
+                    <div class="biometric-item">
+                      <div class="bio-label"><i class="bi bi-geo-alt-fill text-info"></i> Ubicación</div>
+                      <div class="bio-val">Medellín, Colombia</div>
+                    </div>
+                    <div class="biometric-item">
+                      <div class="bio-label"><i class="bi bi-telephone-outbound-fill text-info"></i> Canal Telefónico</div>
+                      <div class="bio-val">+57 301 541 7816</div>
+                    </div>
+                    <div class="biometric-item">
+                      <div class="bio-label"><i class="bi bi-envelope-at-fill text-info"></i> Transmisión Email</div>
+                      <div class="bio-val">steven2902rueda2902@gmail.com</div>
+                    </div>
+                    <div class="biometric-item">
+                      <div class="bio-label"><i class="bi bi-translate text-info"></i> Idiomas</div>
+                      <div class="bio-val">Español (Nativo) | Inglés (B1)</div>
+                    </div>
+                    <div class="biometric-item">
+                      <div class="bio-label"><i class="bi bi-mortarboard-fill text-info"></i> Formación Core</div>
+                      <div class="bio-val">Ingeniería de Software (TdeA)</div>
+                    </div>
+                    <div class="biometric-item">
+                      <div class="bio-label"><i class="bi bi-award-fill text-warning"></i> Distinción Destacada</div>
+                      <div class="bio-val text-warning">Top 3 Competencia Nacional IA</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
       </div>
 
     </section><!-- /About Section -->
 
-    <!-- Stats Section -->
-    <section id="stats" class="stats section">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
+    <!-- ==============================================================
+         STATS SECTION // TELEMETRÍA DE PRODUCCIÓN
+    ============================================================== -->
+    <section id="stats" class="stats section py-4">
+      <div class="container">
         <div class="row gy-4">
 
-          <div class="col-lg-3 col-md-6">
+          <div class="col-lg-3 col-md-6 jarvis-assemble" data-aos="fade-up" data-aos-delay="100">
             <div class="stats-item">
-              <i class="bi bi-emoji-smile"></i>
-              <span data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Clientes Satisfechos</strong> <span></span></p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-journal-richtext"></i>
-              <span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Projectos</strong> <span></span></p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-headset"></i>
-              <span data-purecounter-start="0" data-purecounter-end="120" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Horas de soporte</strong> <span></span></p>
-            </div>
-          </div><!-- End Stats Item -->
-
-    </section><!-- /Stats Section -->
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Skills</h2>
-        <p>Estas son algunas de mis habilidades, organizadas por un porcentaje aproximado de lo que se de esta tecnologia</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row skills-content skills-animation">
-
-          <div class="col-lg-6">
-
-            <div class="progress">
-              <span class="skill"><span>HTML</span> <i class="val">60%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+              <i class="bi bi-rocket-takeoff-fill"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="1" data-purecounter-duration="1" class="purecounter">0</span>
               </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>CSS</span> <i class="val">60%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>JavaScript</span> <i class="val">70%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
+              <p>Google Play Store Deploy (Oficial)</p>
+            </div>
           </div>
 
-          <div class="col-lg-6">
-
-            <div class="progress">
-              <span class="skill"><span>PHP</span> <i class="val">70%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="col-lg-3 col-md-6 jarvis-assemble" data-aos="fade-up" data-aos-delay="200">
+            <div class="stats-item">
+              <i class="bi bi-trophy-fill text-warning"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter">0</span>
               </div>
-            </div><!-- End Skills Item -->
+              <p>Top Nacional Hackathons IA (MinTic)</p>
+            </div>
+          </div>
 
-            <div class="progress">
-              <span class="skill"><span>Inteligencia Artificial</span> <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="col-lg-3 col-md-6 jarvis-assemble" data-aos="fade-up" data-aos-delay="300">
+            <div class="stats-item">
+              <i class="bi bi-cpu-fill"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="100" data-purecounter-duration="1" class="purecounter">0</span>%
               </div>
-            </div><!-- End Skills Item -->
+              <p>Automatización de Flujos &amp; IA</p>
+            </div>
+          </div>
 
-            <div class="progress">
-              <span class="skill"><span>Python</span> <i class="val">80%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="col-lg-3 col-md-6 jarvis-assemble" data-aos="fade-up" data-aos-delay="400">
+            <div class="stats-item">
+              <i class="bi bi-shield-lock-fill"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="100" data-purecounter-duration="1" class="purecounter">0</span>%
               </div>
-            </div><!-- End Skills Item -->
-
+              <p>Pasarelas de Pago &amp; Alta Seguridad</p>
+            </div>
           </div>
 
         </div>
+      </div>
+    </section><!-- /Stats Section -->
 
+    <!-- ==============================================================
+         SKILLS SECTION // MATRIZ TÉCNICA (4 PANELES CV)
+    ============================================================== -->
+    <section id="skills" class="skills section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <span class="hud-module-tag">Módulo 02 // Diagnóstico de Potencia</span>
+        <h2 data-scramble="true">Matriz de Habilidades Técnicas</h2>
+        <p>Estructuración modular de competencias según el perfil de ingeniería y desarrollo en entornos de producción real.</p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+
+          <!-- Panel 1: Lenguajes de Programación -->
+          <div class="col-lg-6 jarvis-assemble" data-aos="fade-up" data-aos-delay="100">
+            <div class="jarvis-card tech-module-card">
+              <div class="jarvis-card-code">
+                <span>[STACK_01 // CORE_LANGUAGES]</span>
+                <span>STATUS: OPTIMAL</span>
+              </div>
+              <h3 class="tech-module-title">
+                <i class="bi bi-code-square"></i> Lenguajes de Programación
+              </h3>
+
+              <div class="tech-tag-cloud">
+                <span class="tech-tag highlight-ai"><i class="bi bi-filetype-py"></i> Python</span>
+                <span class="tech-tag"><i class="bi bi-filetype-tsx"></i> TypeScript</span>
+                <span class="tech-tag"><i class="bi bi-filetype-js"></i> JavaScript (ES6+)</span>
+                <span class="tech-tag"><i class="bi bi-filetype-php"></i> PHP (Modern Backend)</span>
+                <span class="tech-tag"><i class="bi bi-database"></i> SQL (MySQL)</span>
+              </div>
+
+              <!-- Power Gauges -->
+              <div class="power-gauge">
+                <div class="power-gauge-label">
+                  <span>Python (IA, Scripts &amp; Automatización)</span>
+                  <span class="text-info font-monospace">90%</span>
+                </div>
+                <div class="power-gauge-track">
+                  <div class="power-gauge-fill" data-percentage="90%"></div>
+                </div>
+              </div>
+
+              <div class="power-gauge">
+                <div class="power-gauge-label">
+                  <span>TypeScript / JavaScript (Full Stack)</span>
+                  <span class="text-info font-monospace">85%</span>
+                </div>
+                <div class="power-gauge-track">
+                  <div class="power-gauge-fill" data-percentage="85%"></div>
+                </div>
+              </div>
+
+              <div class="power-gauge">
+                <div class="power-gauge-label">
+                  <span>PHP &amp; MySQL (Backend Core &amp; Refactor)</span>
+                  <span class="text-info font-monospace">80%</span>
+                </div>
+                <div class="power-gauge-track">
+                  <div class="power-gauge-fill" data-percentage="80%"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Panel 2: Inteligencia Artificial & Datos -->
+          <div class="col-lg-6 jarvis-assemble" data-aos="fade-up" data-aos-delay="200">
+            <div class="jarvis-card tech-module-card">
+              <div class="jarvis-card-code">
+                <span>[STACK_02 // AI_AND_DATA]</span>
+                <span class="text-warning">LEVEL: ADVANCED</span>
+              </div>
+              <h3 class="tech-module-title">
+                <i class="bi bi-robot text-warning"></i> Inteligencia Artificial &amp; Datos
+              </h3>
+
+              <div class="tech-tag-cloud">
+                <span class="tech-tag highlight-ai"><i class="bi bi-cpu"></i> Machine Learning</span>
+                <span class="tech-tag highlight-ai"><i class="bi bi-diagram-3"></i> Deep Learning</span>
+                <span class="tech-tag highlight-ai"><i class="bi bi-gear-wide-connected"></i> Automatización con IA</span>
+                <span class="tech-tag"><i class="bi bi-bezier2"></i> Estructuras Complejas (Árboles)</span>
+                <span class="tech-tag"><i class="bi bi-cloud-check"></i> Google Colab</span>
+                <span class="tech-tag"><i class="bi bi-graph-up-arrow"></i> Software Predictivo</span>
+              </div>
+
+              <!-- Power Gauges -->
+              <div class="power-gauge">
+                <div class="power-gauge-label">
+                  <span>Modelado ML &amp; Redes Neuronales</span>
+                  <span class="text-warning font-monospace">92%</span>
+                </div>
+                <div class="power-gauge-track">
+                  <div class="power-gauge-fill" data-percentage="92%" style="background: linear-gradient(90deg, #ffaa00, #00f0ff);"></div>
+                </div>
+              </div>
+
+              <div class="power-gauge">
+                <div class="power-gauge-label">
+                  <span>Automatización con Scripts de IA en Producción</span>
+                  <span class="text-info font-monospace">88%</span>
+                </div>
+                <div class="power-gauge-track">
+                  <div class="power-gauge-fill" data-percentage="88%"></div>
+                </div>
+              </div>
+
+              <div class="power-gauge">
+                <div class="power-gauge-label">
+                  <span>Procesamiento de Imágenes &amp; Optimización de Carga</span>
+                  <span class="text-info font-monospace">85%</span>
+                </div>
+                <div class="power-gauge-track">
+                  <div class="power-gauge-fill" data-percentage="85%"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Panel 3: Desarrollo Web & Backend -->
+          <div class="col-lg-6 jarvis-assemble" data-aos="fade-up" data-aos-delay="300">
+            <div class="jarvis-card tech-module-card">
+              <div class="jarvis-card-code">
+                <span>[STACK_03 // WEB_AND_BACKEND]</span>
+                <span>STATUS: ACTIVE</span>
+              </div>
+              <h3 class="tech-module-title">
+                <i class="bi bi-hdd-network"></i> Web &amp; Backend Architecture
+              </h3>
+
+              <div class="tech-tag-cloud">
+                <span class="tech-tag"><i class="bi bi-layers"></i> Desarrollo Full Stack</span>
+                <span class="tech-tag"><i class="bi bi-arrow-left-right"></i> APIs REST Seguras</span>
+                <span class="tech-tag"><i class="bi bi-building"></i> Arquitectura de Software</span>
+                <span class="tech-tag"><i class="bi bi-arrow-repeat"></i> Refactorización de Código</span>
+                <span class="tech-tag"><i class="bi bi-credit-card"></i> Pasarelas de Pago</span>
+                <span class="tech-tag"><i class="bi bi-speedometer2"></i> Optimización de Consultas SQL</span>
+              </div>
+
+              <!-- Power Gauges -->
+              <div class="power-gauge">
+                <div class="power-gauge-label">
+                  <span>Arquitectura API REST &amp; Integraciones Terceros</span>
+                  <span class="text-info font-monospace">88%</span>
+                </div>
+                <div class="power-gauge-track">
+                  <div class="power-gauge-fill" data-percentage="88%"></div>
+                </div>
+              </div>
+
+              <div class="power-gauge">
+                <div class="power-gauge-label">
+                  <span>Integración de Pasarelas de Pago Seguras</span>
+                  <span class="text-info font-monospace">85%</span>
+                </div>
+                <div class="power-gauge-track">
+                  <div class="power-gauge-fill" data-percentage="85%"></div>
+                </div>
+              </div>
+
+              <div class="power-gauge">
+                <div class="power-gauge-label">
+                  <span>Refactorización &amp; Rendimiento de Servidores</span>
+                  <span class="text-info font-monospace">82%</span>
+                </div>
+                <div class="power-gauge-track">
+                  <div class="power-gauge-fill" data-percentage="82%"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Panel 4: Herramientas, Mobile & DevOps -->
+          <div class="col-lg-6 jarvis-assemble" data-aos="fade-up" data-aos-delay="400">
+            <div class="jarvis-card tech-module-card">
+              <div class="jarvis-card-code">
+                <span>[STACK_04 // DEVOPS_MOBILE_TOOLS]</span>
+                <span>STATUS: INTEGRATED</span>
+              </div>
+              <h3 class="tech-module-title">
+                <i class="bi bi-tools"></i> Herramientas, Mobile &amp; DevOps
+              </h3>
+
+              <div class="tech-tag-cloud">
+                <span class="tech-tag highlight-ai"><i class="bi bi-google-play"></i> Google Play Store Deploy</span>
+                <span class="tech-tag"><i class="bi bi-git"></i> Git &amp; GitHub</span>
+                <span class="tech-tag"><i class="bi bi-terminal-fill"></i> Linux &amp; Shell</span>
+                <span class="tech-tag"><i class="bi bi-kanban"></i> Metodologías Ágiles (Scrum)</span>
+                <span class="tech-tag"><i class="bi bi-palette"></i> Optimización UI/UX</span>
+                <span class="tech-tag"><i class="bi bi-lightning-charge"></i> Web Performance</span>
+              </div>
+
+              <!-- Power Gauges -->
+              <div class="power-gauge">
+                <div class="power-gauge-label">
+                  <span>Despliegue y Publicación Mobile (Play Store)</span>
+                  <span class="text-info font-monospace">85%</span>
+                </div>
+                <div class="power-gauge-track">
+                  <div class="power-gauge-fill" data-percentage="85%"></div>
+                </div>
+              </div>
+
+              <div class="power-gauge">
+                <div class="power-gauge-label">
+                  <span>Control de Versiones Git &amp; CI/CD Flows</span>
+                  <span class="text-info font-monospace">88%</span>
+                </div>
+                <div class="power-gauge-track">
+                  <div class="power-gauge-fill" data-percentage="88%"></div>
+                </div>
+              </div>
+
+              <div class="power-gauge">
+                <div class="power-gauge-label">
+                  <span>Entornos Linux &amp; Gestión de Infraestructura</span>
+                  <span class="text-info font-monospace">80%</span>
+                </div>
+                <div class="power-gauge-track">
+                  <div class="power-gauge-fill" data-percentage="80%"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
       </div>
 
     </section><!-- /Skills Section -->
 
-    <!-- Resume Section -->
+    <!-- ==============================================================
+         RESUME SECTION // BITÁCORA DE MISIONES (EXPERIENCIA & EDUCACIÓN)
+    ============================================================== -->
     <section id="resume" class="resume section">
-      <div class="container">
 
+      <div class="container section-title" data-aos="fade-up">
+        <span class="hud-module-tag">Módulo 03 // Bitácora de Operaciones</span>
+        <h2 data-scramble="true">Experiencia &amp; Educación</h2>
+        <p>Registro cronológico de despliegues en producción real y trayectoria académica en ingeniería.</p>
+      </div>
+
+      <div class="container">
         <div class="row">
 
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="resume-title">Resumen</h3>
+          <!-- Columna Experiencia Laboral -->
+          <div class="col-lg-6 jarvis-assemble" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="font-hud text-info mb-4" style="font-size: 20px; letter-spacing: 1px;">
+              <i class="bi bi-briefcase-fill me-2"></i> Experiencia Laboral en Producción
+            </h3>
 
-            <div class="resume-item pb-0">
-              <h4>Steven Rueda</h4>
-              <p><em>Soy una persona super apasionada en la programacion, llevo varios años en el sector principalemente estudiando, pero tengo los conocimiento necesarios para llevar tu negocio al siguiente nivel...</em></p>
-              <ul>
-                <li>Medellin,Colombia</li>
-                <li>+57 301-541-7816</li>
-                <li>steven2902rueda2902@gmail.com</li>
+            <!-- Misión 1: Lead Full Stack Developer -->
+            <div class="timeline-mission">
+              <div class="timeline-mission-date">
+                <i class="bi bi-calendar-event"></i> Feb 2026 — 15 Oct 2026 | Remoto
+              </div>
+              <div class="timeline-mission-title">Lead Full Stack Developer &amp; Digital Strategist</div>
+              <div class="timeline-mission-org">
+                <i class="bi bi-building"></i> Empresa / Consultoría — Illinois, EE.UU.
+              </div>
+              <ul class="timeline-mission-bullets">
+                <li>
+                  <strong>Desarrollo y Despliegue Mobile:</strong> Diseñé, desarrollé y publiqué de manera integral la aplicación móvil oficial de la compañía en Google Play Store, ampliando el alcance digital del negocio.
+                </li>
+                <li>
+                  <strong>Optimización Web &amp; Performance:</strong> Rediseñé y optimicé las páginas web corporativas, mejorando la velocidad de carga, la usabilidad visual (UI/UX) y el rendimiento general de la infraestructura.
+                </li>
+                <li>
+                  <strong>Gestión de Infraestructura y Datos:</strong> Administré la infraestructura tecnológica corporativa, asegurando la alta disponibilidad de las plataformas web y estructurando la gestión de bases de datos internas.
+                </li>
+                <li>
+                  <strong>Estrategia Digital &amp; Captación:</strong> Dirigí las campañas de marketing digital y publicidad pagada, logrando un incremento significativo en la atracción y conversión de clientes.
+                </li>
               </ul>
-            </div><!-- Edn Resume Item -->
+            </div>
 
-            <h3 class="resume-title">Educacíon</h3>
-            <div class="resume-item">
-              <h4>Programador</h4>
-              <h5>2024 - 2025(Cursando)</h5>
-              <p><em>Tecnologico de Antioquia, Medellin</em></p>
-              <p>Estoy estudiando ingenieria de software en el Tecnologico de Antioquia, manteniendo un buen promedio y una beca</p>
-            </div><!-- Edn Resume Item -->
-
-            <div class="resume-item">
-              <h4>Talento Tech (Inteligencia Artificial)</h4>
-              <h5>Nov-2024 -- Dic-2024</h5>
-              <p><em>Tecnologico de Antioquia, Medellin</em></p>
-              <p>Culmine el curso de Inteligencia Artificial siendo uno de los mas destacados en la clase, logrando tener un gran desempeño, pudiendo así ganar el concurso de Inteligencia Artificial...</p>
-            </div><!-- Edn Resume Item -->
+            <!-- Misión 2: Full Stack Web Developer -->
+            <div class="timeline-mission">
+              <div class="timeline-mission-date">
+                <i class="bi bi-calendar-event"></i> Sep 2025 — Ene 2026 | Medellín
+              </div>
+              <div class="timeline-mission-title">Full Stack Web Developer</div>
+              <div class="timeline-mission-org">
+                <i class="bi bi-building"></i> Empresa de Software / Servicios Web — Medellín, Colombia
+              </div>
+              <ul class="timeline-mission-bullets">
+                <li>
+                  <strong>Mantenimiento en Producción:</strong> Mantenimiento continuo y evolución del sistema web core en entornos de producción real de alta exigencia.
+                </li>
+                <li>
+                  <strong>Integraciones Seguras:</strong> Integración de pasarelas de pago seguras y APIs REST de terceros para transacciones confiables.
+                </li>
+                <li>
+                  <strong>Optimización con IA:</strong> Desarrollo de scripts en Python con IA para optimización de procesamiento de imágenes y reducción drástica de carga en servidores.
+                </li>
+                <li>
+                  <strong>Backend &amp; Base de Datos:</strong> Refactorización de lógica de backend en PHP y consultas MySQL para mejorar tiempos de respuesta y rendimiento general.
+                </li>
+                <li>
+                  <strong>Automatización de Procesos:</strong> Automatización de flujos y procesos de desarrollo internos, reduciendo significativamente los tiempos de entrega.
+                </li>
+              </ul>
+            </div>
 
           </div>
 
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <h3 class="resume-title">Experiencia Profesional</h3>
-            <div class="resume-item">
-              <h4>Talent Week (Concurso)</h4>
-              <h5>Dic-2024 - Dic-2024</h5>
-              <p><em>Medellin, Colombia</em></p>
-              <!ul>
-                <!li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
-                <!li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>
-                <!li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
-                <!li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>
-              <!/ul>
-            </div><!-- Edn Resume Item -->
-<!-- 
-           <div class="resume-item">
-              <h4>Graphic design specialist</h4>
-              <h5>2017 - 2018</h5>
-              <p><em>Stepping Stone Advertising, New York, NY</em></p>
-              <ul>
-                <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>
-                <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
-                <li>Recommended and consulted with clients on the most appropriate graphic design</li>
-                <li>Created 4+ design presentations and proposals a month for clients and account managers</li>
+          <!-- Columna Educación & Formación Académica -->
+          <div class="col-lg-6 jarvis-assemble" data-aos="fade-up" data-aos-delay="200">
+            <h3 class="font-hud text-info mb-4" style="font-size: 20px; letter-spacing: 1px;">
+              <i class="bi bi-mortarboard-fill me-2"></i> Formación Académica
+            </h3>
+
+            <!-- Educación 1: Ingeniería de Software -->
+            <div class="timeline-mission">
+              <div class="timeline-mission-date">
+                <i class="bi bi-calendar-event"></i> 2023 — Presente (Cursando)
+              </div>
+              <div class="timeline-mission-title">Ingeniería de Software</div>
+              <div class="timeline-mission-org">
+                <i class="bi bi-building"></i> Tecnológico de Antioquia — Medellín, Colombia
+              </div>
+              <ul class="timeline-mission-bullets">
+                <li>
+                  Enfoque en ciclo de vida del software (SDLC), arquitecturas escalables, patrones de diseño de software y optimización avanzada de bases de datos relacionales.
+                </li>
+                <li>
+                  Finalista destacado en competencias y hackathons nacionales de innovación tecnológica e Inteligencia Artificial.
+                </li>
+                <li>
+                  Mantenimiento de excelencia académica y aplicación práctica continua en proyectos del mundo real.
+                </li>
               </ul>
-            </div> -->
+            </div>
+
+            <!-- Educación 2: Especialización IA MinTic -->
+            <div class="timeline-mission">
+              <div class="timeline-mission-date">
+                <i class="bi bi-calendar-event"></i> Nov 2024 — Dic 2024 (Culminado)
+              </div>
+              <div class="timeline-mission-title">Especialización en Inteligencia Artificial (Advanced)</div>
+              <div class="timeline-mission-org">
+                <i class="bi bi-award"></i> MinTic / Talento Tech — Colombia
+              </div>
+              <ul class="timeline-mission-bullets">
+                <li>
+                  Diseño de modelos de IA desde fundamentos matemáticos rigurosos hasta su puesta en entornos de producción (Google Colab).
+                </li>
+                <li>
+                  Estructuras de datos complejas (árboles binarios) y algoritmos de Machine Learning desarrollados desde cero.
+                </li>
+                <li>
+                  Desarrollo de software predictivo basado en datos para análisis y prevención de desastres y accidentes urbanos.
+                </li>
+              </ul>
+            </div>
+
+            <!-- Idiomas HUD Box -->
+            <div class="jarvis-card mt-4">
+              <div class="jarvis-card-code">
+                <span>[COMMUNICATION_CHANNELS]</span>
+                <span>TELEMETRY</span>
+              </div>
+              <h4 class="font-hud text-light mb-3" style="font-size: 16px;">
+                <i class="bi bi-translate text-info me-2"></i> Competencia en Idiomas
+              </h4>
+              <div class="power-gauge mb-3">
+                <div class="power-gauge-label">
+                  <span>Español (Lengua Materna / Nativo)</span>
+                  <span class="text-info font-monospace">100%</span>
+                </div>
+                <div class="power-gauge-track">
+                  <div class="power-gauge-fill" data-percentage="100%"></div>
+                </div>
+              </div>
+              <div class="power-gauge">
+                <div class="power-gauge-label">
+                  <span>Inglés (Intermedio B1 - Técnico &amp; Profesional)</span>
+                  <span class="text-info font-monospace">65%</span>
+                </div>
+                <div class="power-gauge-track">
+                  <div class="power-gauge-fill" data-percentage="65%"></div>
+                </div>
+              </div>
+            </div>
 
           </div>
 
         </div>
-
       </div>
 
     </section><!-- /Resume Section -->
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio section light-background">
+    <!-- ==============================================================
+         CERTIFICATIONS & AWARDS SECTION // ACREDITACIONES
+    ============================================================== -->
+    <section id="certifications" class="certifications section py-4">
 
-      <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Portafolio</h2>
-        <p>Este es mi portafolio de evidencias, donde podras ver en lo que estoy trabajando y mis nuevas ideas en proceso, todo vinculado a mi GitHub</p>
-      </div><!-- End Section Title -->
+        <span class="hud-module-tag">Módulo 04 // Acreditaciones &amp; Distinciones</span>
+        <h2 data-scramble="true">Certificaciones &amp; Reconocimientos</h2>
+        <p>Validación oficial emitida por entidades tecnológicas internacionales y gubernamentales.</p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+
+          <!-- Reconocimiento 1: Top 3 Hackathon Nacional IA (Destacado Dorado) -->
+          <div class="col-lg-4 jarvis-assemble" data-aos="fade-up" data-aos-delay="100">
+            <div class="jarvis-card gold-cert h-100">
+              <div class="cert-badge">
+                <i class="bi bi-trophy-fill"></i> PREMIO NACIONAL HACKATHON
+              </div>
+              <h3 class="font-hud text-warning mb-2" style="font-size: 18px;">
+                Top 3 Competencia Nacional de Desarrollo con IA
+              </h3>
+              <p class="text-muted font-monospace mb-3" style="font-size: 12px;">
+                <i class="bi bi-calendar"></i> Dic 2024 | MinTic &amp; Talent Week
+              </p>
+              <p class="text-light" style="font-size: 14px; line-height: 1.6;">
+                Distinguido entre los 3 mejores equipos a nivel nacional en la competencia de desarrollo con Inteligencia Artificial, resolviendo en tiempo récord un reto complejo de mapas y optimización vehicular inteligente para <strong>GROW DATA</strong>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Reconocimiento 2: Google AI & Productividad -->
+          <div class="col-lg-4 jarvis-assemble" data-aos="fade-up" data-aos-delay="200">
+            <div class="jarvis-card h-100">
+              <div class="jarvis-card-code">
+                <span>[CERT_GOOGLE_AI]</span>
+                <span class="text-info">VERIFIED</span>
+              </div>
+              <h3 class="font-hud text-light mb-2" style="font-size: 18px;">
+                Inteligencia Artificial y Productividad
+              </h3>
+              <p class="text-muted font-monospace mb-3" style="font-size: 12px;">
+                <i class="bi bi-calendar"></i> Ene 2025 | Google
+              </p>
+              <p class="text-light" style="font-size: 14px; line-height: 1.6;">
+                Certificación oficial expedida por <strong>Google</strong> sobre integración de herramientas de inteligencia artificial aplicada, optimización de pipelines de trabajo y automatización de procesos de ingeniería.
+              </p>
+            </div>
+          </div>
+
+          <!-- Reconocimiento 3: MinTic AI Advanced -->
+          <div class="col-lg-4 jarvis-assemble" data-aos="fade-up" data-aos-delay="300">
+            <div class="jarvis-card h-100">
+              <div class="jarvis-card-code">
+                <span>[CERT_MINTIC_ADV]</span>
+                <span class="text-info">VERIFIED</span>
+              </div>
+              <h3 class="font-hud text-light mb-2" style="font-size: 18px;">
+                Inteligencia Artificial (Advanced)
+              </h3>
+              <p class="text-muted font-monospace mb-3" style="font-size: 12px;">
+                <i class="bi bi-calendar"></i> Dic 2024 | MinTic Colombia
+              </p>
+              <p class="text-light" style="font-size: 14px; line-height: 1.6;">
+                Acreditación avanzada en fundamentos matemáticos de IA, entrenamiento de algoritmos de Machine Learning desde cero, estructuras no lineales y despliegue predictivo.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section><!-- /Certifications Section -->
+
+    <!-- ==============================================================
+         PORTFOLIO SECTION // PLANOS & PROYECTOS TÁCTICOS (GITHUB)
+    ============================================================== -->
+    <section id="portfolio" class="portfolio section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <span class="hud-module-tag">Módulo 05 // Planos de Ingeniería &amp; GitHub</span>
+        <h2 data-scramble="true">Proyectos &amp; Repositorios</h2>
+        <p>Soluciones de software extraídas directamente del ecosistema de desarrollo de <strong>Steven Rueda Lopez (Slise.Dev / TheStevenDog)</strong>: Inteligencia Artificial, Apps Móviles, Blockchain y Backend.</p>
+      </div>
 
       <div class="container">
 
         <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
 
+          <!-- Categorías Filtro -->
           <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">All</li>
-            <!-- <li data-filter=".filter-app">App</li> -->
-            <!-- <li data-filter=".filter-product">Product</li>
-            <li data-filter=".filter-branding">Branding</li>
-            <li data-filter=".filter-books">Books</li> -->
-          </ul><!-- End Portfolio Filters -->
+            <li data-filter="*" class="filter-active">TODOS</li>
+            <li data-filter=".filter-ai">IA &amp; AUTOMATIZACIÓN</li>
+            <li data-filter=".filter-mobile">APPS MÓVILES</li>
+            <li data-filter=".filter-web3">BLOCKCHAIN &amp; WEB3</li>
+            <li data-filter=".filter-web">WEB &amp; BACKEND</li>
+          </ul>
 
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+            <!-- Proyecto 1: OnWay (Grow Data Hackathon IA) -->
+            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-ai filter-web jarvis-assemble">
               <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/Onway/app-1.jpg" class="img-fluid" alt="">
+                <img src="assets/img/portfolio/Onway/OnWay.png" class="img-fluid" alt="OnWay Hackathon IA">
                 <div class="portfolio-info">
-                  <h4>OnWay</h4>
-                  <p>ONWAY</p>
-                  <a href="assets/img/portfolio/app-1.jpg" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <h4>OnWay — Smart Route &amp; Map System</h4>
+                  <p>SISTEMA PREMIADO TOP 3 NACIONAL // GROW DATA</p>
+                  <div class="portfolio-tech-pills">
+                    <span>Python</span>
+                    <span>Machine Learning</span>
+                    <span>APIs de Mapas</span>
+                    <span>Talent Week</span>
+                  </div>
+                  <div class="portfolio-links">
+                    <a href="portfolio-details.html" title="Ver Detalles de OnWay">
+                      <i class="bi bi-eye-fill"></i> Ficha Técnica
+                    </a>
+                    <a href="https://github.com/TheStevenDog/OnWay" target="_blank" title="Repositorio GitHub">
+                      <i class="bi bi-github"></i> Ver en GitHub
+                    </a>
+                  </div>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
 
-            <!-- <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+            <!-- Proyecto 2: TrustCert (Monad Blockchain) -->
+            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-web3 filter-web jarvis-assemble">
               <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/product-1.jpg" class="img-fluid" alt="">
+                <img src="assets/img/hero-bg.jpg" class="img-fluid" alt="TrustCert Monad Blockchain">
                 <div class="portfolio-info">
-                  <h4>Product 1</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/product-1.jpg" title="Product 1" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div> -->
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <!-- <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/branding-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Branding 1</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/branding-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div> -->
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <!-- <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/books-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Books 1</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/books-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div> -->
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <!-- <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/app-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>App 2</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/app-2.jpg" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <h4>TrustCert — Certificación en Monad Blockchain</h4>
+                  <p>SMART CONTRACTS &amp; HASHEO CRIPTOGRÁFICO SHA-256</p>
+                  <div class="portfolio-tech-pills">
+                    <span>TypeScript</span>
+                    <span>Monad Blockchain</span>
+                    <span>Smart Contracts</span>
+                    <span>Web3 Security</span>
+                  </div>
+                  <div class="portfolio-links">
+                    <a href="https://github.com/TheStevenDog/TrustCert" target="_blank" title="Repositorio GitHub">
+                      <i class="bi bi-github"></i> Código en GitHub
+                    </a>
+                    <a href="https://github.com/TheStevenDog" target="_blank" title="Slise.Dev Profile">
+                      <i class="bi bi-shield-check"></i> Hackathon Monad 2026
+                    </a>
+                  </div>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
 
-            <!-- <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+            <!-- Proyecto 3: TicketLab (Proyecto de Aula TdeA) -->
+            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-mobile filter-web jarvis-assemble">
               <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/product-2.jpg" class="img-fluid" alt="">
+                <img src="assets/img/portfolio/Onway/app-1.jpg" class="img-fluid" alt="TicketLab App Móvil">
                 <div class="portfolio-info">
-                  <h4>Product 2</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/product-2.jpg" title="Product 2" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <h4>TicketLab — Sistema de Reporte Técnico Campus</h4>
+                  <p>APLICACIÓN MÓVIL // TECNOLÓGICO DE ANTIOQUIA</p>
+                  <div class="portfolio-tech-pills">
+                    <span>Desarrollo Móvil</span>
+                    <span>JavaScript</span>
+                    <span>Gestión de Tickets</span>
+                    <span>REST API</span>
+                  </div>
+                  <div class="portfolio-links">
+                    <a href="https://github.com/TheStevenDog/TicketLab-Proyecto-de-aula" target="_blank" title="Repositorio GitHub">
+                      <i class="bi bi-github"></i> Código en GitHub
+                    </a>
+                  </div>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
 
-            <!-- <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+            <!-- Proyecto 4: Library App (Offline-First) -->
+            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-mobile filter-web jarvis-assemble">
               <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/branding-2.jpg" class="img-fluid" alt="">
+                <img src="assets/img/services.jpg" class="img-fluid" alt="Library App Offline-First">
                 <div class="portfolio-info">
-                  <h4>Branding 2</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/branding-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>End Portfolio Item -->
-
-            <!-- <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/books-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Books 2</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/books-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>End Portfolio Item -->
-
-            <!-- <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/app-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>App 3</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/app-3.jpg" title="App 3" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>End Portfolio Item -->
-
-            <!-- <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/product-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Product 3</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/product-3.jpg" title="Product 3" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>End Portfolio Item -->
-
-            <!-- <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/branding-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Branding 3</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/branding-3.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <h4>Library Mobile App — Offline-First Architecture</h4>
+                  <p>EXPO + REACT NATIVE + SQLITE OFFLINE-FIRST + API REST</p>
+                  <div class="portfolio-tech-pills">
+                    <span>Expo</span>
+                    <span>React Native</span>
+                    <span>SQLite Local</span>
+                    <span>TypeScript API</span>
+                  </div>
+                  <div class="portfolio-links">
+                    <a href="https://github.com/TheStevenDog/Library-app-Guia2" target="_blank" title="App Móvil en GitHub">
+                      <i class="bi bi-phone"></i> App Móvil (Expo)
+                    </a>
+                    <a href="https://github.com/TheStevenDog/Library-api-Guia1" target="_blank" title="Backend API en GitHub">
+                      <i class="bi bi-hdd-network"></i> Backend API REST
+                    </a>
+                  </div>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
 
-            <!-- <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+            <!-- Proyecto 5: GameVault (Tienda de Videojuegos) -->
+            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-mobile jarvis-assemble">
               <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/books-3.jpg" class="img-fluid" alt="">
+                <img src="assets/img/portfolio/Onway/OnWay2.png" class="img-fluid" alt="GameVault Mobile Store">
                 <div class="portfolio-info">
-                  <h4>Books 3</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/books-3.jpg" title="Branding 3" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <h4>GameVault — Tienda &amp; Catálogo Móvil Gamer</h4>
+                  <p>REACT NATIVE CLI // CATÁLOGO INTERACTIVO</p>
+                  <div class="portfolio-tech-pills">
+                    <span>React Native CLI</span>
+                    <span>JavaScript</span>
+                    <span>Mobile UI/UX</span>
+                    <span>TdeA</span>
+                  </div>
+                  <div class="portfolio-links">
+                    <a href="https://github.com/TheStevenDog/GameVault" target="_blank" title="Repositorio GitHub">
+                      <i class="bi bi-github"></i> Código en GitHub
+                    </a>
+                  </div>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
 
-          </div> <!-- End Portfolio Container  -->
+            <!-- Proyecto 6: SVD-Script-PY (Optimización & Compresión IA) -->
+            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-ai jarvis-assemble">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/hero-bg.jpg" class="img-fluid" alt="SVD Script Optimización de Imágenes">
+                <div class="portfolio-info">
+                  <h4>SVD-Script — Compresión de Imágenes con IA</h4>
+                  <p>PIPELINE DE AUTOMATIZACIÓN &amp; REDUCCIÓN DE CARGA</p>
+                  <div class="portfolio-tech-pills">
+                    <span>Python</span>
+                    <span>PowerShell</span>
+                    <span>Optimización de Servidores</span>
+                    <span>IA Scripting</span>
+                  </div>
+                  <div class="portfolio-links">
+                    <a href="https://github.com/TheStevenDog/SVD-Script-PY" target="_blank" title="Repositorio GitHub">
+                      <i class="bi bi-github"></i> Código en GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <!-- Proyecto 7: LandingPageApex -->
+            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-web jarvis-assemble">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/services.jpg" class="img-fluid" alt="Landing Page Apex Solutions">
+                <div class="portfolio-info">
+                  <h4>LandingPageApex — Apex Solutions Web</h4>
+                  <p>PLATAFORMA CORPORATIVA WEB // ALTA PERFORMANCE</p>
+                  <div class="portfolio-tech-pills">
+                    <span>JavaScript Moderno</span>
+                    <span>CSS3 Grid</span>
+                    <span>Performance</span>
+                    <span>Apex Solutions</span>
+                  </div>
+                  <div class="portfolio-links">
+                    <a href="https://github.com/TheStevenDog/LandingPageApex" target="_blank" title="Repositorio GitHub">
+                      <i class="bi bi-github"></i> Código en GitHub
+                    </a>
+                    <a href="https://github.com/TheStevenDog" target="_blank" title="Perfil GitHub">
+                      <i class="bi bi-box-arrow-up-right"></i> Slise.Dev
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+          </div><!-- End Portfolio Container -->
 
         </div>
 
@@ -486,286 +966,126 @@
 
     </section><!-- /Portfolio Section -->
 
-    <!-- Services Section -->
-    <!-- <section id="services" class="services section"> -->
-
-      <!-- Section Title -->
-      <!-- <div class="container section-title" data-aos="fade-up">
-        <h2>Services</h2>
-        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
-      </div><!-- End Section Title -->
-
-      <!-- <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Lorem Ipsum</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-            </div>
-          </div>
-          <!-- End Service Item 
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Dolor Sitema</a></h4>
-              <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-            </div>
-          </div><!-- End Service Item 
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="300">
-            <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Sed ut perspiciatis</a></h4>
-              <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-            </div>
-          </div><!-- End Service Item 
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="400">
-            <div class="icon flex-shrink-0"><i class="bi bi-binoculars"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Magni Dolores</a></h4>
-              <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-            </div>
-          </div><!-- End Service Item 
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="500">
-            <div class="icon flex-shrink-0"><i class="bi bi-brightness-high"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Nemo Enim</a></h4>
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
-            </div>
-          </div><!-- End Service Item 
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="600">
-            <div class="icon flex-shrink-0"><i class="bi bi-calendar4-week"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Eiusmod Tempor</a></h4>
-              <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
-            </div>
-          </div><!-- End Service Item -->
-
-        </div> 
-
-      </div>
-
-    </section><!-- /Services Section -->
-
-    <!-- Testimonials Section -->
-    <!-- <section id="testimonials" class="testimonials section light-background">
-
-      <!-- Section Title 
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Testimonials</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div>End Section Title -->
-
-      <!--<div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 1,
-                  "spaceBetween": 40
-                },
-                "1200": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 1
-                }
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
-              </div>
-            </div><!-- End testimonial item
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
-              </div>
-            </div><!-- End testimonial item 
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-              </div>
-            </div><!-- End testimonial item 
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-              </div>
-            </div><!-- End testimonial item 
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-              </div>
-            </div><!-- End testimonial item 
-
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-
-    </section><!-- /Testimonials Section --> 
-
-    <!-- Contact Section -->
+    <!-- ==============================================================
+         CONTACT SECTION // CANAL DE ENLACE SATELITAL
+    ============================================================== -->
     <section id="contact" class="contact section">
 
-      <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Contactame</h2>
-        <p>Si necesitas alguno de mis servicios y quieres darme la oportunidad de trabajar contigo estare encantado de estar a tu lado en este proceso... HABLAME :3</p>
-      </div><!-- End Section Title -->
+        <span class="hud-module-tag">Módulo 06 // Canal de Transmisión</span>
+        <h2 data-scramble="true">Iniciar Comunicación</h2>
+        <p>Apertura de canal directo para oportunidades de ingeniería, consultoría o nuevos despliegues de software.</p>
+      </div>
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
+      <div class="container">
         <div class="row gy-4">
 
-          <div class="col-lg-5">
-
+          <div class="col-lg-5 jarvis-assemble" data-aos="fade-up" data-aos-delay="100">
             <div class="info-wrap">
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
-                <i class="bi bi-geo-alt flex-shrink-0"></i>
-                <div>
-                  <h3>Direccion</h3>
-                  <p>Medellin, Colombia</p>
-                </div>
-              </div><!-- End Info Item -->
 
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-                <i class="bi bi-telephone flex-shrink-0"></i>
+              <div class="info-item d-flex align-items-center mb-4">
+                <i class="bi bi-geo-alt-fill flex-shrink-0"></i>
                 <div>
-                  <h3>Llamame!</h3>
-                  <p>+57 301 541 78 16</p>
+                  <h3>Ubicación Base</h3>
+                  <p>Medellín, Antioquia, Colombia</p>
                 </div>
-              </div><!-- End Info Item -->
+              </div>
 
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-                <i class="bi bi-envelope flex-shrink-0"></i>
+              <div class="info-item d-flex align-items-center mb-4">
+                <i class="bi bi-telephone-fill flex-shrink-0"></i>
                 <div>
-                  <h3>Mandame un Email!</h3>
+                  <h3>Línea Telefónica Directa</h3>
+                  <p>+57 301 541 7816</p>
+                </div>
+              </div>
+
+              <div class="info-item d-flex align-items-center mb-4">
+                <i class="bi bi-envelope-at-fill flex-shrink-0"></i>
+                <div>
+                  <h3>Transmisión de Correo</h3>
                   <p>steven2902rueda2902@gmail.com</p>
                 </div>
-              </div><!-- End Info Item -->
+              </div>
 
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126916.73961650311!2d-75.5812115!3d6.24420345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4428dfb80fad05%3A0x42137cfcc7b53b56!2sMedell%C3%ADn%2C%20Medellin%2C%20Antioquia%2C%20Colombia!5e0!3m2!1sen!2sus!4v1738419552384!5m2!1sen!2sus" frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              <div class="info-item d-flex align-items-center mb-4">
+                <i class="bi bi-shield-check flex-shrink-0"></i>
+                <div>
+                  <h3>Disponibilidad Operativa</h3>
+                  <p>Inmediata // Proyectos Remotos &amp; Híbridos</p>
+                </div>
+              </div>
+
+              <!-- Map Display -->
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126916.73961650311!2d-75.5812115!3d6.24420345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4428dfb80fad05%3A0x42137cfcc7b53b56!2sMedell%C3%ADn%2C%20Medellin%2C%20Antioquia%2C%20Colombia!5e0!3m2!1sen!2sus!4v1738419552384!5m2!1sen!2sus" frameborder="0" style="border:0; width: 100%; height: 210px; border-radius: 4px; filter: invert(90%) hue-rotate(180deg) contrast(1.2);" allowfullscreen="" loading="lazy"></iframe>
+
             </div>
           </div>
 
-          <div class="col-lg-7">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-lg-7 jarvis-assemble" data-aos="fade-up" data-aos-delay="200">
+            <form action="forms/contact.php" method="post" class="php-email-form">
               <div class="row gy-4">
 
                 <div class="col-md-6">
-                  <label for="name-field" class="pb-2">Tu Nombre</label>
-                  <input type="text" name="name" id="name-field" class="form-control" required="">
+                  <label for="name-field" class="pb-2">Nombre / Entidad</label>
+                  <input type="text" name="name" id="name-field" class="form-control" placeholder="Ej: Tony Stark" required>
                 </div>
 
                 <div class="col-md-6">
-                  <label for="email-field" class="pb-2">Tu Email</label>
-                  <input type="email" class="form-control" name="email" id="email-field" required="">
+                  <label for="email-field" class="pb-2">Canal de Respuesta (Email)</label>
+                  <input type="email" class="form-control" name="email" id="email-field" placeholder="ejemplo@empresa.com" required>
                 </div>
 
                 <div class="col-md-12">
-                  <label for="subject-field" class="pb-2">Titulo de tu peticion</label>
-                  <input type="text" class="form-control" name="subject" id="subject-field" required="">
+                  <label for="subject-field" class="pb-2">Asunto de la Misión</label>
+                  <input type="text" class="form-control" name="subject" id="subject-field" placeholder="Oportunidad de Desarrollo / Proyecto Full Stack" required>
                 </div>
 
                 <div class="col-md-12">
-                  <label for="message-field" class="pb-2">Mensage</label>
-                  <textarea class="form-control" name="message" rows="10" id="message-field" required=""></textarea>
+                  <label for="message-field" class="pb-2">Transmisión de Mensaje</label>
+                  <textarea class="form-control" name="message" rows="8" id="message-field" placeholder="Describe los requerimientos técnicos y objetivos del proyecto..." required></textarea>
                 </div>
 
                 <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Tu mensaje ha sido enviado. Muchiimas gracias!</div>
+                  <div class="loading">Codificando y transmitiendo...</div>
+                  <div class="error-message">Error en el enlace. Por favor comunícate directamente al email.</div>
+                  <div class="sent-message">Transmisión completada con éxito. J.A.R.V.I.S. ha notificado a Steven.</div>
 
-                  <button type="submit">Enviar Mensaje</button>
+                  <button type="submit">
+                    <i class="bi bi-send-fill me-2"></i> Transmitir Mensaje
+                  </button>
                 </div>
 
               </div>
             </form>
-          </div><!-- End Contact Form -->
+          </div>
 
         </div>
-
       </div>
 
     </section><!-- /Contact Section -->
 
   </main>
 
+  <!-- ==============================================================
+       FOOTER HUD TERMINAL
+  ============================================================== -->
   <footer id="footer" class="footer position-relative light-background">
-
     <div class="container">
-      <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">StevenRueda</strong> <span>All Rights Reserved</span></p>
+      <div class="copyright text-center">
+        <p>
+          © STARK PROTOCOL // <strong class="px-1 sitename">STEVEN RUEDA LOPEZ</strong> // ALL SYSTEMS OPERATIONAL
+        </p>
+        <div class="text-muted font-monospace mt-1" style="font-size: 11px;">
+          Junior Full Stack &amp; AI Developer — Medellín, Colombia — 2026
+        </div>
       </div>
     </div>
-
   </footer>
 
   <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
 
   <!-- Preloader -->
   <div id="preloader"></div>
@@ -782,8 +1102,9 @@
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-  <!-- Main JS File -->
+  <!-- Main JS File & J.A.R.V.I.S. Core Engine -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/jarvis.js"></script>
 
 </body>
 

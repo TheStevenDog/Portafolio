@@ -1,0 +1,315 @@
+---
+// Modern Glassmorphic Cyber HUD Navbar
+import { personalData } from '../data/cv.js';
+---
+
+<header class="hud-navbar">
+  <div class="jarvis-container nav-container">
+    
+    <!-- Brand / Identity with Holographic Avatar -->
+    <a href="#hero" class="nav-brand">
+      <div class="nav-avatar-ring">
+        <img src="/Portafolio/assets/img/my-profile-img.jpeg" alt={personalData.fullName} class="nav-avatar-img" />
+      </div>
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">{personalData.name} {personalData.lastName}</span>
+        <span class="nav-brand-sub">STARK-ID: SRL-2902 // {personalData.alias}</span>
+      </div>
+    </a>
+
+    <!-- Navigation Links -->
+    <nav class="nav-menu">
+      <a href="#hero" class="nav-link active">
+        <span class="nav-link-code">[00]</span> Inicio
+      </a>
+      <a href="#about" class="nav-link">
+        <span class="nav-link-code">[01]</span> Biometría
+      </a>
+      <a href="#skills" class="nav-link">
+        <span class="nav-link-code">[02]</span> Matriz
+      </a>
+      <a href="#projects" class="nav-link">
+        <span class="nav-link-code">[03]</span> Proyectos
+      </a>
+      <a href="#experience" class="nav-link">
+        <span class="nav-link-code">[04]</span> Misiones
+      </a>
+      <a href="#contact" class="nav-link">
+        <span class="nav-link-code">[05]</span> Enlace
+      </a>
+    </nav>
+
+    <!-- Controls: Audio, Status & GitHub -->
+    <div class="nav-actions">
+      <!-- Live Status Pill -->
+      <div class="status-pill d-none-mobile">
+        <span class="status-dot"></span>
+        <span class="status-text">SYS.ONLINE</span>
+      </div>
+
+      <!-- Sci-Fi Audio FX Button -->
+      <button id="nav-audio-btn" class="audio-btn" title="Alternar Sonidos J.A.R.V.I.S.">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+        <span id="audio-btn-label">SFX: OFF</span>
+      </button>
+
+      <!-- GitHub Action -->
+      <a href={personalData.socials.github} target="_blank" rel="noopener noreferrer" class="jarvis-btn jarvis-btn-primary nav-cta">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        <span>GitHub</span>
+      </a>
+    </div>
+
+  </div>
+</header>
+
+<style>
+  .hud-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(2, 6, 18, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--jarvis-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+    transition: all 0.3s ease;
+  }
+
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  /* Brand */
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+  .nav-avatar-ring {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-avatar-ring::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 2px dashed var(--jarvis-cyan);
+    animation: rotate-cw 12s linear infinite;
+  }
+  .nav-avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid var(--jarvis-cyan);
+    box-shadow: 0 0 10px var(--jarvis-cyan);
+  }
+  .nav-brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+  .nav-brand-name {
+    font-family: var(--font-hud);
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1px;
+  }
+  .nav-brand-sub {
+    font-family: var(--font-tech);
+    font-size: 10px;
+    color: var(--jarvis-cyan);
+    letter-spacing: 1px;
+  }
+
+  /* Menu */
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .nav-link {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--jarvis-text-muted);
+    padding: 6px 10px;
+    position: relative;
+    transition: all 0.25s ease;
+  }
+  .nav-link-code {
+    font-family: var(--font-tech);
+    font-size: 11px;
+    color: var(--jarvis-cyan);
+    margin-right: 2px;
+  }
+  .nav-link:hover,
+  .nav-link.active {
+    color: #ffffff;
+    text-shadow: 0 0 10px var(--jarvis-cyan-glow);
+  }
+  .nav-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 10px;
+    right: 10px;
+    height: 2px;
+    background: var(--jarvis-cyan);
+    box-shadow: 0 0 8px var(--jarvis-cyan);
+  }
+
+  /* Actions */
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .status-pill {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 10px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid var(--jarvis-emerald);
+    border-radius: 20px;
+    font-family: var(--font-tech);
+    font-size: 10px;
+    color: var(--jarvis-emerald);
+    letter-spacing: 1px;
+  }
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--jarvis-emerald);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--jarvis-emerald);
+    animation: pulse-glow 1.8s infinite ease-in-out;
+  }
+
+  .audio-btn {
+    background: rgba(0, 240, 255, 0.08);
+    border: 1px solid var(--jarvis-border);
+    color: var(--jarvis-cyan);
+    font-family: var(--font-tech);
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .audio-btn:hover {
+    background: var(--jarvis-cyan);
+    color: #020612;
+    box-shadow: 0 0 12px var(--jarvis-cyan);
+  }
+  .audio-btn.sound-on {
+    border-color: var(--jarvis-emerald);
+    color: var(--jarvis-emerald);
+  }
+
+  .nav-cta {
+    padding: 8px 18px;
+    font-size: 11px;
+  }
+
+  @media (max-width: 992px) {
+    .nav-menu {
+      display: none;
+    }
+    .d-none-mobile {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  let audioCtx = null;
+  let soundEnabled = false;
+
+  function initAudioEngine() {
+    const btn = document.getElementById('nav-audio-btn');
+    const label = document.getElementById('audio-btn-label');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) audioCtx = new AudioContext();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      soundEnabled = !soundEnabled;
+      if (soundEnabled) {
+        btn.classList.add('sound-on');
+        if (label) label.textContent = 'SFX: ON';
+        playTone('beep');
+      } else {
+        btn.classList.remove('sound-on');
+        if (label) label.textContent = 'SFX: OFF';
+      }
+    });
+
+    function playTone(type) {
+      if (!soundEnabled || !audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        const t = audioCtx.currentTime;
+
+        if (type === 'hover') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(800, t);
+          osc.frequency.exponentialRampToValueAtTime(1400, t + 0.05);
+          gain.gain.setValueAtTime(0.04, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
+          osc.start(t);
+          osc.stop(t + 0.05);
+        } else {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(500, t);
+          osc.frequency.exponentialRampToValueAtTime(1100, t + 0.08);
+          gain.gain.setValueAtTime(0.07, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
+          osc.start(t);
+          osc.stop(t + 0.08);
+        }
+      } catch (e) {}
+    }
+
+    document.querySelectorAll('.nav-link, .jarvis-btn, .hud-card').forEach((el) => {
+      el.addEventListener('mouseenter', () => playTone('hover'));
+      el.addEventListener('click', () => playTone('click'));
+    });
+  }
+
+  if (typeof window !== 'undefined') {
+    initAudioEngine();
+    document.addEventListener('astro:page-load', initAudioEngine);
+  }
+</script>

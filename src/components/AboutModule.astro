@@ -1,0 +1,304 @@
+---
+// About & Biometric Diagnostics Component
+import { personalData, certifications } from '../data/cv.js';
+---
+
+<section id="about" class="jarvis-section">
+  <div class="jarvis-container">
+    
+    <!-- Section Header -->
+    <div class="section-header">
+      <span class="section-tag">Módulo 01 // Biometría &amp; Perfil</span>
+      <h2 class="section-title">Dossier del Ingeniero</h2>
+      <p class="section-subtitle">
+        Diagnóstico de competencias de software, credenciales y arquitectura de sistemas extraídas de la base de datos de producción real.
+      </p>
+    </div>
+
+    <!-- Main Biometric HUD Card -->
+    <div class="hud-card mb-4">
+      <div class="hud-card-header">
+        <span>[DOSSIER_ID // SRL-2902]</span>
+        <span class="jarvis-badge jarvis-badge-cyan">STATUS: PRODUCTION_READY</span>
+      </div>
+
+      <div class="bio-content-grid">
+        <!-- Avatar Ring Display -->
+        <div class="bio-avatar-col">
+          <div class="bio-avatar-wrap">
+            <div class="ring-cw"></div>
+            <div class="ring-ccw"></div>
+            <img src="/Portafolio/assets/img/my-profile-img.jpeg" alt={personalData.fullName} class="bio-avatar-img" />
+          </div>
+          <div class="bio-alias-pill">
+            <span>{personalData.alias}</span>
+            <span class="dot-online"></span>
+          </div>
+          <div class="bio-id-tag">MEDELLÍN // COLOMBIA</div>
+        </div>
+
+        <!-- Bio Dossier Details -->
+        <div class="bio-text-col">
+          <h3 class="bio-headline">
+            Ingeniero de Software &bull; Full Stack &amp; AI
+          </h3>
+
+          <p class="bio-desc">
+            {personalData.bioSummary}
+          </p>
+
+          <!-- Biometric Telemetry Matrix -->
+          <div class="bio-matrix">
+            <div class="matrix-card">
+              <span class="matrix-label">UBICACIÓN GEOGRÁFICA</span>
+              <span class="matrix-val">{personalData.location}</span>
+            </div>
+            <div class="matrix-card">
+              <span class="matrix-label">CANAL TELEFÓNICO DIRECTO</span>
+              <span class="matrix-val">{personalData.phone}</span>
+            </div>
+            <div class="matrix-card">
+              <span class="matrix-label">TRANSMISIÓN ELECTRÓNICA</span>
+              <span class="matrix-val font-mono">{personalData.email}</span>
+            </div>
+            <div class="matrix-card">
+              <span class="matrix-label">IDIOMAS OPERACIONALES</span>
+              <span class="matrix-val">Español (Nativo) &bull; Inglés (B1)</span>
+            </div>
+            <div class="matrix-card">
+              <span class="matrix-label">CARRERA DE INGENIERÍA</span>
+              <span class="matrix-val">Ing. de Software (TdeA)</span>
+            </div>
+            <div class="matrix-card highlight-gold">
+              <span class="matrix-label text-gold">DISTINCIÓN NACIONAL</span>
+              <span class="matrix-val text-gold">Top 3 Hackathon MinTic IA</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 Production Telemetry Metrics -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="stat-num">01</span>
+        <span class="stat-label">Google Play Store Deploy</span>
+        <span class="stat-desc">App Móvil oficial publicada en producción</span>
+      </div>
+
+      <div class="stat-card highlight-gold-border">
+        <span class="stat-num text-gold">03</span>
+        <span class="stat-label text-gold">Podio Hackathon Nacional IA</span>
+        <span class="stat-desc">MinTic &amp; Talent Week Colombia</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Automatización con IA</span>
+        <span class="stat-desc">Scripts Python &amp; pipelines en producción</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Pasarelas de Pago Seguras</span>
+        <span class="stat-desc">Integraciones REST y arquitectura de alta disponibilidad</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .mb-4 {
+    margin-bottom: 24px;
+  }
+
+  .bio-content-grid {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 36px;
+    align-items: center;
+  }
+
+  /* Avatar Column */
+  .bio-avatar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .bio-avatar-wrap {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  .ring-cw {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px dashed var(--jarvis-cyan);
+    animation: rotate-cw 18s linear infinite;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
+  }
+  .ring-ccw {
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    border: 1px solid var(--jarvis-blue);
+    border-top-color: var(--jarvis-cyan);
+    border-bottom-color: transparent;
+    animation: rotate-ccw 10s linear infinite;
+  }
+  .bio-avatar-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--jarvis-cyan);
+    box-shadow: 0 0 20px var(--jarvis-cyan-glow);
+  }
+
+  .bio-alias-pill {
+    background: rgba(0, 240, 255, 0.12);
+    border: 1px solid var(--jarvis-cyan);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-family: var(--font-tech);
+    font-size: 11px;
+    color: var(--jarvis-cyan);
+    letter-spacing: 1px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .dot-online {
+    width: 6px;
+    height: 6px;
+    background: var(--jarvis-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--jarvis-cyan);
+  }
+  .bio-id-tag {
+    font-family: var(--font-tech);
+    font-size: 10px;
+    color: var(--jarvis-text-muted);
+    letter-spacing: 1px;
+  }
+
+  /* Bio Text Column */
+  .bio-headline {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+  .bio-desc {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--jarvis-text-main);
+    margin-bottom: 24px;
+  }
+
+  /* Matrix */
+  .bio-matrix {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .matrix-card {
+    background: rgba(0, 240, 255, 0.05);
+    border: 1px solid rgba(0, 240, 255, 0.25);
+    border-radius: 4px;
+    padding: 12px 14px;
+    font-family: var(--font-tech);
+  }
+  .matrix-label {
+    display: block;
+    font-size: 10px;
+    color: var(--jarvis-cyan);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .matrix-val {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #ffffff;
+    word-break: break-all;
+  }
+  .font-mono {
+    font-family: var(--font-tech);
+  }
+  .highlight-gold {
+    border-color: rgba(255, 190, 11, 0.6);
+    background: rgba(255, 190, 11, 0.08);
+  }
+  .text-gold {
+    color: var(--jarvis-gold) !important;
+  }
+
+  /* Stats Row */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .stat-card {
+    background: var(--jarvis-bg-card);
+    border: 1px solid var(--jarvis-border);
+    backdrop-filter: blur(14px);
+    border-radius: 4px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  .stat-card:hover {
+    border-color: var(--jarvis-cyan);
+    box-shadow: 0 10px 30px rgba(0, 240, 255, 0.25);
+    transform: translateY(-3px);
+  }
+  .stat-num {
+    display: block;
+    font-family: var(--font-hud);
+    font-size: 36px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 0 15px var(--jarvis-cyan-glow);
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    display: block;
+    font-family: var(--font-tech);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--jarvis-cyan);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .stat-desc {
+    display: block;
+    font-size: 12px;
+    color: var(--jarvis-text-muted);
+    line-height: 1.5;
+  }
+  .highlight-gold-border {
+    border-color: rgba(255, 190, 11, 0.5);
+  }
+  .highlight-gold-border:hover {
+    border-color: var(--jarvis-gold);
+    box-shadow: 0 10px 30px rgba(255, 190, 11, 0.3);
+  }
+
+  @media (max-width: 900px) {
+    .bio-content-grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  }
+</style>

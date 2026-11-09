@@ -1,0 +1,243 @@
+---
+// Contact & Satellite Link Component
+import { personalData } from '../data/cv.js';
+---
+
+<section id="contact" class="jarvis-section">
+  <div class="jarvis-container">
+    
+    <!-- Section Header -->
+    <div class="section-header">
+      <span class="section-tag">Módulo 05 // Enlace Satelital Directo</span>
+      <h2 class="section-title">Canal de Comunicación</h2>
+      <p class="section-subtitle">
+        Apertura de enlace para nuevas oportunidades profesionales, consultoría técnica y proyectos de desarrollo.
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Info Column -->
+      <div class="hud-card contact-info-card">
+        <div class="hud-card-header">
+          <span>[FREQUENCY // 2902_SRL]</span>
+          <span class="jarvis-badge jarvis-badge-cyan">LINK_ACTIVE</span>
+        </div>
+
+        <h3 class="contact-info-title">Canales de Enlace</h3>
+
+        <div class="contact-items-list">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-detail">
+              <span class="contact-label">UBICACIÓN BASE</span>
+              <span class="contact-val">{personalData.location}</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-detail">
+              <span class="contact-label">LÍNEA TELEFÓNICA</span>
+              <span class="contact-val">{personalData.phone}</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-detail">
+              <span class="contact-label">CORREO ELECTRÓNICO</span>
+              <a href={personalData.socials.email} class="contact-val link-bright">{personalData.email}</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">🐙</div>
+            <div class="contact-detail">
+              <span class="contact-label">REPOSITORIOS GITHUB</span>
+              <a href={personalData.socials.github} target="_blank" rel="noopener noreferrer" class="contact-val link-bright">
+                github.com/{personalData.githubHandle} ({personalData.alias})
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cyber Map Frame -->
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126916.73961650311!2d-75.5812115!3d6.24420345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4428dfb80fad05%3A0x42137cfcc7b53b56!2sMedell%C3%ADn%2C%20Medellin%2C%20Antioquia%2C%20Colombia!5e0!3m2!1sen!2sus!4v1738419552384!5m2!1sen!2sus"
+            class="cyber-map"
+            title="Ubicación Medellín"
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Form Column -->
+      <div class="hud-card contact-form-card">
+        <div class="hud-card-header">
+          <span>[MESSAGE_TRANSMITTER]</span>
+          <span class="jarvis-badge jarvis-badge-emerald">READY</span>
+        </div>
+
+        <h3 class="contact-info-title">Transmitir Mensaje</h3>
+
+        <form id="jarvis-contact-form" class="cyber-form" action="mailto:steven2902rueda2902@gmail.com" method="GET">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name" class="form-label">Tu Nombre / Entidad</label>
+              <input type="text" id="name" name="name" class="form-input" placeholder="Ej: Tony Stark" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Tu Correo Electrónico</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="ejemplo@empresa.com" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="subject" class="form-label">Asunto de la Misión</label>
+            <input type="text" id="subject" name="subject" class="form-input" placeholder="Propuesta de Proyecto / Desarrollo" required />
+          </div>
+
+          <div class="form-group">
+            <label for="body" class="form-label">Mensaje / Requerimientos Técnicos</label>
+            <textarea id="body" name="body" rows="6" class="form-textarea" placeholder="Describe los objetivos del software y tiempos estimados..." required></textarea>
+          </div>
+
+          <button type="submit" class="jarvis-btn jarvis-btn-primary w-full">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            <span>Transmitir Mensaje Directo</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .contact-info-title {
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  .contact-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(0, 240, 255, 0.05);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    border-radius: 4px;
+    padding: 12px 16px;
+  }
+  .contact-icon {
+    font-size: 20px;
+  }
+  .contact-detail {
+    display: flex;
+    flex-direction: column;
+  }
+  .contact-label {
+    font-family: var(--font-tech);
+    font-size: 10px;
+    color: var(--jarvis-cyan);
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+  .contact-val {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  .link-bright {
+    color: var(--jarvis-cyan);
+    text-decoration: underline;
+  }
+
+  .map-container {
+    width: 100%;
+    height: 180px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--jarvis-border);
+  }
+  .cyber-map {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    filter: invert(90%) hue-rotate(180deg) contrast(1.2);
+  }
+
+  /* Form */
+  .cyber-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-label {
+    font-family: var(--font-tech);
+    font-size: 11px;
+    color: var(--jarvis-cyan);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .form-input,
+  .form-textarea {
+    background: rgba(2, 6, 18, 0.85);
+    border: 1px solid var(--jarvis-border);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 10px 14px;
+    border-radius: 4px;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  .form-input:focus,
+  .form-textarea:focus {
+    border-color: var(--jarvis-cyan);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
+    background: rgba(3, 10, 28, 0.95);
+  }
+  .w-full {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+  }
+
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
