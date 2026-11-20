@@ -12,18 +12,22 @@ export const personalData = {
   githubHandle: "TheStevenDog",
   location: "Medellín, Colombia",
   phone: "+57 301 541 7816",
+  whatsappNumber: "573015417816",
+  whatsappUrl: "https://wa.me/573015417816?text=Hola%20Steven,%20vi%20tu%20portafolio%20Slise.Dev%20y%20me%20gustar%C3%ADa%20hablar%20sobre%20un%20proyecto",
   email: "steven2902rueda2902@gmail.com",
   roles: [
-    "Junior Full Stack & AI Developer",
+    "Full Stack & AI Developer",
     "Ingeniero de Software",
     "Automatización Asistida por IA",
     "Desarrollador Mobile & Web"
   ],
-  bioSummary: "Ingeniero de Software con experiencia en entornos de producción real. Especializado en desarrollo Full Stack y automatización de flujos asistida por IA. Con enfoque en la optimización de sistemas críticos, integración de pasarelas de pago y mejora de la eficiencia operativa mediante soluciones de código inteligentes.",
+  valueProposition: "Diseño y desarrollo aplicaciones web de alto impacto, apps móviles en Google Play Store y sistemas de automatización con Inteligencia Artificial que optimizan procesos y escalan tu negocio.",
+  bioSummary: "Ingeniero de Software con experiencia comprobada en entornos de producción real (EE.UU. y Colombia). Especializado en desarrollo Full Stack, aplicaciones móviles y automatización de flujos con Inteligencia Artificial. Ayudo a empresas y emprendedores a transformar ideas en productos digitales rápidos, seguros y listos para vender.",
   socials: {
     github: "https://github.com/TheStevenDog",
     linkedin: "https://www.linkedin.com/in/steven-rueda-lopez-a53a141ab/",
     email: "mailto:steven2902rueda2902@gmail.com",
+    whatsapp: "https://wa.me/573015417816?text=Hola%20Steven,%20vi%20tu%20portafolio%20Slise.Dev%20y%20me%20gustar%C3%ADa%20hablar%20sobre%20un%20proyecto",
     twitter: "https://x.com/DogThestev67110",
     instagram: "https://www.instagram.com/slise_yt/"
   },
@@ -170,5 +174,87 @@ export const certifications = [
     issuer: "MinTic Colombia",
     highlight: false,
     description: "Acreditación avanzada en modelado matemático, algoritmos de Machine Learning no lineales y software predictivo."
+  }
+];
+
+export const clientServices = [
+  {
+    id: "01",
+    category: "Web & Plataformas",
+    title: "Desarrollo Web Full Stack",
+    summary: "Aplicaciones web modernas, rápidas y escalables diseñadas para convertir visitantes en clientes y soportar operaciones críticas.",
+    deliverables: [
+      "Páginas Web & Landing Pages de Alta Conversión",
+      "Plataformas SaaS & Paneles Administrativos",
+      "Integración de Pasarelas de Pago Seguras",
+      "Optimización de Velocidad (Core Web Vitals) & SEO"
+    ],
+    accent: "cyan"
+  },
+  {
+    id: "02",
+    category: "Mobile & Play Store",
+    title: "Aplicaciones Móviles",
+    summary: "Desarrollo integral de aplicaciones móviles listas para producción, desde la experiencia de usuario hasta su publicación oficial.",
+    deliverables: [
+      "Desarrollo Mobile Multiplataforma & Nativo",
+      "Publicación Oficial en Google Play Store",
+      "Sincronización en Tiempo Real & Geolocalización",
+      "Notificaciones Push & Arquitectura Offline-First"
+    ],
+    accent: "gold"
+  },
+  {
+    id: "03",
+    category: "IA & Automatización",
+    title: "Soluciones con Inteligencia Artificial",
+    summary: "Automatización inteligente de procesos repetitivos, análisis predictivo y asistentes con IA para ahorrar horas de trabajo operativo.",
+    deliverables: [
+      "Scripts de Automatización con Python & IA",
+      "Integración de Agentes IA & Modelos Predictivos",
+      "Procesamiento Inteligente de Datos e Imágenes",
+      "Optimización de Carga en Servidores mediante IA"
+    ],
+    accent: "emerald"
+  },
+  {
+    id: "04",
+    category: "Backend & Arquitectura",
+    title: "APIs, Bases de Datos & Cloud",
+    summary: "Infraestructura sólida, refactorización de sistemas existentes y conexión segura entre todas las herramientas de tu negocio.",
+    deliverables: [
+      "Diseño y Desarrollo de APIs REST Seguras",
+      "Optimización y Modelado de Bases de Datos SQL",
+      "Refactorización de Código Legacy & Rendimiento",
+      "Despliegue Continuo (CI/CD) & Alta Disponibilidad"
+    ],
+    accent: "blue"
+  }
+];
+
+export const workProcess = [
+  {
+    step: "01",
+    agent: "ARCH_AI",
+    title: "Diagnóstico & Arquitectura",
+    description: "Analizamos tu idea o problema de negocio, definimos los objetivos clave y trazamos la estructura técnica ideal."
+  },
+  {
+    step: "02",
+    agent: "UI_UX",
+    title: "Diseño & Prototipo Interactivo",
+    description: "Construimos una interfaz moderna, clara y atractiva enfocada en que tus usuarios entiendan y compren sin fricción."
+  },
+  {
+    step: "03",
+    agent: "CORE_DEV",
+    title: "Desarrollo Full Stack & IA",
+    description: "Programamos el frontend, backend, base de datos y automatizaciones con código limpio, seguro y de alto rendimiento."
+  },
+  {
+    step: "04",
+    agent: "DEPLOY",
+    title: "Lanzamiento & Evolución",
+    description: "Desplegamos en producción (Web o Google Play Store), verificamos métricas reales y acompañamos el crecimiento."
   }
 ];

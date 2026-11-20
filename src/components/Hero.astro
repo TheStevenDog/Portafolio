@@ -1,82 +1,154 @@
 ---
-// Hero Section with Decrypting Typer & Biometric HUD
+// Hero Section: Editorial 3D Style (WSTA Reference) + Live Multi-Agent Cursor Construction
 import { personalData } from '../data/cv.js';
 ---
 
-<section id="hero" class="hero-section">
+<section id="hero" class="hero-section" data-hero-builder>
+  <!-- Live Multi-Agent Overlay Layer (Active in Hero) -->
+  <div class="agent-stage" id="hero-agent-stage" aria-hidden="true">
+    <!-- Dynamic Selection Marquee Box drawn by ARCH_AI -->
+    <div class="agent-marquee" id="agent-marquee">
+      <span class="marquee-dim" id="agent-marquee-dim">780 × 210</span>
+    </div>
+
+    <!-- Click Pulse Ring -->
+    <div class="agent-click-ring" id="agent-click-ring"></div>
+
+    <!-- Agent 1: ARCH_AI (Cyan) -->
+    <div class="ai-agent-cursor agent-cyan" id="agent-arch">
+      <svg class="agent-pointer-svg" width="18" height="22" viewBox="0 0 18 22" fill="none">
+        <path d="M1.5 1.5L16 10.5L9.2 12.2L6.5 19.5L1.5 1.5Z" fill="#00f0ff" stroke="#020612" stroke-width="1.6" stroke-linejoin="round"/>
+      </svg>
+      <div class="agent-badge">
+        <span class="agent-name">ARCH_AI</span>
+        <span class="agent-task" data-agent-task>LAYOUT_GRID</span>
+      </div>
+    </div>
+
+    <!-- Agent 2: COPY_BOT (Emerald) -->
+    <div class="ai-agent-cursor agent-emerald" id="agent-copy">
+      <svg class="agent-pointer-svg" width="18" height="22" viewBox="0 0 18 22" fill="none">
+        <path d="M1.5 1.5L16 10.5L9.2 12.2L6.5 19.5L1.5 1.5Z" fill="#10b981" stroke="#020612" stroke-width="1.6" stroke-linejoin="round"/>
+      </svg>
+      <div class="agent-badge">
+        <span class="agent-name">COPY_AI</span>
+        <span class="agent-task" data-agent-task>TYPING_VALUE</span>
+      </div>
+    </div>
+
+    <!-- Agent 3: UI_DESIGN (Gold) -->
+    <div class="ai-agent-cursor agent-gold" id="agent-ui">
+      <svg class="agent-pointer-svg" width="18" height="22" viewBox="0 0 18 22" fill="none">
+        <path d="M1.5 1.5L16 10.5L9.2 12.2L6.5 19.5L1.5 1.5Z" fill="#ffbe0b" stroke="#020612" stroke-width="1.6" stroke-linejoin="round"/>
+      </svg>
+      <div class="agent-badge">
+        <span class="agent-name">UI_STUDIO</span>
+        <span class="agent-task" data-agent-task>STYLING_HUD</span>
+      </div>
+    </div>
+
+    <!-- Agent 4: 3D_ENGINE (Electric Blue/Magenta) -->
+    <div class="ai-agent-cursor agent-magenta" id="agent-3d">
+      <svg class="agent-pointer-svg" width="18" height="22" viewBox="0 0 18 22" fill="none">
+        <path d="M1.5 1.5L16 10.5L9.2 12.2L6.5 19.5L1.5 1.5Z" fill="#c084fc" stroke="#020612" stroke-width="1.6" stroke-linejoin="round"/>
+      </svg>
+      <div class="agent-badge">
+        <span class="agent-name">3D_CORE</span>
+        <span class="agent-task" data-agent-task>PARTICLE_MESH</span>
+      </div>
+    </div>
+  </div>
+
   <div class="jarvis-container hero-container">
-    
     <div class="hero-content">
-      <!-- Protocol Badge -->
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        <span>PROTOCOLO J.A.R.V.I.S. // STARK-ID: SRL-2902</span>
+
+      <!-- Top Bar: Identity Badge + Agent Replay Controller -->
+      <div class="hero-top-bar">
+        <div class="hero-badge" data-build-part="badge">
+          <span class="badge-dot"></span>
+          <span>SLISE.DEV // {personalData.fullName.toUpperCase()}</span>
+        </div>
+
+        <button type="button" id="replay-agents-btn" class="agent-replay-pill" title="Ver a los agentes IA construir la portada en vivo">
+          <span class="replay-spark">⚡</span>
+          <span id="replay-agents-label">Agentes IA: Construyendo...</span>
+        </button>
       </div>
 
-      <!-- Main Name -->
-      <h1 class="hero-name" data-scramble="true">
-        {personalData.name} {personalData.lastName}
-      </h1>
+      <!-- Giant Editorial Display Headline (Inspired by 00:01 Video.mp4 "BOOST YOUR BRAND") -->
+      <div class="hero-headline-wrap" data-build-part="headline" data-blueprint-label="H1 // EDITORIAL_DISPLAY [780×210]">
+        <span class="bp-corner bp-tl"></span>
+        <span class="bp-corner bp-tr"></span>
+        <span class="bp-corner bp-bl"></span>
+        <span class="bp-corner bp-br"></span>
 
-      <!-- Subtitle Role -->
-      <div class="hero-role-title">
-        <span class="text-cyan">//</span> Ingeniero de Software &amp; Full Stack AI Developer
+        <h1 class="hero-editorial-title">
+          <span class="title-stroke">IMPULSA</span>
+          <span class="title-solid">TU NEGOCIO</span>
+          <span class="title-accent">CON IA &amp; SOFTWARE.</span>
+        </h1>
       </div>
 
-      <!-- Typing Dynamic Role -->
-      <div class="hero-typer-line">
-        <span class="typer-prefix">Especialista en:</span>
-        <span id="hero-typewriter" class="typer-dynamic">Desarrollo Full Stack</span>
+      <!-- Dynamic Specialty Line -->
+      <div class="hero-typer-line" data-build-part="typer" data-blueprint-label="ROLE // ACTIVE_MODULE">
+        <span class="typer-prefix">// Especialista en:</span>
+        <span id="hero-typewriter" class="typer-dynamic">Aplicaciones Web &amp; Plataformas Full Stack</span>
         <span class="typer-cursor"></span>
       </div>
 
-      <!-- Summary Paragraph -->
-      <p class="hero-summary">
-        {personalData.bioSummary}
-      </p>
+      <!-- Client-Oriented Value Proposition (Inspired by Video.mp4 bold editorial keywords) -->
+      <div class="hero-summary-wrap" data-build-part="summary" data-blueprint-label="COPY // VALUE_PROPOSITION">
+        <p class="hero-summary">
+          Soy <strong>{personalData.fullName}</strong>, Ingeniero de Software en Medellín. Diseño y construyo <strong>aplicaciones web modernas</strong>, <strong>apps móviles en Google Play Store</strong> y sistemas de <strong>automatización con Inteligencia Artificial</strong> que optimizan operaciones y convierten visitantes en <strong>clientes reales</strong>.
+        </p>
+      </div>
 
-      <!-- Quick Telemetry Highlights -->
-      <div class="hero-telemetry-grid">
-        <div class="telemetry-box">
-          <span class="telemetry-label">UBICACIÓN</span>
-          <span class="telemetry-val">{personalData.location}</span>
-        </div>
+      <!-- Proof & Credibility Metrics -->
+      <div class="hero-telemetry-grid" data-build-part="metrics" data-blueprint-label="PROOF // VERIFIED_METRICS">
         <div class="telemetry-box highlight-gold">
-          <span class="telemetry-label">PREMIO NACIONAL</span>
-          <span class="telemetry-val">Top 3 Hackathon IA</span>
+          <span class="telemetry-label">RECONOCIMIENTO NACIONAL</span>
+          <span class="telemetry-val">Top 3 Hackathon IA MinTic</span>
+        </div>
+        <div class="telemetry-box">
+          <span class="telemetry-label">PRODUCTO EN TIENDA OFICIAL</span>
+          <span class="telemetry-val">App en Google Play Store</span>
         </div>
         <div class="telemetry-box highlight-emerald">
           <span class="telemetry-label">DISPONIBILIDAD</span>
-          <span class="telemetry-val">Production Ready</span>
+          <span class="telemetry-val">Proyectos &amp; Consultoría</span>
         </div>
       </div>
 
-      <!-- Hero Action CTA Group -->
-      <div class="hero-actions">
-        <a href="#projects" class="jarvis-btn jarvis-btn-primary" data-magnetic data-magnetic-strength="0.3">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <!-- High-Conversion CTA Group (WhatsApp + Projects + GitHub) -->
+      <div class="hero-actions" data-build-part="actions" data-blueprint-label="CTA // CONVERSION_NODES">
+        <a
+          href={personalData.whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="jarvis-btn jarvis-btn-whatsapp"
+          id="hero-primary-cta"
+          data-magnetic
+          data-magnetic-strength="0.28"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.625.846 5.059 2.284 7.033l-1.494 5.457 5.643-1.48c1.9.997 4.063 1.565 6.367 1.565 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          <span>Hablemos por WhatsApp</span>
+        </a>
+
+        <a href="#projects" class="jarvis-btn jarvis-btn-primary" data-magnetic data-magnetic-strength="0.28">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
           </svg>
-          <span>Explorar Proyectos</span>
+          <span>Ver Proyectos Reales</span>
         </a>
-        <a href="#about" class="jarvis-btn jarvis-btn-outline" data-magnetic data-magnetic-strength="0.3">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-            <line x1="8" y1="21" x2="16" y2="21"></line>
-            <line x1="12" y1="17" x2="12" y2="21"></line>
-          </svg>
-          <span>Diagnóstico Biométrico</span>
-        </a>
-        <a href={personalData.socials.github} target="_blank" rel="noopener noreferrer" class="jarvis-btn jarvis-btn-outline" data-magnetic data-magnetic-strength="0.3">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-          </svg>
-          <span>GitHub Oficial</span>
+
+        <a href="#services" class="jarvis-btn jarvis-btn-outline" data-magnetic data-magnetic-strength="0.28">
+          <span>Qué Puedo Crear Para Ti</span>
         </a>
       </div>
 
     </div>
-
   </div>
 </section>
 
@@ -86,226 +158,734 @@ import { personalData } from '../data/cv.js';
     display: flex;
     align-items: center;
     position: relative;
-    padding-top: 100px;
-    padding-bottom: 60px;
+    padding-top: 108px;
+    padding-bottom: 64px;
     z-index: 2;
+    overflow: hidden;
   }
 
   .hero-container {
     position: relative;
+    z-index: 3;
   }
 
   .hero-content {
-    max-width: 820px;
+    max-width: 740px;
   }
 
-  /* Badge */
+  /* Top Bar */
+  .hero-top-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+
   .hero-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
+    gap: 10px;
     background: rgba(0, 240, 255, 0.08);
-    border: 1px solid var(--jarvis-cyan);
-    border-radius: 4px;
+    border: 1px solid rgba(0, 240, 255, 0.35);
+    padding: 6px 14px;
+    border-radius: 999px;
     font-family: var(--font-tech);
     font-size: 11px;
     color: var(--jarvis-cyan);
-    letter-spacing: 1.5px;
-    margin-bottom: 24px;
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+    letter-spacing: 2px;
   }
   .badge-dot {
     width: 7px;
     height: 7px;
-    background: var(--jarvis-cyan);
     border-radius: 50%;
-    box-shadow: 0 0 8px var(--jarvis-cyan);
-    animation: pulse-glow 1.5s infinite;
+    background: var(--jarvis-cyan);
+    box-shadow: 0 0 10px var(--jarvis-cyan);
+    animation: pulse-glow 2s infinite;
   }
 
-  /* Name & Title */
-  .hero-name {
-    font-size: clamp(38px, 6vw, 64px);
+  .agent-replay-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255, 190, 11, 0.1);
+    border: 1px solid rgba(255, 190, 11, 0.45);
+    color: #ffbe0b;
+    font-family: var(--font-tech);
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .agent-replay-pill:hover {
+    background: #ffbe0b;
+    color: #020612;
+    box-shadow: 0 0 18px rgba(255, 190, 11, 0.6);
+  }
+
+  /* Editorial Giant Title (Inspired by Video.mp4 "BOOST YOUR BRAND") */
+  .hero-headline-wrap {
+    position: relative;
+    margin-bottom: 18px;
+  }
+
+  .hero-editorial-title {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-hud);
     font-weight: 900;
-    line-height: 1.1;
-    color: #ffffff;
-    text-shadow: 0 0 25px rgba(0, 240, 255, 0.45);
-    margin-bottom: 12px;
+    line-height: 0.96;
+    letter-spacing: -0.5px;
     text-transform: uppercase;
   }
-  .hero-role-title {
-    font-family: var(--font-display);
-    font-size: clamp(18px, 2.5vw, 24px);
-    font-weight: 600;
-    color: var(--jarvis-cyan);
-    letter-spacing: 1.5px;
-    margin-bottom: 16px;
+
+  .title-stroke {
+    font-size: clamp(2.8rem, 6.5vw, 5.2rem);
+    color: transparent;
+    -webkit-text-stroke: 1.8px rgba(240, 247, 255, 0.85);
+    letter-spacing: 2px;
+    transition: all 0.4s ease;
   }
-  .text-cyan {
-    color: var(--jarvis-cyan);
+
+  .title-solid {
+    font-size: clamp(3rem, 7vw, 5.6rem);
+    color: #ffffff;
+    text-shadow: 0 10px 35px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
+  }
+
+  .title-accent {
+    font-size: clamp(1.75rem, 3.8vw, 3.1rem);
+    background: linear-gradient(90deg, #ffbe0b 0%, #00f0ff 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 6px;
+    letter-spacing: 1px;
   }
 
   /* Typer Line */
   .hero-typer-line {
     font-family: var(--font-tech);
-    font-size: clamp(16px, 2vw, 21px);
-    color: var(--jarvis-text-main);
-    display: flex;
+    font-size: 15px;
+    display: inline-flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 22px;
+    flex-wrap: wrap;
+    background: rgba(4, 14, 30, 0.78);
+    padding: 8px 16px;
+    border-radius: 6px;
+    border-left: 3px solid #ffbe0b;
   }
   .typer-prefix {
     color: var(--jarvis-text-muted);
   }
   .typer-dynamic {
-    color: #ffffff;
+    color: #ffbe0b;
     font-weight: 700;
-    text-shadow: 0 0 12px var(--jarvis-cyan-glow);
   }
   .typer-cursor {
     display: inline-block;
-    width: 9px;
-    height: 20px;
-    background: var(--jarvis-cyan);
+    width: 8px;
+    height: 16px;
+    background: #ffbe0b;
     animation: pulse-glow 0.8s infinite;
   }
 
-  /* Summary */
+  /* Editorial Value Proposition */
+  .hero-summary-wrap {
+    position: relative;
+    margin-bottom: 28px;
+  }
   .hero-summary {
-    font-size: 16px;
-    line-height: 1.8;
-    color: var(--jarvis-text-main);
-    margin-bottom: 30px;
-    max-width: 760px;
+    font-size: clamp(1rem, 1.25vw, 1.15rem);
+    color: rgba(226, 238, 255, 0.88);
+    line-height: 1.75;
+    max-width: 650px;
+  }
+  .hero-summary strong {
+    color: #ffffff;
+    font-weight: 700;
+    border-bottom: 1px dashed rgba(0, 240, 255, 0.45);
   }
 
-  /* Telemetry Grid */
+  /* Telemetry Proof Grid */
   .hero-telemetry-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 14px;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
   }
   .telemetry-box {
-    background: rgba(5, 15, 34, 0.85);
-    border: 1px solid var(--jarvis-border);
-    backdrop-filter: blur(10px);
-    padding: 12px 16px;
-    border-radius: 4px;
-    font-family: var(--font-tech);
+    background: rgba(5, 14, 32, 0.82);
+    border: 1px solid rgba(0, 240, 255, 0.25);
+    backdrop-filter: blur(12px);
+    padding: 13px 16px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+  }
+  .telemetry-box.highlight-gold {
+    border-color: rgba(255, 190, 11, 0.55);
+    background: rgba(255, 190, 11, 0.07);
+  }
+  .telemetry-box.highlight-emerald {
+    border-color: rgba(16, 185, 129, 0.55);
+    background: rgba(16, 185, 129, 0.07);
   }
   .telemetry-label {
-    display: block;
+    font-family: var(--font-tech);
     font-size: 10px;
-    color: var(--jarvis-cyan);
-    letter-spacing: 1.5px;
+    letter-spacing: 1.4px;
+    color: var(--jarvis-text-muted);
     margin-bottom: 4px;
   }
   .telemetry-val {
-    font-size: 14px;
+    font-family: var(--font-display);
+    font-size: 15px;
     font-weight: 700;
     color: #ffffff;
   }
-  .highlight-gold {
-    border-color: rgba(255, 190, 11, 0.5);
-  }
-  .highlight-gold .telemetry-label {
-    color: var(--jarvis-gold);
-  }
-  .highlight-emerald {
-    border-color: rgba(16, 185, 129, 0.5);
-  }
-  .highlight-emerald .telemetry-label {
-    color: var(--jarvis-emerald);
-  }
 
-  /* Action Buttons */
+  /* Hero Actions */
   .hero-actions {
     display: flex;
-    gap: 16px;
     flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+  }
+
+  /* WhatsApp Conversion Button */
+  .jarvis-btn-whatsapp {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff !important;
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.55);
+    border: 1px solid rgba(16, 185, 129, 0.9);
+  }
+  .jarvis-btn-whatsapp:hover {
+    background: #ffffff;
+    color: #047857 !important;
+    box-shadow: 0 0 32px rgba(16, 185, 129, 0.85);
+    transform: translateY(-2px);
+  }
+
+  /* =========================================================================
+     BLUEPRINT WIREFRAME STATE & MULTI-AGENT CURSOR STAGE
+  ========================================================================= */
+  [data-build-part] {
+    position: relative;
+    transition: filter 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+  }
+
+  /* While an element is in wireframe state before its agent finishes it */
+  [data-build-part].is-wireframe {
+    outline: 1px dashed rgba(0, 240, 255, 0.55);
+    outline-offset: 6px;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgba(0, 240, 255, 0.03),
+      rgba(0, 240, 255, 0.03) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+    filter: saturate(0.25) contrast(0.92);
+  }
+
+  [data-build-part].is-wireframe::after {
+    content: attr(data-blueprint-label);
+    position: absolute;
+    top: -19px;
+    left: 0;
+    font-family: var(--font-tech, monospace);
+    font-size: 9px;
+    letter-spacing: 1.2px;
+    color: #00f0ff;
+    background: rgba(2, 6, 18, 0.92);
+    padding: 1px 6px;
+    border: 1px solid rgba(0, 240, 255, 0.45);
+    border-radius: 2px;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  /* Active flash when an agent just locked an element */
+  [data-build-part].just-built {
+    animation: agentLockFlash 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes agentLockFlash {
+    0% {
+      outline: 2px solid #ffbe0b;
+      outline-offset: 10px;
+      box-shadow: 0 0 28px rgba(255, 190, 11, 0.35);
+    }
+    100% {
+      outline: 1px solid transparent;
+      outline-offset: 0px;
+      box-shadow: none;
+    }
+  }
+
+  /* Agent Stage Overlay */
+  .agent-stage {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9000;
+    overflow: hidden;
+  }
+
+  .ai-agent-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 9005;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.75));
+  }
+  .ai-agent-cursor.is-active {
+    opacity: 1;
+  }
+
+  .agent-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 14px;
+    margin-top: -4px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-family: var(--font-tech, monospace);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.65);
+  }
+  .agent-task {
+    font-weight: 400;
+    opacity: 0.92;
+    padding-left: 5px;
+    border-left: 1px solid rgba(2, 6, 18, 0.35);
+  }
+
+  .agent-cyan .agent-badge {
+    background: #00f0ff;
+    color: #020612;
+  }
+  .agent-emerald .agent-badge {
+    background: #10b981;
+    color: #020612;
+  }
+  .agent-gold .agent-badge {
+    background: #ffbe0b;
+    color: #020612;
+  }
+  .agent-magenta .agent-badge {
+    background: #c084fc;
+    color: #020612;
+  }
+
+  /* Selection Marquee Box */
+  .agent-marquee {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border: 1.5px dashed #00f0ff;
+    background: rgba(0, 240, 255, 0.06);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 9001;
+    transition: opacity 0.25s ease;
+  }
+  .agent-marquee.is-visible {
+    opacity: 1;
+  }
+  .marquee-dim {
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+    background: #00f0ff;
+    color: #020612;
+    font-family: var(--font-tech, monospace);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+
+  /* Agent Click Ring */
+  .agent-click-ring {
+    position: fixed;
+    width: 36px;
+    height: 36px;
+    margin-left: -18px;
+    margin-top: -18px;
+    border-radius: 50%;
+    border: 2px solid #ffbe0b;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.3);
+    z-index: 9004;
+  }
+  .agent-click-ring.is-pulsing {
+    animation: clickPulseWave 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes clickPulseWave {
+    0% {
+      opacity: 1;
+      transform: scale(0.4);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(2.4);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-telemetry-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .hero-actions .jarvis-btn {
+      justify-content: center;
+    }
   }
 </style>
 
 <script>
-  // High-Tech Text Scramble & Role Typer
+  // 1. Dynamic Role Typewriter
   const roles = [
-    'Desarrollo Full Stack',
-    'Automatización Asistida por IA',
-    'Arquitectura Web Escalable',
-    'Despliegues en Google Play Store',
-    'Machine Learning & Software Predictivo'
+    'Aplicaciones Web & Plataformas Full Stack',
+    'Apps Móviles en Google Play Store',
+    'Automatización de Negocios con IA',
+    'Pasarelas de Pago & APIs Escalables',
+    'Modelos Predictivos & Machine Learning'
   ];
 
+  let typerInitialized = false;
   function initTyper() {
+    if (typerInitialized) return;
     const el = document.getElementById('hero-typewriter');
     if (!el) return;
+    typerInitialized = true;
 
     let roleIdx = 0;
-    let charIdx = 0;
-    let isDeleting = false;
+    let charIdx = roles[0].length;
+    let isDeleting = true;
 
     function typeLoop() {
       const currentRole = roles[roleIdx];
-
       if (isDeleting) {
         charIdx--;
-        el.textContent = currentRole.substring(0, charIdx);
+        el!.textContent = currentRole.substring(0, charIdx);
       } else {
         charIdx++;
-        el.textContent = currentRole.substring(0, charIdx);
+        el!.textContent = currentRole.substring(0, charIdx);
       }
 
-      let speed = isDeleting ? 40 : 80;
+      let speed = isDeleting ? 32 : 65;
 
       if (!isDeleting && charIdx === currentRole.length) {
-        speed = 2200; // Pause at end of word
+        speed = 2300;
         isDeleting = true;
       } else if (isDeleting && charIdx === 0) {
         isDeleting = false;
         roleIdx = (roleIdx + 1) % roles.length;
-        speed = 400; // Pause before next word
+        speed = 350;
       }
 
       setTimeout(typeLoop, speed);
     }
 
-    typeLoop();
+    setTimeout(typeLoop, 2200);
   }
 
-  // Scramble Name Effect
-  const SCRAMBLE_CHARS = '0123456789ABCDEF/\\#<>_%*+=-~[]';
-  function initScramble() {
-    document.querySelectorAll('[data-scramble="true"]').forEach((element) => {
-      const finalPhrase = element.textContent.trim();
-      let iteration = 0;
-      const interval = setInterval(() => {
-        element.textContent = finalPhrase
-          .split('')
-          .map((char, index) => {
-            if (char === ' ' || char === '\n') return char;
-            if (index < iteration / 2.5) return finalPhrase[index];
-            return SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
-          })
-          .join('');
+  // =========================================================================
+  // 2. LIVE MULTI-AGENT HERO BUILD CHOREOGRAPHY
+  // =========================================================================
+  let buildRunId = 0;
 
-        iteration++;
-        if (iteration >= finalPhrase.length * 2.5) {
-          clearInterval(interval);
-          element.textContent = finalPhrase;
-        }
-      }, 30);
+  function runHeroAgentBuild() {
+    buildRunId++;
+    const currentRun = buildRunId;
+
+    const archEl = document.getElementById('agent-arch');
+    const copyEl = document.getElementById('agent-copy');
+    const uiEl = document.getElementById('agent-ui');
+    const engine3dEl = document.getElementById('agent-3d');
+    const marqueeEl = document.getElementById('agent-marquee');
+    const marqueeDimEl = document.getElementById('agent-marquee-dim');
+    const clickRingEl = document.getElementById('agent-click-ring');
+    const replayLabel = document.getElementById('replay-agents-label');
+
+    if (!archEl || !copyEl || !uiEl || !engine3dEl) return;
+
+    const parts = {
+      headline: document.querySelector('[data-build-part="headline"]') as HTMLElement | null,
+      typer: document.querySelector('[data-build-part="typer"]') as HTMLElement | null,
+      summary: document.querySelector('[data-build-part="summary"]') as HTMLElement | null,
+      metrics: document.querySelector('[data-build-part="metrics"]') as HTMLElement | null,
+      actions: document.querySelector('[data-build-part="actions"]') as HTMLElement | null
+    };
+
+    // Put Hero parts into Blueprint Wireframe state (still 100% readable!)
+    Object.values(parts).forEach((el) => {
+      if (el) {
+        el.classList.remove('just-built');
+        el.classList.add('is-wireframe');
+      }
     });
+
+    if (replayLabel) replayLabel.textContent = 'Agentes IA: Construyendo...';
+
+    // Re-trigger 3D Particle Spacecraft Assembly
+    if (typeof (window as any).triggerReactorAssemble === 'function') {
+      (window as any).triggerReactorAssemble();
+    }
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    // Helper: get center or corner of a DOM element safely
+    function getRect(el: HTMLElement | null, fallbackX: number, fallbackY: number) {
+      if (!el) return { left: fallbackX, top: fallbackY, width: 320, height: 110, cx: fallbackX + 160, cy: fallbackY + 55 };
+      const r = el.getBoundingClientRect();
+      return {
+        left: r.left,
+        top: r.top,
+        width: r.width,
+        height: r.height,
+        cx: r.left + r.width * 0.45,
+        cy: r.top + r.height * 0.5
+      };
+    }
+
+    function setAgentTask(agentEl: HTMLElement, text: string) {
+      const t = agentEl.querySelector('[data-agent-task]');
+      if (t) t.textContent = text;
+    }
+
+    function lockPart(el: HTMLElement | null, clickX?: number, clickY?: number) {
+      if (!el) return;
+      el.classList.remove('is-wireframe');
+      el.classList.add('just-built');
+      if (clickRingEl && clickX !== undefined && clickY !== undefined) {
+        clickRingEl.style.left = `${clickX}px`;
+        clickRingEl.style.top = `${clickY}px`;
+        clickRingEl.classList.remove('is-pulsing');
+        void clickRingEl.offsetWidth;
+        clickRingEl.classList.add('is-pulsing');
+      }
+    }
+
+    // Smooth curved Bézier interpolation between waypoints for each agent
+    interface AgentState {
+      el: HTMLElement;
+      x: number;
+      y: number;
+      startX: number;
+      startY: number;
+      targetX: number;
+      targetY: number;
+      ctrlX: number;
+      ctrlY: number;
+      moveStart: number;
+      moveDuration: number;
+    }
+
+    function createAgentState(el: HTMLElement, initX: number, initY: number): AgentState {
+      el.classList.add('is-active');
+      el.style.transform = `translate3d(${initX}px, ${initY}px, 0)`;
+      return {
+        el,
+        x: initX,
+        y: initY,
+        startX: initX,
+        startY: initY,
+        targetX: initX,
+        targetY: initY,
+        ctrlX: initX,
+        ctrlY: initY,
+        moveStart: performance.now(),
+        moveDuration: 600
+      };
+    }
+
+    function sendAgentTo(state: AgentState, tx: number, ty: number, duration = 680, curveOffset = 65) {
+      state.startX = state.x;
+      state.startY = state.y;
+      state.targetX = tx;
+      state.targetY = ty;
+      // Perpendicular control point for natural human/Figma curved cursor motion
+      const midX = (state.startX + tx) * 0.5;
+      const midY = (state.startY + ty) * 0.5;
+      state.ctrlX = midX + (Math.random() - 0.5) * curveOffset * 2;
+      state.ctrlY = midY - Math.abs(curveOffset);
+      state.moveStart = performance.now();
+      state.moveDuration = duration;
+    }
+
+    // Spawn 4 agents from corners of viewport
+    const arch = createAgentState(archEl, -40, vh * 0.18);
+    const copy = createAgentState(copyEl, vw * 0.45, -40);
+    const ui = createAgentState(uiEl, -40, vh * 0.78);
+    const eng3d = createAgentState(engine3dEl, vw + 40, vh * 0.35);
+
+    const allAgents = [arch, copy, ui, eng3d];
+
+    const hRect = getRect(parts.headline, 80, 180);
+    const tRect = getRect(parts.typer, 80, 380);
+    const sRect = getRect(parts.summary, 80, 440);
+    const mRect = getRect(parts.metrics, 80, 560);
+    const aRect = getRect(parts.actions, 80, 660);
+
+    // PHASE 1 (t = 0ms): Agents fly in simultaneously
+    setAgentTask(archEl, 'SELECT_GRID');
+    sendAgentTo(arch, hRect.left, hRect.top, 620, 50);
+
+    setAgentTask(copyEl, 'WRITE_H1');
+    sendAgentTo(copy, hRect.cx + 40, hRect.cy, 720, -60);
+
+    setAgentTask(uiEl, 'BUILD_METRICS');
+    sendAgentTo(ui, mRect.left + 40, mRect.cy, 750, 70);
+
+    setAgentTask(engine3dEl, 'IGNITE_3D_ROCKET');
+    sendAgentTo(eng3d, vw * 0.72, vh * 0.44, 780, -80);
+
+    // PHASE 2 (t = 660ms): ARCH drags selection box across headline, 3D calibrates rocket
+    setTimeout(() => {
+      if (currentRun !== buildRunId) return;
+      setAgentTask(archEl, 'DRAG_BOUNDS');
+      sendAgentTo(arch, hRect.left + hRect.width, hRect.top + hRect.height, 720, 20);
+
+      if (marqueeEl) {
+        marqueeEl.style.left = `${hRect.left}px`;
+        marqueeEl.style.top = `${hRect.top}px`;
+        marqueeEl.style.width = '10px';
+        marqueeEl.style.height = '10px';
+        marqueeEl.classList.add('is-visible');
+      }
+
+      setAgentTask(copyEl, 'LOCK_TYPOGRAPHY');
+      sendAgentTo(copy, tRect.cx, tRect.cy, 640, 40);
+
+      setAgentTask(engine3dEl, 'MESH_2300_PTS');
+      sendAgentTo(eng3d, vw * 0.66, vh * 0.56, 760, 65);
+    }, 660);
+
+    // PHASE 3 (t = 1420ms): Lock Headline & Typer, move to Value Prop & Metrics
+    setTimeout(() => {
+      if (currentRun !== buildRunId) return;
+      if (marqueeEl) marqueeEl.classList.remove('is-visible');
+      lockPart(parts.headline, hRect.left + hRect.width * 0.8, hRect.top + hRect.height * 0.5);
+      lockPart(parts.typer);
+
+      setAgentTask(copyEl, 'INJECT_COPY');
+      sendAgentTo(copy, sRect.cx, sRect.cy, 660, -45);
+
+      setAgentTask(archEl, 'ALIGN_CARDS');
+      sendAgentTo(arch, mRect.cx + 90, mRect.cy, 660, 50);
+
+      lockPart(parts.metrics, mRect.left + 60, mRect.cy);
+      setAgentTask(uiEl, 'STYLE_WHATSAPP_CTA');
+      sendAgentTo(ui, aRect.left + 110, aRect.cy, 680, -40);
+    }, 1420);
+
+    // PHASE 4 (t = 2150ms): Lock Summary & Actions CTA with Click Pulse
+    setTimeout(() => {
+      if (currentRun !== buildRunId) return;
+      lockPart(parts.summary, sRect.cx, sRect.cy);
+      lockPart(parts.actions, aRect.left + 110, aRect.cy);
+
+      setAgentTask(uiEl, 'CTA_READY ✓');
+      setAgentTask(copyEl, 'COPY_READY ✓');
+      setAgentTask(archEl, 'LAYOUT_OK ✓');
+      setAgentTask(engine3dEl, '3D_60FPS ✓');
+
+      // Glide agents outward smoothly
+      sendAgentTo(arch, vw * 0.52, 85, 850, -40);
+      sendAgentTo(copy, vw * 0.85, 110, 850, 50);
+      sendAgentTo(ui, vw * 0.48, vh - 60, 850, 40);
+      sendAgentTo(eng3d, vw * 0.84, vh * 0.32, 850, -50);
+    }, 2150);
+
+    // PHASE 5 (t = 3100ms): Complete & Dock Agents
+    setTimeout(() => {
+      if (currentRun !== buildRunId) return;
+      allAgents.forEach((a) => a.el.classList.remove('is-active'));
+      if (replayLabel) replayLabel.textContent = 'Replay Agentes IA';
+    }, 3100);
+
+    // Animation loop for smooth 60fps cursor movement & live marquee box sizing
+    function tick(now: number) {
+      if (currentRun !== buildRunId) return;
+
+      for (const a of allAgents) {
+        const elapsed = now - a.moveStart;
+        const t = Math.min(1, Math.max(0, elapsed / a.moveDuration));
+        // Cubic ease-in-out
+        const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        const inv = 1 - ease;
+
+        // Quadratic Bézier curve
+        a.x = inv * inv * a.startX + 2 * inv * ease * a.ctrlX + ease * ease * a.targetX;
+        a.y = inv * inv * a.startY + 2 * inv * ease * a.ctrlY + ease * ease * a.targetY;
+        a.el.style.transform = `translate3d(${a.x.toFixed(1)}px, ${a.y.toFixed(1)}px, 0)`;
+      }
+
+      // Update selection marquee box size dynamically while ARCH drags it
+      if (marqueeEl && marqueeEl.classList.contains('is-visible')) {
+        const w = Math.max(12, arch.x - hRect.left);
+        const h = Math.max(12, arch.y - hRect.top);
+        marqueeEl.style.width = `${w.toFixed(0)}px`;
+        marqueeEl.style.height = `${h.toFixed(0)}px`;
+        if (marqueeDimEl) {
+          marqueeDimEl.textContent = `${Math.round(w)} × ${Math.round(h)}`;
+        }
+      }
+
+      if (now - arch.moveStart < 3400) {
+        requestAnimationFrame(tick);
+      }
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  function initHeroBuilder() {
+    initTyper();
+
+    const replayBtn = document.getElementById('replay-agents-btn');
+    if (replayBtn) {
+      replayBtn.addEventListener('click', () => {
+        runHeroAgentBuild();
+      });
+    }
+
+    // Run automatically on load
+    setTimeout(() => {
+      runHeroAgentBuild();
+    }, 250);
   }
 
   if (typeof window !== 'undefined') {
-    initTyper();
-    initScramble();
-    document.addEventListener('astro:page-load', () => {
-      initTyper();
-      initScramble();
-    });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initHeroBuilder);
+    } else {
+      initHeroBuilder();
+    }
+    document.addEventListener('astro:page-load', initHeroBuilder);
   }
 </script>

@@ -1,6 +1,6 @@
 ---
-// About & Biometric Diagnostics Component
-import { personalData, certifications } from '../data/cv.js';
+// About & Professional Profile Component (Client-Focused + Editorial Style)
+import { personalData } from '../data/cv.js';
 ---
 
 <section id="about" class="jarvis-section">
@@ -8,18 +8,18 @@ import { personalData, certifications } from '../data/cv.js';
     
     <!-- Section Header -->
     <div class="section-header">
-      <span class="section-tag">Módulo 01 // Biometría &amp; Perfil</span>
-      <h2 class="section-title">Dossier del Ingeniero</h2>
+      <span class="section-tag">01 // Sobre Mí &amp; Enfoque Profesional</span>
+      <h2 class="section-title">Ingeniería de Software Orientada a Resultados</h2>
       <p class="section-subtitle">
-        Diagnóstico de competencias de software, credenciales y arquitectura de sistemas extraídas de la base de datos de producción real.
+        Desarrollo productos digitales pensados para crecer: código limpio, experiencia de usuario fluida y automatización inteligente con IA.
       </p>
     </div>
 
-    <!-- Main Biometric HUD Card -->
+    <!-- Main Profile HUD Card -->
     <div class="hud-card mb-4">
       <div class="hud-card-header">
-        <span>[DOSSIER_ID // SRL-2902]</span>
-        <span class="jarvis-badge jarvis-badge-cyan">STATUS: PRODUCTION_READY</span>
+        <span>[PERFIL_PROFESIONAL // SLISE.DEV]</span>
+        <span class="jarvis-badge jarvis-badge-emerald">DISPONIBLE PARA PROYECTOS</span>
       </div>
 
       <div class="bio-content-grid">
@@ -37,40 +37,40 @@ import { personalData, certifications } from '../data/cv.js';
           <div class="bio-id-tag">MEDELLÍN // COLOMBIA</div>
         </div>
 
-        <!-- Bio Dossier Details -->
+        <!-- Bio Details -->
         <div class="bio-text-col">
           <h3 class="bio-headline">
-            Ingeniero de Software &bull; Full Stack &amp; AI
+            {personalData.fullName} &bull; Full Stack &amp; AI Developer
           </h3>
 
           <p class="bio-desc">
             {personalData.bioSummary}
           </p>
 
-          <!-- Biometric Telemetry Matrix -->
+          <!-- Direct Info Matrix -->
           <div class="bio-matrix">
             <div class="matrix-card">
-              <span class="matrix-label">UBICACIÓN GEOGRÁFICA</span>
-              <span class="matrix-val">{personalData.location}</span>
+              <span class="matrix-label">UBICACIÓN</span>
+              <span class="matrix-val">{personalData.location} (Remoto Global)</span>
             </div>
-            <div class="matrix-card">
-              <span class="matrix-label">CANAL TELEFÓNICO DIRECTO</span>
+            <a href={personalData.whatsappUrl} target="_blank" rel="noopener noreferrer" class="matrix-card highlight-emerald-card">
+              <span class="matrix-label text-emerald">WHATSAPP DIRECTO &#8599;</span>
               <span class="matrix-val">{personalData.phone}</span>
-            </div>
-            <div class="matrix-card">
-              <span class="matrix-label">TRANSMISIÓN ELECTRÓNICA</span>
+            </a>
+            <a href={personalData.socials.email} class="matrix-card">
+              <span class="matrix-label">CORREO ELECTRÓNICO &#8599;</span>
               <span class="matrix-val font-mono">{personalData.email}</span>
-            </div>
+            </a>
             <div class="matrix-card">
-              <span class="matrix-label">IDIOMAS OPERACIONALES</span>
+              <span class="matrix-label">IDIOMAS</span>
               <span class="matrix-val">Español (Nativo) &bull; Inglés (B1)</span>
             </div>
             <div class="matrix-card">
-              <span class="matrix-label">CARRERA DE INGENIERÍA</span>
+              <span class="matrix-label">FORMACIÓN</span>
               <span class="matrix-val">Ing. de Software (TdeA)</span>
             </div>
             <div class="matrix-card highlight-gold">
-              <span class="matrix-label text-gold">DISTINCIÓN NACIONAL</span>
+              <span class="matrix-label text-gold">PREMIO NACIONAL</span>
               <span class="matrix-val text-gold">Top 3 Hackathon MinTic IA</span>
             </div>
           </div>
@@ -79,30 +79,30 @@ import { personalData, certifications } from '../data/cv.js';
       </div>
     </div>
 
-    <!-- 4 Production Telemetry Metrics -->
+    <!-- 4 Production Metrics -->
     <div class="stats-row">
       <div class="stat-card">
         <span class="stat-num" data-count-to="1" data-count-pad="true">01</span>
-        <span class="stat-label">Google Play Store Deploy</span>
-        <span class="stat-desc">App Móvil oficial publicada en producción</span>
+        <span class="stat-label">App en Google Play Store</span>
+        <span class="stat-desc">Aplicación móvil oficial diseñada, desarrollada y publicada en producción</span>
       </div>
 
       <div class="stat-card highlight-gold-border">
         <span class="stat-num text-gold" data-count-to="3" data-count-pad="true">03</span>
         <span class="stat-label text-gold">Podio Hackathon Nacional IA</span>
-        <span class="stat-desc">MinTic &amp; Talent Week Colombia</span>
+        <span class="stat-desc">Top 3 nacional en desarrollo de software con IA (MinTic &amp; Talent Week)</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-num" data-count-to="7" data-count-pad="true">07</span>
+        <span class="stat-label">Sistemas &amp; Repositorios Reales</span>
+        <span class="stat-desc">Plataformas web, móviles, criptográficas y scripts de IA verificables</span>
       </div>
 
       <div class="stat-card">
         <span class="stat-num" data-count-to="100" data-count-suffix="%">100%</span>
-        <span class="stat-label">Automatización con IA</span>
-        <span class="stat-desc">Scripts Python &amp; pipelines en producción</span>
-      </div>
-
-      <div class="stat-card">
-        <span class="stat-num" data-count-to="100" data-count-suffix="%">100%</span>
-        <span class="stat-label">Pasarelas de Pago Seguras</span>
-        <span class="stat-desc">Integraciones REST y arquitectura de alta disponibilidad</span>
+        <span class="stat-label">Enfoque en Producción Real</span>
+        <span class="stat-desc">Pasarelas de pago seguras, APIs REST y optimización de rendimiento</span>
       </div>
     </div>
 
@@ -141,9 +141,9 @@ import { personalData, certifications } from '../data/cv.js';
     position: absolute;
     inset: -6px;
     border-radius: 50%;
-    border: 2px dashed var(--jarvis-cyan);
+    border: 2px dashed #ffbe0b;
     animation: rotate-cw 18s linear infinite;
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
+    box-shadow: 0 0 15px rgba(255, 190, 11, 0.25);
   }
   .ring-ccw {
     position: absolute;
@@ -180,9 +180,9 @@ import { personalData, certifications } from '../data/cv.js';
   .dot-online {
     width: 6px;
     height: 6px;
-    background: var(--jarvis-cyan);
+    background: #10b981;
     border-radius: 50%;
-    box-shadow: 0 0 6px var(--jarvis-cyan);
+    box-shadow: 0 0 6px #10b981;
   }
   .bio-id-tag {
     font-family: var(--font-tech);
@@ -196,10 +196,10 @@ import { personalData, certifications } from '../data/cv.js';
     font-size: 24px;
     color: #ffffff;
     margin-bottom: 12px;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
   }
   .bio-desc {
-    font-size: 15px;
+    font-size: 15.5px;
     line-height: 1.8;
     color: var(--jarvis-text-main);
     margin-bottom: 24px;
@@ -208,15 +208,21 @@ import { personalData, certifications } from '../data/cv.js';
   /* Matrix */
   .bio-matrix {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
     gap: 12px;
   }
   .matrix-card {
     background: rgba(0, 240, 255, 0.05);
     border: 1px solid rgba(0, 240, 255, 0.25);
-    border-radius: 4px;
+    border-radius: 6px;
     padding: 12px 14px;
     font-family: var(--font-tech);
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+  a.matrix-card:hover {
+    border-color: #ffffff;
+    transform: translateY(-2px);
   }
   .matrix-label {
     display: block;
@@ -239,8 +245,15 @@ import { personalData, certifications } from '../data/cv.js';
     border-color: rgba(255, 190, 11, 0.6);
     background: rgba(255, 190, 11, 0.08);
   }
+  .highlight-emerald-card {
+    border-color: rgba(16, 185, 129, 0.6);
+    background: rgba(16, 185, 129, 0.09);
+  }
   .text-gold {
     color: var(--jarvis-gold) !important;
+  }
+  .text-emerald {
+    color: #10b981 !important;
   }
 
   /* Stats Row */
@@ -253,7 +266,7 @@ import { personalData, certifications } from '../data/cv.js';
     background: var(--jarvis-bg-card);
     border: 1px solid var(--jarvis-border);
     backdrop-filter: blur(14px);
-    border-radius: 4px;
+    border-radius: 6px;
     padding: 24px 20px;
     text-align: center;
     transition: all 0.3s ease;

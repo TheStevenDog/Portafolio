@@ -1,0 +1,382 @@
+---
+// Services & Area of Expertise Section (Inspired by 00:10-00:11 of Video.mp4 "Area of expertise")
+// No prices shown (per user preference) — 100% focused on capabilities, deliverables & client value
+import { clientServices, workProcess, personalData } from '../data/cv.js';
+---
+
+<section id="services" class="jarvis-section services-section">
+  <!-- Giant Kinetic Scrolling Marquee (Direct from 00:10 Video.mp4) -->
+  <div class="expertise-marquee-wrap" aria-hidden="true">
+    <div class="expertise-marquee-track">
+      <span class="marquee-solid">Area of expertise</span>
+      <span class="marquee-dot">&bull;</span>
+      <span class="marquee-stroke">Soluciones de Software</span>
+      <span class="marquee-dot">&bull;</span>
+      <span class="marquee-solid">Area of expertise</span>
+      <span class="marquee-dot">&bull;</span>
+      <span class="marquee-stroke">Full Stack &amp; IA</span>
+      <span class="marquee-dot">&bull;</span>
+      <span class="marquee-solid">Area of expertise</span>
+      <span class="marquee-dot">&bull;</span>
+      <span class="marquee-stroke">Soluciones de Software</span>
+      <span class="marquee-dot">&bull;</span>
+    </div>
+  </div>
+
+  <div class="jarvis-container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <span class="section-tag">02 // Soluciones &amp; Capacidades</span>
+      <h2 class="section-title">Qué Puedo Construir Para Tu Negocio</h2>
+      <p class="section-subtitle">
+        Combino diseño de experiencia de usuario, ingeniería Full Stack e Inteligencia Artificial para entregar productos digitales listos para operar y escalar.
+      </p>
+    </div>
+
+    <!-- 4 Editorial Expertise Columns (Inspired by 00:11 Video.mp4: Strategy | Creative | Tech | Production) -->
+    <div class="expertise-columns-grid">
+      {clientServices.map((srv) => (
+        <article class={`hud-card expertise-col accent-${srv.accent}`}>
+          <div class="expertise-col-top">
+            <span class="expertise-num">{srv.id}</span>
+            <span class="expertise-cat">{srv.category}</span>
+          </div>
+
+          <h3 class="expertise-title">{srv.title}</h3>
+          <p class="expertise-summary">{srv.summary}</p>
+
+          <div class="expertise-divider"></div>
+
+          <ul class="expertise-list">
+            {srv.deliverables.map((item) => (
+              <li>
+                <span class="bullet-arrow">&rarr;</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="expertise-footer">
+            <a
+              href={`https://wa.me/${personalData.whatsappNumber}?text=${encodeURIComponent(`Hola Steven, me interesa conversar sobre ${srv.title}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="expertise-cta-link"
+            >
+              <span>Consultar sobre este servicio</span>
+              <span class="cta-arrow">&#8599;</span>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- 4-Step Client Workflow Strip -->
+    <div class="process-strip">
+      <div class="process-strip-header">
+        <div>
+          <span class="section-tag">Metodología de Trabajo</span>
+          <h3 class="process-main-title">De la Idea al Producto en Producción</h3>
+        </div>
+        <a
+          href={personalData.whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="jarvis-btn jarvis-btn-primary"
+          data-magnetic
+          data-magnetic-strength="0.25"
+        >
+          <span>Iniciar un Proyecto</span>
+        </a>
+      </div>
+
+      <div class="process-steps-grid">
+        {workProcess.map((p) => (
+          <div class="process-step-card">
+            <div class="step-meta">
+              <span class="step-number">FASE {p.step}</span>
+              <span class="step-agent">[{p.agent}]</span>
+            </div>
+            <h4 class="step-title">{p.title}</h4>
+            <p class="step-desc">{p.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .services-section {
+    overflow: hidden;
+    padding-top: 70px;
+  }
+
+  /* Giant Kinetic Marquee (00:10 Video.mp4) */
+  .expertise-marquee-wrap {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 54px;
+    padding: 12px 0;
+    border-top: 1px solid rgba(0, 240, 255, 0.14);
+    border-bottom: 1px solid rgba(0, 240, 255, 0.14);
+    background: rgba(2, 6, 18, 0.45);
+    backdrop-filter: blur(6px);
+    user-select: none;
+  }
+
+  .expertise-marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    width: max-content;
+    animation: marqueeScroll 28s linear infinite;
+  }
+
+  .marquee-solid {
+    font-family: var(--font-hud);
+    font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+    font-weight: 900;
+    color: #ffffff;
+    white-space: nowrap;
+    letter-spacing: -0.5px;
+  }
+
+  .marquee-stroke {
+    font-family: var(--font-hud);
+    font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255, 190, 11, 0.78);
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+  }
+
+  .marquee-dot {
+    font-size: 2rem;
+    color: var(--jarvis-cyan);
+    opacity: 0.7;
+  }
+
+  @keyframes marqueeScroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  /* 4 Columns Grid */
+  .expertise-columns-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 56px;
+  }
+
+  .expertise-col {
+    display: flex;
+    flex-direction: column;
+    padding: 28px 22px;
+    background: rgba(4, 12, 28, 0.86);
+    border-top: 3px solid var(--jarvis-cyan);
+  }
+  .expertise-col.accent-gold {
+    border-top-color: #ffbe0b;
+  }
+  .expertise-col.accent-emerald {
+    border-top-color: #10b981;
+  }
+  .expertise-col.accent-blue {
+    border-top-color: #3a86ff;
+  }
+
+  .expertise-col-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .expertise-num {
+    font-family: var(--font-hud);
+    font-size: 22px;
+    font-weight: 900;
+    color: #ffbe0b;
+  }
+
+  .expertise-cat {
+    font-family: var(--font-tech);
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    color: var(--jarvis-cyan);
+    text-transform: uppercase;
+    background: rgba(0, 240, 255, 0.08);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .expertise-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 12px;
+    line-height: 1.25;
+  }
+
+  .expertise-summary {
+    font-size: 13.5px;
+    color: var(--jarvis-text-muted);
+    line-height: 1.65;
+    margin-bottom: 18px;
+  }
+
+  .expertise-divider {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0, 240, 255, 0.35), transparent);
+    margin-bottom: 18px;
+  }
+
+  .expertise-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 22px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    flex-grow: 1;
+  }
+
+  .expertise-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: #f0f7ff;
+    line-height: 1.45;
+  }
+
+  .bullet-arrow {
+    color: #ffbe0b;
+    font-family: var(--font-tech);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .expertise-footer {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.12);
+  }
+
+  .expertise-cta-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-family: var(--font-tech);
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    color: var(--jarvis-cyan);
+    text-transform: uppercase;
+  }
+  .expertise-cta-link:hover {
+    color: #ffbe0b;
+  }
+  .cta-arrow {
+    font-size: 15px;
+    transition: transform 0.25s ease;
+  }
+  .expertise-cta-link:hover .cta-arrow {
+    transform: translate(3px, -3px);
+  }
+
+  /* Process Strip */
+  .process-strip {
+    background: rgba(4, 12, 26, 0.88);
+    border: 1px solid rgba(0, 240, 255, 0.28);
+    border-radius: 8px;
+    padding: 32px;
+    backdrop-filter: blur(14px);
+  }
+
+  .process-strip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .process-main-title {
+    font-size: 22px;
+    color: #ffffff;
+  }
+
+  .process-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  .process-step-card {
+    background: rgba(2, 6, 18, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 18px;
+    transition: all 0.3s ease;
+  }
+  .process-step-card:hover {
+    border-color: #ffbe0b;
+    transform: translateY(-3px);
+  }
+
+  .step-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-tech);
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+  .step-number {
+    color: #ffbe0b;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .step-agent {
+    color: var(--jarvis-cyan);
+    opacity: 0.85;
+  }
+
+  .step-title {
+    font-size: 15px;
+    color: #ffffff;
+    margin-bottom: 6px;
+  }
+  .step-desc {
+    font-size: 12.5px;
+    color: var(--jarvis-text-muted);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 1100px) {
+    .expertise-columns-grid,
+    .process-steps-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .expertise-columns-grid,
+    .process-steps-grid {
+      grid-template-columns: 1fr;
+    }
+    .process-strip {
+      padding: 22px 18px;
+    }
+  }
+</style>

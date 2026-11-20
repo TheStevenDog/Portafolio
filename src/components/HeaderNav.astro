@@ -1,5 +1,5 @@
 ---
-// Modern Glassmorphic Cyber HUD Navbar
+// Modern Glassmorphic Cyber HUD Navbar (Client-Friendly Navigation + WhatsApp CTA)
 import { personalData } from '../data/cv.js';
 ---
 
@@ -13,42 +13,36 @@ import { personalData } from '../data/cv.js';
       </div>
       <div class="nav-brand-text">
         <span class="nav-brand-name">{personalData.name} {personalData.lastName}</span>
-        <span class="nav-brand-sub">STARK-ID: SRL-2902 // {personalData.alias}</span>
+        <span class="nav-brand-sub">{personalData.alias} // FULL STACK &amp; IA</span>
       </div>
     </a>
 
-    <!-- Navigation Links -->
+    <!-- Clear Client Navigation Links -->
     <nav class="nav-menu">
       <a href="#hero" class="nav-link active">
-        <span class="nav-link-code">[00]</span> Inicio
+        <span class="nav-link-code">00</span> Inicio
       </a>
       <a href="#about" class="nav-link">
-        <span class="nav-link-code">[01]</span> Biometría
+        <span class="nav-link-code">01</span> Sobre Mí
       </a>
-      <a href="#skills" class="nav-link">
-        <span class="nav-link-code">[02]</span> Matriz
+      <a href="#services" class="nav-link">
+        <span class="nav-link-code">02</span> Servicios
       </a>
       <a href="#projects" class="nav-link">
-        <span class="nav-link-code">[03]</span> Proyectos
+        <span class="nav-link-code">03</span> Proyectos
       </a>
       <a href="#experience" class="nav-link">
-        <span class="nav-link-code">[04]</span> Misiones
+        <span class="nav-link-code">04</span> Trayectoria
       </a>
       <a href="#contact" class="nav-link">
-        <span class="nav-link-code">[05]</span> Enlace
+        <span class="nav-link-code">05</span> Contacto
       </a>
     </nav>
 
-    <!-- Controls: Audio, Status & GitHub -->
+    <!-- Controls: Audio, WhatsApp & GitHub -->
     <div class="nav-actions">
-      <!-- Live Status Pill -->
-      <div class="status-pill d-none-mobile">
-        <span class="status-dot"></span>
-        <span class="status-text">SYS.ONLINE</span>
-      </div>
-
       <!-- Sci-Fi Audio FX Button -->
-      <button id="nav-audio-btn" class="audio-btn" title="Alternar Sonidos J.A.R.V.I.S." data-magnetic data-magnetic-strength="0.2">
+      <button id="nav-audio-btn" class="audio-btn d-none-mobile" title="Alternar Sonidos Interactivos" data-magnetic data-magnetic-strength="0.2">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
           <line x1="23" y1="9" x2="17" y2="15"></line>
@@ -57,8 +51,16 @@ import { personalData } from '../data/cv.js';
         <span id="audio-btn-label">SFX: OFF</span>
       </button>
 
+      <!-- Direct WhatsApp Action -->
+      <a href={personalData.whatsappUrl} target="_blank" rel="noopener noreferrer" class="jarvis-btn nav-wa-cta" data-magnetic data-magnetic-strength="0.25">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.625.846 5.059 2.284 7.033l-1.494 5.457 5.643-1.48c1.9.997 4.063 1.565 6.367 1.565 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12z"/>
+        </svg>
+        <span>WhatsApp</span>
+      </a>
+
       <!-- GitHub Action -->
-      <a href={personalData.socials.github} target="_blank" rel="noopener noreferrer" class="jarvis-btn jarvis-btn-primary nav-cta" data-magnetic data-magnetic-strength="0.25">
+      <a href={personalData.socials.github} target="_blank" rel="noopener noreferrer" class="jarvis-btn jarvis-btn-primary nav-cta d-none-mobile" data-magnetic data-magnetic-strength="0.25">
         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
         </svg>
@@ -76,9 +78,9 @@ import { personalData } from '../data/cv.js';
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(2, 6, 18, 0.85);
+    background: rgba(2, 6, 18, 0.82);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--jarvis-border);
+    border-bottom: 1px solid rgba(0, 240, 255, 0.22);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
     transition: all 0.3s ease;
   }
@@ -110,8 +112,8 @@ import { personalData } from '../data/cv.js';
     position: absolute;
     inset: -3px;
     border-radius: 50%;
-    border: 2px dashed var(--jarvis-cyan);
-    animation: rotate-cw 12s linear infinite;
+    border: 2px dashed #ffbe0b;
+    animation: rotate-cw 14s linear infinite;
   }
   .nav-avatar-img {
     width: 40px;
@@ -119,7 +121,7 @@ import { personalData } from '../data/cv.js';
     border-radius: 50%;
     object-fit: cover;
     border: 1.5px solid var(--jarvis-cyan);
-    box-shadow: 0 0 10px var(--jarvis-cyan);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
   }
   .nav-brand-text {
     display: flex;
@@ -127,39 +129,40 @@ import { personalData } from '../data/cv.js';
   }
   .nav-brand-name {
     font-family: var(--font-hud);
-    font-size: 15px;
+    font-size: 14.5px;
     font-weight: 700;
     color: #ffffff;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
   }
   .nav-brand-sub {
     font-family: var(--font-tech);
     font-size: 10px;
-    color: var(--jarvis-cyan);
-    letter-spacing: 1px;
+    color: #ffbe0b;
+    letter-spacing: 1.2px;
   }
 
   /* Menu */
   .nav-menu {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
   }
   .nav-link {
     font-family: var(--font-display);
     font-size: 15px;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     color: var(--jarvis-text-muted);
-    padding: 6px 10px;
+    padding: 6px 8px;
     position: relative;
     transition: all 0.25s ease;
   }
   .nav-link-code {
     font-family: var(--font-tech);
-    font-size: 11px;
-    color: var(--jarvis-cyan);
-    margin-right: 2px;
+    font-size: 10px;
+    color: #ffbe0b;
+    margin-right: 3px;
+    opacity: 0.85;
   }
   .nav-link:hover,
   .nav-link.active {
@@ -169,40 +172,19 @@ import { personalData } from '../data/cv.js';
   .nav-link.active::after {
     content: "";
     position: absolute;
-    bottom: -8px;
-    left: 10px;
-    right: 10px;
+    bottom: -6px;
+    left: 8px;
+    right: 8px;
     height: 2px;
-    background: var(--jarvis-cyan);
-    box-shadow: 0 0 8px var(--jarvis-cyan);
+    background: #ffbe0b;
+    box-shadow: 0 0 8px #ffbe0b;
   }
 
   /* Actions */
   .nav-actions {
     display: flex;
     align-items: center;
-    gap: 14px;
-  }
-  .status-pill {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    padding: 4px 10px;
-    background: rgba(16, 185, 129, 0.12);
-    border: 1px solid var(--jarvis-emerald);
-    border-radius: 20px;
-    font-family: var(--font-tech);
-    font-size: 10px;
-    color: var(--jarvis-emerald);
-    letter-spacing: 1px;
-  }
-  .status-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--jarvis-emerald);
-    border-radius: 50%;
-    box-shadow: 0 0 6px var(--jarvis-emerald);
-    animation: pulse-glow 1.8s infinite ease-in-out;
+    gap: 10px;
   }
 
   .audio-btn {
@@ -210,8 +192,8 @@ import { personalData } from '../data/cv.js';
     border: 1px solid var(--jarvis-border);
     color: var(--jarvis-cyan);
     font-family: var(--font-tech);
-    font-size: 11px;
-    padding: 6px 12px;
+    font-size: 10.5px;
+    padding: 7px 11px;
     border-radius: 4px;
     display: flex;
     align-items: center;
@@ -222,19 +204,31 @@ import { personalData } from '../data/cv.js';
   .audio-btn:hover {
     background: var(--jarvis-cyan);
     color: #020612;
-    box-shadow: 0 0 12px var(--jarvis-cyan);
   }
   .audio-btn.sound-on {
     border-color: var(--jarvis-emerald);
     color: var(--jarvis-emerald);
   }
 
+  .nav-wa-cta {
+    background: rgba(16, 185, 129, 0.16);
+    border: 1px solid #10b981;
+    color: #10b981 !important;
+    padding: 8px 14px;
+    font-size: 11px;
+  }
+  .nav-wa-cta:hover {
+    background: #10b981;
+    color: #020612 !important;
+    box-shadow: 0 0 18px rgba(16, 185, 129, 0.65);
+  }
+
   .nav-cta {
-    padding: 8px 18px;
+    padding: 8px 15px;
     font-size: 11px;
   }
 
-  @media (max-width: 992px) {
+  @media (max-width: 1024px) {
     .nav-menu {
       display: none;
     }
@@ -245,7 +239,7 @@ import { personalData } from '../data/cv.js';
 </style>
 
 <script>
-  let audioCtx = null;
+  let audioCtx: any = null;
   let soundEnabled = false;
 
   function initAudioEngine() {
@@ -255,7 +249,7 @@ import { personalData } from '../data/cv.js';
 
     btn.addEventListener('click', () => {
       if (!audioCtx) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
         if (AudioContext) audioCtx = new AudioContext();
       }
       if (audioCtx && audioCtx.state === 'suspended') {
@@ -273,7 +267,7 @@ import { personalData } from '../data/cv.js';
       }
     });
 
-    function playTone(type) {
+    function playTone(type: string) {
       if (!soundEnabled || !audioCtx) return;
       try {
         const osc = audioCtx.createOscillator();
@@ -286,7 +280,7 @@ import { personalData } from '../data/cv.js';
           osc.type = 'sine';
           osc.frequency.setValueAtTime(800, t);
           osc.frequency.exponentialRampToValueAtTime(1400, t + 0.05);
-          gain.gain.setValueAtTime(0.04, t);
+          gain.gain.setValueAtTime(0.035, t);
           gain.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
           osc.start(t);
           osc.stop(t + 0.05);
@@ -294,7 +288,7 @@ import { personalData } from '../data/cv.js';
           osc.type = 'triangle';
           osc.frequency.setValueAtTime(500, t);
           osc.frequency.exponentialRampToValueAtTime(1100, t + 0.08);
-          gain.gain.setValueAtTime(0.07, t);
+          gain.gain.setValueAtTime(0.06, t);
           gain.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
           osc.start(t);
           osc.stop(t + 0.08);
@@ -306,6 +300,21 @@ import { personalData } from '../data/cv.js';
       el.addEventListener('mouseenter', () => playTone('hover'));
       el.addEventListener('click', () => playTone('click'));
     });
+
+    // Scroll spy for active nav link
+    const navLinks = document.querySelectorAll('.nav-menu .nav-link');
+    const sections = ['hero', 'about', 'services', 'projects', 'experience', 'contact'];
+    window.addEventListener('scroll', () => {
+      const pos = window.scrollY + 240;
+      let current = 'hero';
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el && pos >= el.offsetTop) current = id;
+      }
+      navLinks.forEach((link) => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+      });
+    }, { passive: true });
   }
 
   if (typeof window !== 'undefined') {

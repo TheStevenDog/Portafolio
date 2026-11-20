@@ -1,8 +1,19 @@
 ---
-// Arc Reactor & Cyber Starfield Interactive Canvas
+// 3D Particle Sculpture Morphing Engine (Inspired by WSTA/USTA 3D WebGL reference)
+// Pure high-performance 3D perspective particle system with 5 scroll-triggered 3D sculptures:
+// 0: 3D Rocket / Spacecraft (#hero)
+// 1: 3D Orbital Telescope / Scanner (#about)
+// 2: 3D Planetary Neural Core (#services / #skills)
+// 3: 3D Galactic Accretion Vortex (#projects / #experience)
+// 4: 3D Cyber Astronaut with Glowing Beacon (#contact)
 ---
 
-<canvas id="reactor-canvas" class="reactor-canvas-bg"></canvas>
+<canvas id="reactor-canvas" class="reactor-canvas-bg" aria-hidden="true"></canvas>
+
+<div class="sculpture-hud-tag" id="sculpture-hud-tag" aria-hidden="true">
+  <span class="sculpture-dot"></span>
+  <span class="sculpture-label" id="sculpture-hud-label">3D MESH // SPACECRAFT_V1</span>
+</div>
 
 <style>
   .reactor-canvas-bg {
@@ -13,162 +24,619 @@
     height: 100vh;
     pointer-events: none;
     z-index: 1;
-    opacity: 0.55;
+    opacity: 0.92;
+  }
+
+  .sculpture-hud-tag {
+    position: fixed;
+    bottom: 22px;
+    left: 28px;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px;
+    background: rgba(3, 8, 20, 0.72);
+    border: 1px solid rgba(0, 240, 255, 0.25);
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+    font-family: var(--font-tech, monospace);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: rgba(240, 247, 255, 0.75);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .sculpture-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffbe0b;
+    box-shadow: 0 0 8px #ffbe0b;
+    animation: pulse-glow 2s infinite;
+  }
+
+  @media (max-width: 768px) {
+    .reactor-canvas-bg {
+      opacity: 0.65;
+    }
+    .sculpture-hud-tag {
+      display: none;
+    }
   }
 </style>
 
 <script>
-  function initReactor() {
-    const canvas = document.getElementById('reactor-canvas');
+  function initParticleMorphEngine() {
+    const canvas = document.getElementById('reactor-canvas') as HTMLCanvasElement | null;
     if (!canvas) return;
-
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const hudLabel = document.getElementById('sculpture-hud-label');
+
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
+    const isMobile = width < 768;
 
     window.addEventListener('resize', () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
+    }, { passive: true });
+
+    // Palette matching Video.mp4 (Warm Gold, Amber, Electric Blue, Cyan, Starlight White)
+    const COLORS = {
+      GOLD: '#ffbe0b',
+      AMBER: '#fb8500',
+      SOFT_GOLD: '#ffe169',
+      BLUE: '#0077ff',
+      CYAN: '#00f0ff',
+      DEEP_BLUE: '#3a86ff',
+      WHITE: '#f8f9fa'
+    };
+
+    const PARTICLE_COUNT = isMobile ? 1150 : 2300;
+    const STAR_COUNT = isMobile ? 90 : 200;
+
+    // Background deep-space stars
+    const stars = Array.from({ length: STAR_COUNT }, () => ({
+      x: (Math.random() - 0.5) * 2600,
+      y: (Math.random() - 0.5) * 1800,
+      z: Math.random() * 1200 + 100,
+      size: Math.random() * 1.6 + 0.5,
+      alpha: Math.random() * 0.65 + 0.2,
+      twinkleSpeed: Math.random() * 0.03 + 0.01,
+      phase: Math.random() * Math.PI * 2
+    }));
+
+    // Helper: Rotate 3D point
+    function rotX(p: {x:number, y:number, z:number}, a: number) {
+      const c = Math.cos(a), s = Math.sin(a);
+      return { x: p.x, y: p.y * c - p.z * s, z: p.y * s + p.z * c };
+    }
+    function rotY(p: {x:number, y:number, z:number}, a: number) {
+      const c = Math.cos(a), s = Math.sin(a);
+      return { x: p.x * c + p.z * s, y: p.y, z: -p.x * s + p.z * c };
+    }
+    function rotZ(p: {x:number, y:number, z:number}, a: number) {
+      const c = Math.cos(a), s = Math.sin(a);
+      return { x: p.x * c - p.y * s, y: p.x * s + p.y * c, z: p.z };
+    }
+
+    // =========================================================================
+    // 3D SCULPTURE GENERATORS (Normalized scale ~220 units)
+    // =========================================================================
+
+    // SHAPE 0: 3D ROCKET / SPACECRAFT (Hero — 00:01 in Video.mp4)
+    function generateRocket(count: number) {
+      const pts = [];
+      for (let i = 0; i < count; i++) {
+        const r = Math.random();
+        let x = 0, y = 0, z = 0, color = COLORS.GOLD;
+
+        if (r < 0.24) {
+          // Nose Cone (y from +80 to +210)
+          const t = Math.random(); // 0 at base, 1 at tip
+          const yPos = 80 + t * 130;
+          const radius = (1 - Math.pow(t, 1.35)) * 68;
+          const theta = Math.random() * Math.PI * 2;
+          const jitter = (Math.random() - 0.5) * 6;
+          x = Math.cos(theta) * (radius + jitter);
+          z = Math.sin(theta) * (radius + jitter);
+          y = yPos;
+          color = Math.random() < 0.78 ? COLORS.GOLD : COLORS.SOFT_GOLD;
+        } else if (r < 0.68) {
+          // Main Fuselage Body (y from -110 to +80)
+          const t = Math.random();
+          const yPos = -110 + t * 190;
+          // Slight barrel curve
+          const norm = (yPos + 110) / 190; // 0..1
+          const radius = 68 * (0.82 + 0.24 * Math.sin(norm * Math.PI));
+          const theta = Math.random() * Math.PI * 2;
+          const shell = 0.86 + Math.random() * 0.14;
+          x = Math.cos(theta) * radius * shell;
+          z = Math.sin(theta) * radius * shell;
+          y = yPos;
+          // Color bands like Video.mp4: Blue dorsal side, Gold ventral/Window ring
+          const isWindow = Math.hypot(yPos - 25, x) < 34 && z > 20;
+          if (isWindow) {
+            color = COLORS.SOFT_GOLD;
+          } else if (Math.sin(theta) > 0.25) {
+            color = Math.random() < 0.65 ? COLORS.BLUE : COLORS.CYAN;
+          } else {
+            color = Math.random() < 0.7 ? COLORS.GOLD : COLORS.AMBER;
+          }
+        } else if (r < 0.86) {
+          // 3 Aerodynamic Fins at base (y from -135 to -35)
+          const finIdx = i % 3;
+          const finAngle = (finIdx * Math.PI * 2) / 3;
+          const u = Math.random(); // span out
+          const v = Math.random(); // height along fin
+          const finY = -130 + v * 95;
+          const maxSpan = (1 - v * 0.75) * 72;
+          const radial = 54 + u * maxSpan;
+          const thickness = (Math.random() - 0.5) * 10;
+          x = Math.cos(finAngle) * radial - Math.sin(finAngle) * thickness;
+          z = Math.sin(finAngle) * radial + Math.cos(finAngle) * thickness;
+          y = finY;
+          color = Math.random() < 0.6 ? COLORS.BLUE : COLORS.CYAN;
+        } else {
+          // Thruster Plume / Exhaust Core (y from -215 to -110)
+          const t = Math.random();
+          const yPos = -110 - t * 105;
+          const spread = (15 + t * 48) * Math.sqrt(Math.random());
+          const theta = Math.random() * Math.PI * 2;
+          x = Math.cos(theta) * spread;
+          z = Math.sin(theta) * spread;
+          y = yPos;
+          color = t < 0.35 ? COLORS.WHITE : (t < 0.7 ? COLORS.GOLD : COLORS.AMBER);
+        }
+
+        // Tilt the rocket diagonally like 00:01 in Video.mp4
+        let p = rotZ({ x, y, z }, 0.68);
+        p = rotX(p, 0.22);
+        pts.push({ x: p.x, y: p.y, z: p.z, color });
+      }
+      return pts;
+    }
+
+    // SHAPE 1: 3D ORBITAL TELESCOPE / SATELLITE (About — 00:05 in Video.mp4)
+    function generateTelescope(count: number) {
+      const pts = [];
+      for (let i = 0; i < count; i++) {
+        const r = Math.random();
+        let x = 0, y = 0, z = 0, color = COLORS.GOLD;
+
+        if (r < 0.55) {
+          // Main Optical Tube (along X axis from -170 to +170)
+          const t = Math.random();
+          const xPos = -170 + t * 340;
+          const radius = xPos > 40 ? 64 : 50; // wider front barrel
+          const theta = Math.random() * Math.PI * 2;
+          x = xPos;
+          y = Math.cos(theta) * radius;
+          z = Math.sin(theta) * radius;
+          color = xPos > 135 ? COLORS.SOFT_GOLD : (t > 0.45 ? COLORS.GOLD : COLORS.BLUE);
+        } else if (r < 0.82) {
+          // 2 Solar / Sensor Wings
+          const side = i % 2 === 0 ? 1 : -1;
+          const u = (Math.random() - 0.5) * 75;
+          const v = 58 + Math.random() * 130;
+          x = u - 10;
+          y = side * v * 0.75;
+          z = side * v * 0.55 + (Math.random() - 0.5) * 12;
+          color = Math.random() < 0.6 ? COLORS.BLUE : COLORS.CYAN;
+        } else {
+          // Lens Ring & Internal Optics
+          const theta = Math.random() * Math.PI * 2;
+          const rad = Math.random() * 64;
+          x = 170 + (Math.random() - 0.5) * 10;
+          y = Math.cos(theta) * rad;
+          z = Math.sin(theta) * rad;
+          color = rad > 48 ? COLORS.WHITE : COLORS.GOLD;
+        }
+
+        let p = rotZ({ x, y, z }, 0.38);
+        p = rotY(p, -0.45);
+        pts.push({ x: p.x, y: p.y, z: p.z, color });
+      }
+      return pts;
+    }
+
+    // SHAPE 2: 3D PLANETARY NEURAL SPHERE (Services / Expertise — 00:10 in Video.mp4)
+    function generatePlanetSphere(count: number) {
+      const pts = [];
+      const radius = 205;
+      for (let i = 0; i < count; i++) {
+        if (i < count * 0.84) {
+          // Fibonacci / Random Sphere with continental noise patches
+          const u = Math.random();
+          const v = Math.random();
+          const theta = 2 * Math.PI * u;
+          const phi = Math.acos(2 * v - 1);
+          const r = radius * (0.94 + Math.random() * 0.08);
+          const x = r * Math.sin(phi) * Math.cos(theta);
+          const y = r * Math.sin(phi) * Math.sin(theta);
+          const z = r * Math.cos(phi);
+
+          // Procedural continental clusters (Gold continents vs Blue/Dark oceans)
+          const continentVal =
+            Math.sin(x * 0.022) * Math.cos(y * 0.022) +
+            Math.sin(z * 0.028 + x * 0.015);
+          let color = COLORS.GOLD;
+          if (continentVal > 0.15) {
+            color = Math.random() < 0.75 ? COLORS.GOLD : COLORS.SOFT_GOLD;
+          } else if (continentVal > -0.25) {
+            color = COLORS.AMBER;
+          } else {
+            color = Math.random() < 0.7 ? COLORS.BLUE : COLORS.CYAN;
+          }
+          pts.push({ x, y, z, color });
+        } else {
+          // Subtle Atmospheric Ring
+          const theta = Math.random() * Math.PI * 2;
+          const r = 245 + Math.random() * 45;
+          let p = {
+            x: Math.cos(theta) * r,
+            y: (Math.random() - 0.5) * 14,
+            z: Math.sin(theta) * r
+          };
+          p = rotZ(p, 0.42);
+          p = rotX(p, 0.35);
+          pts.push({
+            x: p.x,
+            y: p.y,
+            z: p.z,
+            color: Math.random() < 0.5 ? COLORS.CYAN : COLORS.GOLD
+          });
+        }
+      }
+      return pts;
+    }
+
+    // SHAPE 3: 3D GALACTIC VORTEX / TORUS RING (Projects — 00:12 in Video.mp4)
+    function generateGalacticVortex(count: number) {
+      const pts = [];
+      for (let i = 0; i < count; i++) {
+        const arm = i % 3;
+        const t = Math.pow(Math.random(), 0.75); // radial distribution
+        const r = 65 + t * 210;
+        const spiralAngle = t * Math.PI * 3.2 + (arm * Math.PI * 2) / 3 + (Math.random() - 0.5) * 0.55;
+        const thickness = (1 - t * 0.6) * 48 * (Math.random() - 0.5);
+
+        let p = {
+          x: Math.cos(spiralAngle) * r,
+          y: thickness,
+          z: Math.sin(spiralAngle) * r
+        };
+        p = rotX(p, 0.78);
+        p = rotZ(p, -0.32);
+
+        let color = COLORS.GOLD;
+        if (t < 0.32) {
+          color = Math.random() < 0.7 ? COLORS.SOFT_GOLD : COLORS.WHITE;
+        } else if (arm === 0) {
+          color = COLORS.GOLD;
+        } else if (arm === 1) {
+          color = COLORS.BLUE;
+        } else {
+          color = COLORS.CYAN;
+        }
+        pts.push({ x: p.x, y: p.y, z: p.z, color });
+      }
+      return pts;
+    }
+
+    // SHAPE 4: 3D CYBER ASTRONAUT WITH GLOWING BEACON (Contact — 00:15 in Video.mp4)
+    function generateAstronaut(count: number) {
+      const pts = [];
+      for (let i = 0; i < count; i++) {
+        const r = Math.random();
+        let x = 0, y = 0, z = 0, color = COLORS.WHITE;
+
+        if (r < 0.28) {
+          // Helmet Sphere (centered at y = +115)
+          const u = Math.random(), v = Math.random();
+          const theta = 2 * Math.PI * u;
+          const phi = Math.acos(2 * v - 1);
+          const rad = 64 * (0.94 + Math.random() * 0.06);
+          x = rad * Math.sin(phi) * Math.cos(theta);
+          y = 115 + rad * Math.sin(phi) * Math.sin(theta);
+          z = rad * Math.cos(phi);
+          // Gold Visor on front (+z)
+          if (z > 18 && y > 95 && y < 145 && Math.abs(x) < 48) {
+            color = Math.random() < 0.8 ? COLORS.GOLD : COLORS.SOFT_GOLD;
+          } else {
+            color = Math.random() < 0.75 ? COLORS.WHITE : COLORS.BLUE;
+          }
+        } else if (r < 0.58) {
+          // Suit Torso & Backpack (y from -25 to +60)
+          const theta = Math.random() * Math.PI * 2;
+          const yPos = -25 + Math.random() * 85;
+          const rx = 54, rz = 40;
+          x = Math.cos(theta) * rx * (0.85 + Math.random() * 0.15);
+          z = Math.sin(theta) * rz * (0.85 + Math.random() * 0.15);
+          y = yPos;
+          color = z < -15 ? COLORS.BLUE : (Math.random() < 0.65 ? COLORS.WHITE : COLORS.GOLD);
+        } else if (r < 0.76) {
+          // Two Legs (y from -155 to -25)
+          const side = i % 2 === 0 ? 1 : -1;
+          const yPos = -155 + Math.random() * 130;
+          const theta = Math.random() * Math.PI * 2;
+          const legRad = 22;
+          x = side * 28 + Math.cos(theta) * legRad;
+          z = Math.sin(theta) * legRad;
+          y = yPos;
+          color = yPos < -120 ? COLORS.GOLD : COLORS.WHITE;
+        } else if (r < 0.88) {
+          // Two Arms (left arm raised holding beacon)
+          const isLeft = i % 2 === 0;
+          const t = Math.random();
+          const theta = Math.random() * Math.PI * 2;
+          const armRad = 16;
+          if (isLeft) {
+            x = -56 - t * 55 + Math.cos(theta) * armRad;
+            y = 45 + t * 45 + Math.sin(theta) * armRad;
+            z = 15 + t * 30;
+          } else {
+            x = 56 + t * 35 + Math.cos(theta) * armRad;
+            y = 40 - t * 55 + Math.sin(theta) * armRad;
+            z = Math.sin(theta) * armRad;
+          }
+          color = COLORS.WHITE;
+        } else {
+          // Glowing Cyan/Blue Cosmic Flower / Beacon in Left Hand (x: -118, y: 118, z: 45)
+          const u = Math.random(), v = Math.random();
+          const theta = 2 * Math.PI * u;
+          const phi = Math.acos(2 * v - 1);
+          const petal = 28 + 14 * Math.sin(theta * 5);
+          const rad = petal * Math.cbrt(Math.random());
+          x = -118 + rad * Math.sin(phi) * Math.cos(theta);
+          y = 118 + rad * Math.sin(phi) * Math.sin(theta);
+          z = 45 + rad * Math.cos(phi);
+          color = Math.random() < 0.7 ? COLORS.CYAN : COLORS.BLUE;
+        }
+
+        pts.push({ x, y, z, color });
+      }
+      return pts;
+    }
+
+    // Precompute the 5 sculptures
+    const SCULPTURES = [
+      { name: '3D MESH // 01_SPACECRAFT_CORE', pts: generateRocket(PARTICLE_COUNT), offsetX: 0.22, offsetY: -0.02 },
+      { name: '3D MESH // 02_ORBITAL_SCANNER', pts: generateTelescope(PARTICLE_COUNT), offsetX: -0.22, offsetY: 0.0 },
+      { name: '3D MESH // 03_NEURAL_PLANET', pts: generatePlanetSphere(PARTICLE_COUNT), offsetX: 0.25, offsetY: 0.02 },
+      { name: '3D MESH // 04_GALACTIC_VORTEX', pts: generateGalacticVortex(PARTICLE_COUNT), offsetX: 0.0, offsetY: 0.0 },
+      { name: '3D MESH // 05_CYBER_EMISSARY', pts: generateAstronaut(PARTICLE_COUNT), offsetX: -0.18, offsetY: 0.02 }
+    ];
+
+    // Live particle state array
+    const particles = Array.from({ length: PARTICLE_COUNT }, (_, idx) => {
+      const target = SCULPTURES[0].pts[idx];
+      // Start scattered in deep space for initial assembly animation!
+      const scatterAngle = Math.random() * Math.PI * 2;
+      const scatterDist = 400 + Math.random() * 900;
+      return {
+        x: Math.cos(scatterAngle) * scatterDist,
+        y: (Math.random() - 0.5) * 1200,
+        z: Math.sin(scatterAngle) * scatterDist,
+        vx: 0,
+        vy: 0,
+        vz: 0,
+        tx: target.x,
+        ty: target.y,
+        tz: target.z,
+        color: target.color,
+        baseSize: Math.random() * 1.7 + 1.0,
+        noiseOffset: Math.random() * Math.PI * 2,
+        speed: 0.045 + Math.random() * 0.035
+      };
     });
 
-    let angle = 0;
-    let scrollSpeed = 1;
-    let lastScrollY = window.scrollY;
-    let mouseX = width * 0.7;
-    let mouseY = height * 0.45;
+    let activeSculptureIdx = 0;
+    let currentOffsetX = SCULPTURES[0].offsetX;
+    let currentOffsetY = SCULPTURES[0].offsetY;
+    let explosionPulse = 0;
+
+    // Switch sculpture with cosmic scatter impulse (like Video.mp4 transitions!)
+    function morphToSculpture(newIdx: number, forceScatter = false) {
+      if (newIdx < 0 || newIdx >= SCULPTURES.length) return;
+      if (newIdx === activeSculptureIdx && !forceScatter) return;
+
+      activeSculptureIdx = newIdx;
+      const sculpture = SCULPTURES[newIdx];
+      if (hudLabel) hudLabel.textContent = sculpture.name;
+      explosionPulse = 1.0;
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const p = particles[i];
+        const target = sculpture.pts[i];
+        p.tx = target.x;
+        p.ty = target.y;
+        p.tz = target.z;
+        p.color = target.color;
+
+        // Add explosive cosmic burst velocity during morph transition
+        const burst = forceScatter ? 26 : 14;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = (Math.random() - 0.5) * Math.PI;
+        p.vx += Math.cos(theta) * Math.cos(phi) * burst * (0.4 + Math.random());
+        p.vy += Math.sin(phi) * burst * (0.4 + Math.random());
+        p.vz += Math.sin(theta) * Math.cos(phi) * burst * (0.4 + Math.random());
+      }
+    }
+
+    // Expose global trigger so the Hero Multi-Agent sequence can re-ignite the 3D Rocket assembly!
+    (window as any).triggerReactorAssemble = () => {
+      morphToSculpture(0, true);
+    };
+
+    // Determine active section on scroll
+    function checkScrollSection() {
+      const scrollY = window.scrollY;
+      const vh = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight - vh;
+      const progress = docHeight > 0 ? scrollY / docHeight : 0;
+
+      const contactEl = document.getElementById('contact');
+      const projectsEl = document.getElementById('projects');
+      const servicesEl = document.getElementById('services') || document.getElementById('skills');
+      const aboutEl = document.getElementById('about');
+
+      const midScreen = scrollY + vh * 0.48;
+
+      let targetIdx = 0;
+      if (contactEl && midScreen >= contactEl.offsetTop) {
+        targetIdx = 4;
+      } else if (projectsEl && midScreen >= projectsEl.offsetTop) {
+        targetIdx = 3;
+      } else if (servicesEl && midScreen >= servicesEl.offsetTop) {
+        targetIdx = 2;
+      } else if (aboutEl && midScreen >= aboutEl.offsetTop) {
+        targetIdx = 1;
+      } else if (progress > 0.82) {
+        targetIdx = 4;
+      }
+
+      if (targetIdx !== activeSculptureIdx) {
+        morphToSculpture(targetIdx, false);
+      }
+    }
+
+    window.addEventListener('scroll', checkScrollSection, { passive: true });
+    checkScrollSection();
+
+    // Pointer interaction
+    let mouseX = width * 0.5;
+    let mouseY = height * 0.5;
+    let normMouseX = 0;
+    let normMouseY = 0;
 
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      normMouseX = (e.clientX / width - 0.5) * 2;
+      normMouseY = (e.clientY / height - 0.5) * 2;
     }, { passive: true });
 
-    // Particles
-    const particles = [];
-    const count = 40;
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        size: Math.random() * 2 + 1,
-        alpha: Math.random() * 0.4 + 0.1
-      });
-    }
+    let time = 0;
 
     function render() {
-      ctx.clearRect(0, 0, width, height);
+      time += 0.012;
+      explosionPulse *= 0.94;
 
-      // Arc Reactor Center (Desktop leans right, Mobile centered)
-      const isDesktop = width >= 1024;
-      const targetX = isDesktop ? width * 0.72 : width * 0.5;
-      const targetY = isDesktop ? height * 0.48 : height * 0.38;
+      ctx!.clearRect(0, 0, width, height);
 
-      // Mouse parallax shift
-      const cx = targetX + (mouseX - width * 0.5) * 0.03;
-      const cy = targetY + (mouseY - height * 0.5) * 0.03;
-      const r = Math.min(width, height) * 0.22;
+      // 1. Render Deep Space Starfield
+      const fov = 560;
+      for (let i = 0; i < STAR_COUNT; i++) {
+        const s = stars[i];
+        const scale = fov / (fov + s.z);
+        const sx = width * 0.5 + (s.x - normMouseX * 35) * scale;
+        const sy = height * 0.5 + (s.y - normMouseY * 35) * scale;
 
-      // Draw Starfield particles
-      ctx.fillStyle = '#00f0ff';
-      particles.forEach((p) => {
+        if (sx >= 0 && sx <= width && sy >= 0 && sy <= height) {
+          const twinkle = 0.65 + 0.35 * Math.sin(time * 2.5 + s.phase);
+          ctx!.globalAlpha = s.alpha * twinkle;
+          ctx!.fillStyle = '#ffffff';
+          ctx!.beginPath();
+          ctx!.arc(sx, sy, s.size * scale, 0, Math.PI * 2);
+          ctx!.fill();
+        }
+      }
+
+      // 2. Smoothly interpolate sculpture screen center offset
+      const targetOffset = SCULPTURES[activeSculptureIdx];
+      const desktopFactor = width >= 1024 ? 1 : 0.25;
+      currentOffsetX += (targetOffset.offsetX * desktopFactor - currentOffsetX) * 0.04;
+      currentOffsetY += (targetOffset.offsetY - currentOffsetY) * 0.04;
+
+      const centerX = width * (0.5 + currentOffsetX) + normMouseX * 22;
+      const centerY = height * (0.5 + currentOffsetY) + normMouseY * 18;
+
+      // Global sculpture rotation + mouse parallax
+      const rotAngleY = time * 0.42 + normMouseX * 0.38;
+      const rotAngleX = Math.sin(time * 0.3) * 0.15 - normMouseY * 0.25;
+      const cosY = Math.cos(rotAngleY), sinY = Math.sin(rotAngleY);
+      const cosX = Math.cos(rotAngleX), sinX = Math.sin(rotAngleX);
+
+      // Responsive scale factor
+      const sculptureScale = Math.min(width, height) / (isMobile ? 540 : 620);
+
+      // 3. Update & Project 3D Sculpture Particles
+      ctx!.globalCompositeOperation = 'lighter';
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const p = particles[i];
+
+        // Spring interpolation toward target 3D point + velocity damping
+        p.vx = p.vx * 0.86 + (p.tx - p.x) * p.speed;
+        p.vy = p.vy * 0.86 + (p.ty - p.y) * p.speed;
+        p.vz = p.vz * 0.86 + (p.tz - p.z) * p.speed;
+
         p.x += p.vx;
         p.y += p.vy;
-        if (p.x < 0) p.x = width;
-        if (p.x > width) p.x = 0;
-        if (p.y < 0) p.y = height;
-        if (p.y > height) p.y = 0;
+        p.z += p.vz;
 
-        ctx.globalAlpha = p.alpha * 0.35;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fill();
-      });
+        // Subtle organic breathing shimmer
+        const shimmerX = Math.sin(time * 2.2 + p.noiseOffset) * 2.2;
+        const shimmerY = Math.cos(time * 1.9 + p.noiseOffset) * 2.2;
 
-      // Reactor Geometry
-      ctx.save();
-      ctx.translate(cx, cy);
+        const lx = (p.x + shimmerX) * sculptureScale;
+        const ly = (p.y + shimmerY) * sculptureScale;
+        const lz = p.z * sculptureScale;
 
-      // Outer Segmented Ring
-      ctx.rotate(angle);
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.22)';
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([8, 14]);
-      ctx.beginPath();
-      ctx.arc(0, 0, r * 1.35, 0, Math.PI * 2);
-      ctx.stroke();
+        // Rotate Y then X
+        const rx = lx * cosY + lz * sinY;
+        const rz1 = -lx * sinY + lz * cosY;
+        const ry = ly * cosX - rz1 * sinX;
+        const rz = ly * sinX + rz1 * cosX;
 
-      // Middle Counter-Rotating Brackets
-      ctx.rotate(-angle * 1.9);
-      ctx.strokeStyle = 'rgba(0, 119, 255, 0.35)';
-      ctx.lineWidth = 2;
-      ctx.setLineDash([40, 50, 12, 50]);
-      ctx.beginPath();
-      ctx.arc(0, 0, r * 1.15, 0, Math.PI * 2);
-      ctx.stroke();
+        const depth = fov + rz + 260;
+        if (depth <= 10) continue;
 
-      // Arc Reactor Triangle Core
-      ctx.rotate(angle * 2.4);
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.5)';
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([]);
-      ctx.beginPath();
-      for (let i = 0; i < 3; i++) {
-        const theta = (i * 2 * Math.PI) / 3;
-        const x = r * 0.65 * Math.cos(theta);
-        const y = r * 0.65 * Math.sin(theta);
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+        const proj = fov / depth;
+        let screenX = centerX + rx * proj;
+        let screenY = centerY - ry * proj; // invert Y so +Y is up
+
+        // Subtle cursor repulsion field in 2D screen space
+        const dx = screenX - mouseX;
+        const dy = screenY - mouseY;
+        const distSq = dx * dx + dy * dy;
+        if (distSq < 9500 && distSq > 1) {
+          const dist = Math.sqrt(distSq);
+          const push = (1 - dist / 97) * 18;
+          screenX += (dx / dist) * push;
+          screenY += (dy / dist) * push;
+        }
+
+        const radius = Math.max(0.6, p.baseSize * proj * 1.35);
+        const depthAlpha = Math.min(1, Math.max(0.18, (340 - rz) / 520));
+
+        ctx!.globalAlpha = depthAlpha;
+        ctx!.fillStyle = p.color;
+        ctx!.beginPath();
+        ctx!.arc(screenX, screenY, radius, 0, Math.PI * 2);
+        ctx!.fill();
       }
-      ctx.closePath();
-      ctx.stroke();
 
-      // Inverted Triangle
-      ctx.beginPath();
-      for (let i = 0; i < 3; i++) {
-        const theta = (i * 2 * Math.PI) / 3 + Math.PI;
-        const x = r * 0.38 * Math.cos(theta);
-        const y = r * 0.38 * Math.sin(theta);
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.closePath();
-      ctx.stroke();
-
-      // Core Glowing Pulse
-      const glowGrad = ctx.createRadialGradient(0, 0, 5, 0, 0, r * 0.45);
-      glowGrad.addColorStop(0, 'rgba(0, 240, 255, 0.35)');
-      glowGrad.addColorStop(0.6, 'rgba(0, 119, 255, 0.12)');
-      glowGrad.addColorStop(1, 'transparent');
-      ctx.fillStyle = glowGrad;
-      ctx.beginPath();
-      ctx.arc(0, 0, r * 0.45, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Thin inner circle
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.65)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.arc(0, 0, r * 0.22, 0, Math.PI * 2);
-      ctx.stroke();
-
-      ctx.restore();
-
-      // Update rotation speed based on scroll
-      const deltaY = Math.abs(window.scrollY - lastScrollY);
-      scrollSpeed = 1 + Math.min(deltaY * 0.06, 5);
-      lastScrollY = window.scrollY;
-
-      angle += 0.0035 * scrollSpeed;
+      ctx!.globalCompositeOperation = 'source-over';
+      ctx!.globalAlpha = 1;
 
       requestAnimationFrame(render);
     }
+
     requestAnimationFrame(render);
   }
 
-  // Run on load
   if (typeof window !== 'undefined') {
-    initReactor();
-    document.addEventListener('astro:page-load', initReactor);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initParticleMorphEngine);
+    } else {
+      initParticleMorphEngine();
+    }
+    document.addEventListener('astro:page-load', initParticleMorphEngine);
   }
 </script>
