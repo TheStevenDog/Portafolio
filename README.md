@@ -3,7 +3,7 @@
 > **Ingeniero de Software | Junior Full Stack & AI Developer**  
 > Interfaz holográfica interactiva inspirada en J.A.R.V.I.S. (Stark Industries OS) con ensamblaje progresivo controlado por scroll y telemetría en tiempo real.
 
-🌐 **Enlace Web:** [https://thestevendog.github.io/Portafolio/](https://thestevendog.github.io/Portafolio/)
+🌐 **Enlace Web:** [[https://thestevendog.github.io/Portafolio/](https://thestevendog.github.io/Portafolio/](https://slisedevporfolio.vercel.app/))
 
 ---
 
