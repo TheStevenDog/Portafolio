@@ -1,0 +1,314 @@
+---
+// 2026 Visual Engineering Suite (Skill Archetype 05 & Effects Catalog)
+// Modules:
+// 1. Mouse-Reactive Ambient Radial Glow Mesh (§4.5)
+// 2. Magnetic CTA Physics (§1.2)
+// 3. Bento Card 3D Subtle Tilt (§5.1)
+// 4. Smooth Stat Count-Up (§6.7)
+---
+
+<div id="jarvis-ambient-glow" class="jarvis-ambient-glow" aria-hidden="true"></div>
+
+<style>
+  /* 1. Mouse-Reactive Radial Gradient Mesh (Skill §4.5) */
+  .jarvis-ambient-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background:
+      radial-gradient(circle 650px at var(--mx, 70%) var(--my, 40%),
+        rgba(0, 240, 255, 0.08) 0%,
+        transparent 65%),
+      radial-gradient(circle 500px at calc(var(--mx, 70%) - 18%) calc(var(--my, 40%) + 18%),
+        rgba(0, 119, 255, 0.06) 0%,
+        transparent 60%),
+      radial-gradient(circle 400px at calc(var(--mx, 70%) + 15%) calc(var(--my, 40%) - 15%),
+        rgba(255, 190, 11, 0.03) 0%,
+        transparent 55%);
+    filter: blur(40px);
+    transition: opacity 0.5s ease;
+    mix-blend-mode: screen;
+  }
+
+  /* 2. Magnetic Buttons Core CSS (Skill §1.2) */
+  :global(.has-magnetic) {
+    display: inline-flex !important;
+    position: relative !important;
+    isolation: isolate !important;
+    vertical-align: middle;
+  }
+  :global(.magnetic-inner) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: inherit;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+    pointer-events: none;
+  }
+
+  /* 3. 3D Tilt Cards Core CSS (Skill §5.1) */
+  :global(.has-tilt) {
+    --rx: 0deg;
+    --ry: 0deg;
+    transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+    transform-style: preserve-3d;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    will-change: transform;
+  }
+  :global(.has-tilt:hover) {
+    transition-duration: 0.12s;
+  }
+  :global(.has-tilt::after) {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle 350px at var(--card-mx, 50%) var(--card-my, 50%), rgba(0, 240, 255, 0.12), transparent 70%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+  :global(.has-tilt:hover::after) {
+    opacity: 1;
+  }
+
+  /* Defensive Windows Accessibility Guardrails (Skill Gotcha) */
+  @media (prefers-reduced-motion: reduce) {
+    .jarvis-ambient-glow {
+      filter: blur(60px);
+      opacity: 0.5;
+    }
+    :global(.has-tilt) {
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  // Safe execution wrapper (Skill Gotcha)
+  function safeExec(fn, name) {
+    try {
+      fn();
+    } catch (err) {
+      console.warn(`[STARK PROTOCOL // ${name}] bypassed safely:`, err);
+    }
+  }
+
+  // =========================================================================
+  // 1. Mouse-Reactive Dynamic Atmospheric Mesh (Skill §4.5)
+  // =========================================================================
+  function initAmbientGlowMesh() {
+    let targetX = 70;
+    let targetY = 40;
+    let currentX = 70;
+    let currentY = 40;
+    let isMoving = false;
+
+    window.addEventListener('mousemove', (e) => {
+      targetX = (e.clientX / window.innerWidth) * 100;
+      targetY = (e.clientY / window.innerHeight) * 100;
+      if (!isMoving) {
+        isMoving = true;
+        glowFrame();
+      }
+    }, { passive: true });
+
+    function glowFrame() {
+      // Smooth lerp (Skill Catalog §4.5)
+      currentX += (targetX - currentX) * 0.06;
+      currentY += (targetY - currentY) * 0.06;
+
+      document.documentElement.style.setProperty('--mx', currentX.toFixed(2) + '%');
+      document.documentElement.style.setProperty('--my', currentY.toFixed(2) + '%');
+
+      if (Math.abs(targetX - currentX) > 0.02 || Math.abs(targetY - currentY) > 0.02) {
+        requestAnimationFrame(glowFrame);
+      } else {
+        isMoving = false;
+      }
+    }
+  }
+
+  // =========================================================================
+  // 2. Magnetic CTA Buttons Physics (Skill §1.2)
+  // =========================================================================
+  function initMagneticButtons() {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    document.querySelectorAll('[data-magnetic]').forEach((el) => {
+      if (el.classList.contains('has-magnetic')) return; // Avoid re-wrapping on view transitions
+
+      const strength = parseFloat(el.getAttribute('data-magnetic-strength') || '0.28');
+      const inner = document.createElement('span');
+      inner.className = 'magnetic-inner';
+      while (el.firstChild) {
+        inner.appendChild(el.firstChild);
+      }
+      el.appendChild(inner);
+      el.classList.add('has-magnetic');
+
+      let targetX = 0;
+      let targetY = 0;
+      let currentX = 0;
+      let currentY = 0;
+      let rafId = null;
+
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        targetX = ((e.clientX - rect.left) - rect.width / 2) * strength;
+        targetY = ((e.clientY - rect.top) - rect.height / 2) * strength;
+        if (!rafId) rafId = requestAnimationFrame(loop);
+      }, { passive: true });
+
+      el.addEventListener('mouseleave', () => {
+        targetX = 0;
+        targetY = 0;
+        if (!rafId) rafId = requestAnimationFrame(loop);
+      }, { passive: true });
+
+      function loop() {
+        currentX += (targetX - currentX) * 0.22;
+        currentY += (targetY - currentY) * 0.22;
+        inner.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0)`;
+
+        if (Math.abs(targetX - currentX) > 0.08 || Math.abs(targetY - currentY) > 0.08) {
+          rafId = requestAnimationFrame(loop);
+        } else {
+          inner.style.transform = targetX === 0 && targetY === 0 ? '' : `translate3d(${targetX}px, ${targetY}px, 0)`;
+          rafId = null;
+        }
+      }
+    });
+  }
+
+  // =========================================================================
+  // 3. Bento Card 3D Subtle Tilt (Skill §5.1 - Max 7deg)
+  // =========================================================================
+  function initBentoCardTilt() {
+    if (window.matchMedia('(hover: none)').matches) return; // Touch screens skip (Skill Gotcha)
+
+    const cards = document.querySelectorAll('.hud-card, .stat-card, [data-tilt]');
+    const MAX_TILT = 6.5; // Calibrated safe angle to prevent layout distortion
+
+    cards.forEach((card) => {
+      card.classList.add('has-tilt');
+      let targetX = 0;
+      let targetY = 0;
+      let currentX = 0;
+      let currentY = 0;
+      let rafId = null;
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width - 0.5;
+        const py = (e.clientY - rect.top) / rect.height - 0.5;
+
+        // Invert Y for correct perspective pitch
+        targetX = -py * MAX_TILT;
+        targetY = px * MAX_TILT;
+
+        // Set card localized light reflection coordinates
+        const localX = ((e.clientX - rect.left) / rect.width) * 100;
+        const localY = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--card-mx', `${localX.toFixed(1)}%`);
+        card.style.setProperty('--card-my', `${localY.toFixed(1)}%`);
+
+        if (!rafId) rafId = requestAnimationFrame(loop);
+      }, { passive: true });
+
+      card.addEventListener('mouseleave', () => {
+        targetX = 0;
+        targetY = 0;
+        if (!rafId) rafId = requestAnimationFrame(loop);
+      }, { passive: true });
+
+      function loop() {
+        currentX += (targetX - currentX) * 0.16;
+        currentY += (targetY - currentY) * 0.16;
+
+        card.style.setProperty('--rx', `${currentX.toFixed(2)}deg`);
+        card.style.setProperty('--ry', `${currentY.toFixed(2)}deg`);
+
+        if (Math.abs(targetX - currentX) > 0.05 || Math.abs(targetY - currentY) > 0.05) {
+          rafId = requestAnimationFrame(loop);
+        } else {
+          card.style.setProperty('--rx', `${targetX}deg`);
+          card.style.setProperty('--ry', `${targetY}deg`);
+          rafId = null;
+        }
+      }
+    });
+  }
+
+  // =========================================================================
+  // 4. Smooth Stat Count-Up Interpolation (Skill §6.7)
+  // =========================================================================
+  function initStatCountUp() {
+    const counterElements = document.querySelectorAll('[data-count-to]');
+    if (!counterElements.length) return;
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        obs.unobserve(el);
+
+        const rawTarget = el.getAttribute('data-count-to') || '0';
+        const suffix = el.getAttribute('data-count-suffix') || '';
+        const prefix = el.getAttribute('data-count-prefix') || '';
+        const target = parseFloat(rawTarget);
+        const padZero = el.getAttribute('data-count-pad') === 'true';
+        const duration = 1400; // 1.4s calibrated duration
+        const startTime = performance.now();
+
+        function countFrame(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease Out Exponential (Skill convention)
+          const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+          const currentVal = Math.round(target * easeProgress);
+
+          let displayStr = currentVal.toString();
+          if (padZero && currentVal < 10) {
+            displayStr = '0' + displayStr;
+          }
+
+          el.textContent = `${prefix}${displayStr}${suffix}`;
+
+          if (progress < 1) {
+            requestAnimationFrame(countFrame);
+          } else {
+            let finalStr = target.toString();
+            if (padZero && target < 10) finalStr = '0' + finalStr;
+            el.textContent = `${prefix}${finalStr}${suffix}`;
+          }
+        }
+
+        requestAnimationFrame(countFrame);
+      });
+    }, { threshold: 0.35 });
+
+    counterElements.forEach((el) => observer.observe(el));
+  }
+
+  // Master Initializer with safe execution
+  function setupInteractiveEngineering() {
+    safeExec(initAmbientGlowMesh, 'Ambient Glow Mesh');
+    safeExec(initMagneticButtons, 'Magnetic CTA Physics');
+    safeExec(initBentoCardTilt, 'Bento 3D Tilt');
+    safeExec(initStatCountUp, 'Telemetry Count-Up');
+  }
+
+  if (typeof window !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupInteractiveEngineering);
+    } else {
+      setupInteractiveEngineering();
+    }
+    document.addEventListener('astro:page-load', setupInteractiveEngineering);
+  }
+</script>

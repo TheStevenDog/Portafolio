@@ -4,6 +4,8 @@ import '../styles/global.css';
 import HeaderNav from '../components/HeaderNav.astro';
 import ReactorCanvas from '../components/ReactorCanvas.astro';
 import HudFrame from '../components/HudFrame.astro';
+import CustomCursor from '../components/CustomCursor.astro';
+import InteractiveEngineering from '../components/InteractiveEngineering.astro';
 import { personalData } from '../data/cv.js';
 
 interface Props {
@@ -31,6 +33,12 @@ const {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 </head>
 <body>
+  <!-- 2026 Skill Signature Effects: Ambient Mesh & Interactive Physics -->
+  <InteractiveEngineering />
+
+  <!-- 2026 Skill Signature Effect: Two-Circle Telemetry Custom Cursor -->
+  <CustomCursor />
+
   <!-- Arc Reactor Starfield Canvas -->
   <ReactorCanvas />
 

@@ -38,6 +38,11 @@
   --font-display: 'Rajdhani', sans-serif;
   --font-tech: 'Share Tech Mono', monospace;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* 2026 Kinetic Easing Curves (Skill Archetype 05) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 *, *::before, *::after {
@@ -301,4 +306,16 @@ a:hover {
 @keyframes rotate-ccw {
   from { transform: rotate(360deg); }
   to { transform: rotate(0deg); }
+}
+
+/* 2026 Accessibility: Distinguish intrusive vs functional motion (Skill Gotcha A.2)
+   Prevents Windows 'flat website' issue while respecting accessibility needs */
+@media (prefers-reduced-motion: reduce) {
+  .laser-sweep-line {
+    display: none !important;
+  }
+  .ring-cw, .ring-ccw {
+    animation-duration: 45s !important;
+  }
+  /* Retain micro-interactions, button hover lifts, card borders, and smooth transitions */
 }
