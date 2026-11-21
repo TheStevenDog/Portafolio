@@ -1,0 +1,834 @@
+---
+// Global Multi-Agent Live Page Construction Engine
+// 4 Autonomous AI Agent Cursors (ARCH_AI, COPY_AI, UI_STUDIO, 3D_CORE)
+// Builds EVERY section and card across the entire portfolio as the user scrolls!
+---
+
+<div class="agent-stage" id="global-agent-stage" aria-hidden="true">
+  <!-- Dynamic Selection Marquee Box drawn by ARCH_AI -->
+  <div class="agent-marquee" id="agent-marquee">
+    <span class="marquee-dim" id="agent-marquee-dim">780 × 210</span>
+  </div>
+
+  <!-- Click Pulse Rings Pool (for multi-agent simultaneous locks) -->
+  <div class="agent-click-ring" id="agent-click-ring-1"></div>
+  <div class="agent-click-ring" id="agent-click-ring-2"></div>
+
+  <!-- Agent 1: ARCH_AI (Cyan) -->
+  <div class="ai-agent-cursor agent-cyan" id="agent-arch">
+    <svg class="agent-pointer-svg" width="18" height="22" viewBox="0 0 18 22" fill="none">
+      <path d="M1.5 1.5L16 10.5L9.2 12.2L6.5 19.5L1.5 1.5Z" fill="#00f0ff" stroke="#020612" stroke-width="1.6" stroke-linejoin="round"/>
+    </svg>
+    <div class="agent-badge">
+      <span class="agent-name">ARCH_AI</span>
+      <span class="agent-task" data-agent-task>LAYOUT_GRID</span>
+    </div>
+  </div>
+
+  <!-- Agent 2: COPY_AI (Emerald) -->
+  <div class="ai-agent-cursor agent-emerald" id="agent-copy">
+    <svg class="agent-pointer-svg" width="18" height="22" viewBox="0 0 18 22" fill="none">
+      <path d="M1.5 1.5L16 10.5L9.2 12.2L6.5 19.5L1.5 1.5Z" fill="#10b981" stroke="#020612" stroke-width="1.6" stroke-linejoin="round"/>
+    </svg>
+    <div class="agent-badge">
+      <span class="agent-name">COPY_AI</span>
+      <span class="agent-task" data-agent-task>TYPING_VALUE</span>
+    </div>
+  </div>
+
+  <!-- Agent 3: UI_STUDIO (Gold) -->
+  <div class="ai-agent-cursor agent-gold" id="agent-ui">
+    <svg class="agent-pointer-svg" width="18" height="22" viewBox="0 0 18 22" fill="none">
+      <path d="M1.5 1.5L16 10.5L9.2 12.2L6.5 19.5L1.5 1.5Z" fill="#ffbe0b" stroke="#020612" stroke-width="1.6" stroke-linejoin="round"/>
+    </svg>
+    <div class="agent-badge">
+      <span class="agent-name">UI_STUDIO</span>
+      <span class="agent-task" data-agent-task>STYLING_HUD</span>
+    </div>
+  </div>
+
+  <!-- Agent 4: 3D_CORE (Magenta/Purple) -->
+  <div class="ai-agent-cursor agent-magenta" id="agent-3d">
+    <svg class="agent-pointer-svg" width="18" height="22" viewBox="0 0 18 22" fill="none">
+      <path d="M1.5 1.5L16 10.5L9.2 12.2L6.5 19.5L1.5 1.5Z" fill="#c084fc" stroke="#020612" stroke-width="1.6" stroke-linejoin="round"/>
+    </svg>
+    <div class="agent-badge">
+      <span class="agent-name">3D_CORE</span>
+      <span class="agent-task" data-agent-task>PARTICLE_MESH</span>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Global Agent Status & Replay Trigger (Bottom Left above 3D tag) -->
+<button
+  type="button"
+  id="global-replay-agents-btn"
+  class="global-agent-controller"
+  title="Reconstruir toda la página con los Agentes IA"
+>
+  <span class="controller-dot" id="global-agent-dot"></span>
+  <span id="global-agent-status-text">4 AGENTES IA // CONSTRUYENDO</span>
+  <span class="controller-replay-tag">↻ Replay</span>
+</button>
+
+<style is:global>
+  /* =========================================================================
+     GLOBAL BLUEPRINT WIREFRAME STATE (Across ALL Sections of the Page)
+  ========================================================================= */
+  [data-build-part] {
+    position: relative;
+    transition:
+      filter 0.45s ease,
+      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.4s ease,
+      box-shadow 0.45s ease;
+  }
+
+  /* Blueprint Wireframe Look before an Agent builds the element */
+  [data-build-part].is-wireframe {
+    outline: 1.5px dashed rgba(0, 240, 255, 0.58) !important;
+    outline-offset: 5px;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgba(0, 240, 255, 0.035),
+      rgba(0, 240, 255, 0.035) 6px,
+      transparent 6px,
+      transparent 12px
+    ) !important;
+    filter: saturate(0.2) contrast(0.92) brightness(0.92);
+  }
+
+  /* Blueprint Tag Pill on Top-Left of Wireframe Element */
+  [data-build-part].is-wireframe::before {
+    content: attr(data-blueprint-label);
+    position: absolute;
+    top: -19px;
+    left: 0;
+    z-index: 30;
+    font-family: var(--font-tech, monospace);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: #00f0ff;
+    background: rgba(2, 6, 18, 0.94);
+    padding: 1px 7px;
+    border: 1px solid rgba(0, 240, 255, 0.55);
+    border-radius: 2px;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+  }
+
+  /* Currently targeted by an agent */
+  [data-build-part].is-agent-working {
+    outline: 1.5px solid #ffbe0b !important;
+    outline-offset: 6px;
+    filter: saturate(0.65) brightness(1.02);
+  }
+
+  /* Flash when an agent finishes locking the element into final design */
+  [data-build-part].just-built {
+    animation: globalAgentLockFlash 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes globalAgentLockFlash {
+    0% {
+      outline: 2px solid #ffbe0b;
+      outline-offset: 10px;
+      box-shadow: 0 0 32px rgba(255, 190, 11, 0.42), inset 0 0 18px rgba(0, 240, 255, 0.25);
+    }
+    100% {
+      outline: 1px solid transparent;
+      outline-offset: 0px;
+    }
+  }
+</style>
+
+<style>
+  /* Agent Stage Overlay */
+  .agent-stage {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9000;
+    overflow: hidden;
+  }
+
+  .ai-agent-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 9005;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.8));
+  }
+  .ai-agent-cursor.is-active {
+    opacity: 1;
+  }
+
+  .agent-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 14px;
+    margin-top: -4px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-family: var(--font-tech, monospace);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+  }
+  .agent-task {
+    font-weight: 400;
+    opacity: 0.92;
+    padding-left: 5px;
+    border-left: 1px solid rgba(2, 6, 18, 0.35);
+  }
+
+  .agent-cyan .agent-badge {
+    background: #00f0ff;
+    color: #020612;
+  }
+  .agent-emerald .agent-badge {
+    background: #10b981;
+    color: #020612;
+  }
+  .agent-gold .agent-badge {
+    background: #ffbe0b;
+    color: #020612;
+  }
+  .agent-magenta .agent-badge {
+    background: #c084fc;
+    color: #020612;
+  }
+
+  /* Selection Marquee Box */
+  .agent-marquee {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border: 1.5px dashed #00f0ff;
+    background: rgba(0, 240, 255, 0.06);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 9001;
+    transition: opacity 0.2s ease;
+  }
+  .agent-marquee.is-visible {
+    opacity: 1;
+  }
+  .marquee-dim {
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+    background: #00f0ff;
+    color: #020612;
+    font-family: var(--font-tech, monospace);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  /* Agent Click Ring */
+  .agent-click-ring {
+    position: fixed;
+    width: 38px;
+    height: 38px;
+    margin-left: -19px;
+    margin-top: -19px;
+    border-radius: 50%;
+    border: 2px solid #ffbe0b;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.3);
+    z-index: 9004;
+  }
+  .agent-click-ring.is-pulsing {
+    animation: clickPulseWave 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes clickPulseWave {
+    0% {
+      opacity: 1;
+      transform: scale(0.35);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(2.5);
+    }
+  }
+
+  /* Floating Global Agent Controller Pill */
+  .global-agent-controller {
+    position: fixed;
+    bottom: 54px;
+    left: 28px;
+    z-index: 1040;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 13px;
+    background: rgba(3, 10, 24, 0.88);
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    border-radius: 999px;
+    backdrop-filter: blur(10px);
+    font-family: var(--font-tech, monospace);
+    font-size: 10px;
+    letter-spacing: 1.2px;
+    color: #00f0ff;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65);
+    transition: all 0.25s ease;
+  }
+  .global-agent-controller:hover {
+    border-color: #ffbe0b;
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 190, 11, 0.4);
+    transform: translateY(-2px);
+  }
+  .controller-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 8px #10b981;
+  }
+  .controller-dot.is-building {
+    background: #ffbe0b;
+    box-shadow: 0 0 10px #ffbe0b;
+    animation: pulse-glow 0.8s infinite;
+  }
+  .controller-replay-tag {
+    background: rgba(255, 190, 11, 0.16);
+    color: #ffbe0b;
+    padding: 1px 7px;
+    border-radius: 999px;
+    font-weight: 700;
+    margin-left: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .global-agent-controller {
+      bottom: 16px;
+      left: 14px;
+      padding: 6px 10px;
+      font-size: 9px;
+    }
+  }
+</style>
+
+<script>
+  function initGlobalMultiAgentBuilder() {
+    const archEl = document.getElementById('agent-arch');
+    const copyEl = document.getElementById('agent-copy');
+    const uiEl = document.getElementById('agent-ui');
+    const engine3dEl = document.getElementById('agent-3d');
+    const marqueeEl = document.getElementById('agent-marquee');
+    const marqueeDimEl = document.getElementById('agent-marquee-dim');
+    const ring1 = document.getElementById('agent-click-ring-1');
+    const ring2 = document.getElementById('agent-click-ring-2');
+    const heroReplayLabel = document.getElementById('replay-agents-label');
+    const globalStatusText = document.getElementById('global-agent-status-text');
+    const globalDot = document.getElementById('global-agent-dot');
+
+    if (!archEl || !copyEl || !uiEl || !engine3dEl) return;
+
+    // =========================================================================
+    // 1. AUTO-REGISTER BUILDABLE ELEMENTS ACROSS ALL SECTIONS OF THE SITE
+    // =========================================================================
+    const SECTION_CONFIGS = [
+      {
+        id: 'hero',
+        meshTask: 'IGNITE_3D_ROCKET',
+        selectors: [
+          { sel: '[data-build-part="headline"]', label: 'H1 // EDITORIAL_DISPLAY' },
+          { sel: '[data-build-part="typer"]', label: 'ROLE // ACTIVE_MODULE' },
+          { sel: '[data-build-part="summary"]', label: 'COPY // VALUE_PROPOSITION' },
+          { sel: '[data-build-part="metrics"]', label: 'PROOF // VERIFIED_METRICS' },
+          { sel: '[data-build-part="actions"]', label: 'CTA // WHATSAPP_NODE' }
+        ]
+      },
+      {
+        id: 'about',
+        meshTask: '3D_ORBITAL_SCANNER',
+        selectors: [
+          { sel: '.section-header', label: 'HEADER // 01_SOBRE_MI' },
+          { sel: '.hud-card', label: 'DOSSIER // ENGINEER_PROFILE' },
+          { sel: '.stat-card', label: 'METRIC // PRODUCTION_STAT' }
+        ]
+      },
+      {
+        id: 'services',
+        meshTask: '3D_NEURAL_PLANET',
+        selectors: [
+          { sel: '.expertise-marquee-wrap', label: 'KINETIC // MARQUEE_STREAM' },
+          { sel: '.section-header', label: 'HEADER // 02_SERVICIOS' },
+          { sel: '.expertise-col', label: 'SERVICE // SOLUTION_PILLAR' },
+          { sel: '.process-strip', label: 'PIPELINE // 4_STEP_PROCESS' }
+        ]
+      },
+      {
+        id: 'projects',
+        meshTask: '3D_GALACTIC_VORTEX',
+        selectors: [
+          { sel: '.section-header', label: 'HEADER // 03_PROYECTOS' },
+          { sel: '.projects-filter-bar', label: 'ROUTER // CATEGORY_FILTER' },
+          { sel: '.project-card', label: 'CASE_STUDY // GITHUB_SYSTEM' }
+        ]
+      },
+      {
+        id: 'skills',
+        meshTask: 'CALIBRATE_STACK_3D',
+        selectors: [
+          { sel: '.section-header', label: 'HEADER // TECH_STACK' },
+          { sel: '.skill-card', label: 'MATRIX // SKILL_MODULE' }
+        ]
+      },
+      {
+        id: 'experience',
+        meshTask: 'SYNC_TIMELINE_3D',
+        selectors: [
+          { sel: '.section-header', label: 'HEADER // 04_TRAYECTORIA' },
+          { sel: '.mission-item', label: 'LOG // PRODUCTION_MISSION' },
+          { sel: '.cert-card', label: 'AWARD // NATIONAL_CREDENTIAL' }
+        ]
+      },
+      {
+        id: 'contact',
+        meshTask: '3D_CYBER_ASTRONAUT',
+        selectors: [
+          { sel: '.editorial-contact-hero', label: 'BANNER // DIRECT_CONTACT' },
+          { sel: '.contact-info-card', label: 'HUB // WHATSAPP_CHANNELS' },
+          { sel: '.contact-form-card', label: 'TRANSMITTER // BRIEF_FORM' }
+        ]
+      }
+    ];
+
+    // Tag all target elements in every section with data-build-part & blueprint labels
+    function prepareAllSectionsToWireframe() {
+      SECTION_CONFIGS.forEach((secCfg) => {
+        const secEl = document.getElementById(secCfg.id);
+        if (!secEl) return;
+
+        secCfg.selectors.forEach((item) => {
+          const nodes = secEl.querySelectorAll(item.sel);
+          nodes.forEach((node, idx) => {
+            const htmlNode = node as HTMLElement;
+            if (!htmlNode.hasAttribute('data-build-part')) {
+              htmlNode.setAttribute('data-build-part', `${secCfg.id}-${idx}`);
+            }
+            if (!htmlNode.hasAttribute('data-blueprint-label')) {
+              const suffix = nodes.length > 1 ? ` [0${idx + 1}]` : '';
+              htmlNode.setAttribute('data-blueprint-label', `${item.label}${suffix}`);
+            }
+            htmlNode.classList.remove('just-built', 'is-agent-working');
+            htmlNode.classList.add('is-wireframe');
+          });
+        });
+      });
+    }
+
+    prepareAllSectionsToWireframe();
+
+    // =========================================================================
+    // 2. CONTINUOUS 60FPS AGENT CURSOR PHYSICS & LIVE ELEMENT TRACKING
+    // =========================================================================
+    interface AgentCursor {
+      id: string;
+      el: HTMLElement;
+      x: number;
+      y: number;
+      startX: number;
+      startY: number;
+      targetX: number;
+      targetY: number;
+      ctrlX: number;
+      ctrlY: number;
+      targetEl: HTMLElement | null;
+      anchorXRatio: number;
+      anchorYRatio: number;
+      moveStart: number;
+      moveDuration: number;
+    }
+
+    const vw = () => window.innerWidth;
+    const vh = () => window.innerHeight;
+
+    function createAgent(id: string, el: HTMLElement, initX: number, initY: number): AgentCursor {
+      el.style.transform = `translate3d(${initX}px, ${initY}px, 0)`;
+      return {
+        id,
+        el,
+        x: initX,
+        y: initY,
+        startX: initX,
+        startY: initY,
+        targetX: initX,
+        targetY: initY,
+        ctrlX: initX,
+        ctrlY: initY,
+        targetEl: null,
+        anchorXRatio: 0.5,
+        anchorYRatio: 0.5,
+        moveStart: performance.now(),
+        moveDuration: 550
+      };
+    }
+
+    const arch = createAgent('arch', archEl, -50, vh() * 0.2);
+    const copy = createAgent('copy', copyEl, vw() * 0.48, -50);
+    const ui = createAgent('ui', uiEl, -50, vh() * 0.78);
+    const eng3d = createAgent('3d', engine3dEl, vw() + 50, vh() * 0.35);
+    const allAgents = [arch, copy, ui, eng3d];
+
+    function setTask(agent: AgentCursor, text: string) {
+      const t = agent.el.querySelector('[data-agent-task]');
+      if (t) t.textContent = text;
+    }
+
+    // Send agent either to a live DOM element (scroll-safe!) or fixed screen coordinates
+    function moveAgentToElement(
+      agent: AgentCursor,
+      el: HTMLElement | null,
+      xRatio = 0.5,
+      yRatio = 0.5,
+      duration = 560,
+      curve = 55
+    ) {
+      agent.startX = agent.x;
+      agent.startY = agent.y;
+      agent.targetEl = el;
+      agent.anchorXRatio = xRatio;
+      agent.anchorYRatio = yRatio;
+
+      if (el) {
+        const r = el.getBoundingClientRect();
+        agent.targetX = Math.max(24, Math.min(vw() - 140, r.left + r.width * xRatio));
+        agent.targetY = Math.max(24, Math.min(vh() - 40, r.top + r.height * yRatio));
+      }
+
+      const midX = (agent.startX + agent.targetX) * 0.5;
+      const midY = (agent.startY + agent.targetY) * 0.5;
+      agent.ctrlX = midX + (Math.random() - 0.5) * curve * 2;
+      agent.ctrlY = midY - Math.abs(curve) * 0.75;
+      agent.moveStart = performance.now();
+      agent.moveDuration = duration;
+      agent.el.classList.add('is-active');
+    }
+
+    function moveAgentToPoint(agent: AgentCursor, tx: number, ty: number, duration = 600, curve = 50) {
+      agent.startX = agent.x;
+      agent.startY = agent.y;
+      agent.targetEl = null;
+      agent.targetX = tx;
+      agent.targetY = ty;
+      const midX = (agent.startX + tx) * 0.5;
+      const midY = (agent.startY + ty) * 0.5;
+      agent.ctrlX = midX + (Math.random() - 0.5) * curve * 2;
+      agent.ctrlY = midY - Math.abs(curve) * 0.7;
+      agent.moveStart = performance.now();
+      agent.moveDuration = duration;
+      agent.el.classList.add('is-active');
+    }
+
+    let ringToggle = 0;
+    function pulseClickRing(x: number, y: number) {
+      const ring = ringToggle % 2 === 0 ? ring1 : ring2;
+      ringToggle++;
+      if (!ring) return;
+      ring.style.left = `${x}px`;
+      ring.style.top = `${y}px`;
+      ring.classList.remove('is-pulsing');
+      void ring.offsetWidth;
+      ring.classList.add('is-pulsing');
+    }
+
+    function lockElement(el: HTMLElement | null, agentForPulse?: AgentCursor) {
+      if (!el) return;
+      el.classList.remove('is-wireframe', 'is-agent-working');
+      el.classList.add('just-built');
+      if (agentForPulse) {
+        pulseClickRing(agentForPulse.x, agentForPulse.y);
+      } else {
+        const r = el.getBoundingClientRect();
+        if (r.top >= 0 && r.top <= vh()) {
+          pulseClickRing(r.left + r.width * 0.5, r.top + r.height * 0.5);
+        }
+      }
+    }
+
+    // Track marquee target element live while ARCH_AI drags across it
+    let marqueeAnchorEl: HTMLElement | null = null;
+
+    // Master 60fps animation loop
+    function animationLoop(now: number) {
+      for (const a of allAgents) {
+        // Keep destination synced with scrolling DOM element!
+        if (a.targetEl) {
+          const r = a.targetEl.getBoundingClientRect();
+          a.targetX = Math.max(20, Math.min(vw() - 140, r.left + r.width * a.anchorXRatio));
+          a.targetY = Math.max(20, Math.min(vh() - 36, r.top + r.height * a.anchorYRatio));
+        }
+
+        const elapsed = now - a.moveStart;
+        const t = Math.min(1, Math.max(0, elapsed / a.moveDuration));
+        const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        const inv = 1 - ease;
+
+        a.x = inv * inv * a.startX + 2 * inv * ease * a.ctrlX + ease * ease * a.targetX;
+        a.y = inv * inv * a.startY + 2 * inv * ease * a.ctrlY + ease * ease * a.targetY;
+        a.el.style.transform = `translate3d(${a.x.toFixed(1)}px, ${a.y.toFixed(1)}px, 0)`;
+      }
+
+      // Update selection marquee box size dynamically while ARCH drags it
+      if (marqueeEl && marqueeAnchorEl && marqueeEl.classList.contains('is-visible')) {
+        const r = marqueeAnchorEl.getBoundingClientRect();
+        const left = Math.max(12, r.left);
+        const top = Math.max(12, r.top);
+        const w = Math.max(18, arch.x - left);
+        const h = Math.max(18, arch.y - top);
+        marqueeEl.style.left = `${left.toFixed(0)}px`;
+        marqueeEl.style.top = `${top.toFixed(0)}px`;
+        marqueeEl.style.width = `${w.toFixed(0)}px`;
+        marqueeEl.style.height = `${h.toFixed(0)}px`;
+        if (marqueeDimEl) {
+          marqueeDimEl.textContent = `${Math.round(w)} × ${Math.round(h)}`;
+        }
+      }
+
+      requestAnimationFrame(animationLoop);
+    }
+    requestAnimationFrame(animationLoop);
+
+    // =========================================================================
+    // 3. SECTION CHOREOGRAPHY BUILDER (Runs for ANY Section on Scroll!)
+    // =========================================================================
+    let activeTimers: number[] = [];
+    function clearActiveTimers() {
+      activeTimers.forEach((id) => clearTimeout(id));
+      activeTimers = [];
+      if (marqueeEl) marqueeEl.classList.remove('is-visible');
+      marqueeAnchorEl = null;
+    }
+
+    function schedule(fn: () => void, delay: number) {
+      const id = window.setTimeout(fn, delay);
+      activeTimers.push(id);
+    }
+
+    function setBuildingStatus(isBuilding: boolean, sectionId?: string) {
+      if (globalDot) globalDot.classList.toggle('is-building', isBuilding);
+      if (globalStatusText) {
+        globalStatusText.textContent = isBuilding
+          ? `AGENTES IA // ARMANDO [${(sectionId || 'WEB').toUpperCase()}]`
+          : 'AGENTES IA // PÁGINA LISTA';
+      }
+      if (heroReplayLabel) {
+        heroReplayLabel.textContent = isBuilding
+          ? 'Agentes IA: Construyendo...'
+          : 'Replay Agentes en Toda la Web';
+      }
+    }
+
+    function buildSectionWithAgents(sectionId: string) {
+      const secEl = document.getElementById(sectionId);
+      if (!secEl) return;
+
+      const cfg = SECTION_CONFIGS.find((c) => c.id === sectionId);
+      const wireframeNodes = Array.from(
+        secEl.querySelectorAll('[data-build-part].is-wireframe')
+      ) as HTMLElement[];
+
+      if (wireframeNodes.length === 0) return;
+
+      clearActiveTimers();
+      setBuildingStatus(true, sectionId);
+
+      // If building hero, also trigger the 3D rocket particle convergence
+      if (sectionId === 'hero' && typeof (window as any).triggerReactorAssemble === 'function') {
+        (window as any).triggerReactorAssemble();
+      }
+
+      const firstEl = wireframeNodes[0];
+      const secondEl = wireframeNodes[1] || firstEl;
+      const thirdEl = wireframeNodes[2] || secondEl;
+
+      // STEP 1 (t = 0ms): All 4 agents swoop into this section simultaneously!
+      firstEl.classList.add('is-agent-working');
+      secondEl.classList.add('is-agent-working');
+
+      setTask(arch, `SELECT_${sectionId.toUpperCase()}`);
+      moveAgentToElement(arch, firstEl, 0.06, 0.12, 480, 50);
+
+      setTask(copy, 'WRITE_CONTENT');
+      moveAgentToElement(copy, firstEl, 0.55, 0.48, 520, -55);
+
+      setTask(ui, 'STYLE_CARDS');
+      moveAgentToElement(ui, secondEl, 0.35, 0.5, 560, 60);
+
+      setTask(eng3d, cfg ? cfg.meshTask : '3D_SYNC_MESH');
+      moveAgentToPoint(eng3d, vw() * 0.74, vh() * 0.45, 620, -70);
+
+      // STEP 2 (t = 480ms): ARCH drags live selection box across first block; COPY & UI move across elements
+      schedule(() => {
+        marqueeAnchorEl = firstEl;
+        if (marqueeEl) marqueeEl.classList.add('is-visible');
+
+        setTask(arch, 'DRAG_BLUEPRINT');
+        moveAgentToElement(arch, firstEl, 0.92, 0.88, 540, 25);
+
+        setTask(copy, 'LOCK_TYPOGRAPHY');
+        moveAgentToElement(copy, secondEl, 0.48, 0.45, 520, 40);
+
+        if (thirdEl) {
+          thirdEl.classList.add('is-agent-working');
+          setTask(ui, 'APPLY_GLASS_UI');
+          moveAgentToElement(ui, thirdEl, 0.45, 0.5, 540, -45);
+        }
+
+        setTask(eng3d, 'RENDER_60FPS');
+        moveAgentToPoint(eng3d, vw() * 0.65, vh() * 0.58, 600, 55);
+      }, 480);
+
+      // STEP 3 (t = 1040ms): Lock first elements & fan out agents across all remaining cards in the section!
+      schedule(() => {
+        if (marqueeEl) marqueeEl.classList.remove('is-visible');
+        marqueeAnchorEl = null;
+
+        lockElement(firstEl, arch);
+        if (secondEl !== firstEl) lockElement(secondEl, copy);
+
+        const remaining = wireframeNodes.slice(2);
+        if (remaining.length > 0) {
+          remaining.forEach((node, idx) => {
+            const assignedAgent = [ui, arch, copy, eng3d][idx % 4];
+            schedule(() => {
+              node.classList.add('is-agent-working');
+              setTask(assignedAgent, `BUILD_NODE_0${idx + 3}`);
+              moveAgentToElement(assignedAgent, node, 0.45 + (idx % 3) * 0.15, 0.5, 360, 35);
+            }, idx * 160);
+
+            schedule(() => {
+              lockElement(node, assignedAgent);
+            }, idx * 160 + 340);
+          });
+        }
+      }, 1040);
+
+      // STEP 4: Finalize section & park agents cleanly
+      const totalDuration = 1250 + Math.max(0, wireframeNodes.length - 2) * 165 + 420;
+      schedule(() => {
+        // Ensure every visible node in this section is locked
+        wireframeNodes.forEach((node) => {
+          if (node.classList.contains('is-wireframe')) {
+            lockElement(node);
+          }
+        });
+
+        setTask(arch, 'LAYOUT_OK ✓');
+        setTask(copy, 'COPY_OK ✓');
+        setTask(ui, 'UI_READY ✓');
+        setTask(eng3d, '3D_SYNCED ✓');
+
+        // Park agents towards edges
+        moveAgentToPoint(arch, vw() * 0.15, 88, 650, -35);
+        moveAgentToPoint(copy, vw() * 0.85, 96, 650, 40);
+        moveAgentToPoint(ui, vw() * 0.18, vh() - 64, 650, 35);
+        moveAgentToPoint(eng3d, vw() * 0.84, vh() * 0.35, 650, -40);
+      }, totalDuration);
+
+      schedule(() => {
+        allAgents.forEach((a) => a.el.classList.remove('is-active'));
+        setBuildingStatus(false);
+      }, totalDuration + 680);
+    }
+
+    // =========================================================================
+    // 4. INTERSECTION OBSERVER: TRIGGER AGENTS AS USER SCROLLS DOWN THE PAGE
+    // =========================================================================
+    const builtSections = new Set<string>();
+
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const secId = entry.target.id;
+          if (!secId || builtSections.has(secId)) return;
+
+          builtSections.add(secId);
+          buildSectionWithAgents(secId);
+        });
+      },
+      {
+        threshold: 0.14,
+        rootMargin: '0px 0px -8% 0px'
+      }
+    );
+
+    function observeAllSections() {
+      SECTION_CONFIGS.forEach((cfg) => {
+        const el = document.getElementById(cfg.id);
+        if (el) sectionObserver.observe(el);
+      });
+    }
+
+    observeAllSections();
+
+    // =========================================================================
+    // 5. REPLAY BUTTONS (Hero Button + Global Floating Pill)
+    // =========================================================================
+    function triggerFullPageReplay() {
+      clearActiveTimers();
+      builtSections.clear();
+      sectionObserver.disconnect();
+
+      prepareAllSectionsToWireframe();
+
+      // Determine which section is currently most visible in viewport
+      const midY = window.scrollY + vh() * 0.45;
+      let currentSecId = 'hero';
+      for (const cfg of SECTION_CONFIGS) {
+        const el = document.getElementById(cfg.id);
+        if (el && midY >= el.offsetTop) {
+          currentSecId = cfg.id;
+        }
+      }
+
+      builtSections.add(currentSecId);
+      buildSectionWithAgents(currentSecId);
+
+      // Re-observe remaining sections so scrolling builds them live!
+      setTimeout(() => {
+        observeAllSections();
+      }, 300);
+    }
+
+    const heroReplayBtn = document.getElementById('replay-agents-btn');
+    if (heroReplayBtn) {
+      heroReplayBtn.addEventListener('click', triggerFullPageReplay);
+    }
+
+    const globalReplayBtn = document.getElementById('global-replay-agents-btn');
+    if (globalReplayBtn) {
+      globalReplayBtn.addEventListener('click', triggerFullPageReplay);
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initGlobalMultiAgentBuilder);
+    } else {
+      initGlobalMultiAgentBuilder();
+    }
+    document.addEventListener('astro:page-load', initGlobalMultiAgentBuilder);
+  }
+</script>
